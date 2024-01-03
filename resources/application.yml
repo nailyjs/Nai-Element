@@ -1,0 +1,7 @@
+scripts:
+  buildDeps:
+    commands:
+      - pnpm build:shared
+
+global:
+  defaultLanguage: zh

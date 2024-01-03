@@ -1,5 +1,10 @@
 node_modules
-dist
-lib
+
+*/**dist/**/*
+!.gitkeep
+!README.md
+!package.json
+!tsconfig.json
+
 .DS_Store
 

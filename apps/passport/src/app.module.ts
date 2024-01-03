@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { CommonConfigModule } from "cn.watchrss.element.shared";
+import { CommonConfigModule, CommonI18nModule } from "cn.watchrss.element.shared";
 
 @Module({
-  imports: [CommonConfigModule.forRoot()],
+  imports: [CommonConfigModule.forRoot(), CommonI18nModule.forRoot()],
   controllers: [AppController],
   providers: [AppService],
 })
