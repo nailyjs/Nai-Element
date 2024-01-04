@@ -1,7 +1,31 @@
+# 应用配置文件
+
+# 全局公共配置
+global:
+  # 默认语言，可以选zh，en
+  # ! [TODO): en现在还没有翻译，暂时懒得翻译了
+  defaultLanguage: zh
+  # 节流阀门配置。默认为 60 秒内最多 10 次请求，可以开大点
+  throttler:
+    ttl: 60
+    limit: 300
+  # 邮箱配置
+  email:
+    # smtp地址，一行写完就行
+    transport: smtp://gczgroup@qq.com:uzmnmbdulihugjif@smtp.qq.com
+    # 发件人
+    from: '"腕上小助手" <gczgroup@qq.com>'
+
+# 账户微服务配置
+passport:
+  # 账户微服务 端口
+  port: 3000
+
+####################### 以下内容不要修改 #######################
+
 scripts:
   buildDeps:
     commands:
       - pnpm build:shared
-
-global:
-  defaultLanguage: zh
+    scripts:
+      - build:shared: node apps/passport/main.js

@@ -3,10 +3,12 @@
   "scripts": {
     "dev:passport": "pnpm -F cn.watchrss.element.passport start:dev",
     "build": "tsx scripts/buildDeps.ts",
+    "build:passport": "pnpm -F cn.watchrss.element.passport build",
     "build:shared": "pnpm -F cn.watchrss.element.shared build",
+    "start:passport": "pnpm -F cn.watchrss.element.passport start:prod",
     "format": "prettier --write ./",
     "lint": "eslint \"./**/*.ts\" --fix",
-    "prepare": "husky install",
+    "prepare": "husky install && pnpm build:shared && pnpm build",
     "lint-staged": "lint-staged"
   },
   "author": "Zero <gczgroup@qq.com>",
@@ -32,6 +34,7 @@
   },
   "packageManager": "pnpm@8.8.0",
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.10.3",
     "@nestjs/axios": "^3.0.1",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.1.1",
@@ -39,11 +42,13 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/terminus": "^10.2.0",
+    "@nestjs/throttler": "^5.1.1",
     "@nestjs/typeorm": "^10.0.1",
     "axios": "^1.6.3",
     "js-yaml": "^4.1.0",
     "mysql2": "^3.6.5",
     "nestjs-i18n": "^10.4.0",
+    "nodemailer": "^6.9.8",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
@@ -52,8 +57,8 @@
   },
   "peerDependencies": {
     "cn.watchrss.element.database": "workspace:*",
-    "cn.watchrss.element.shared": "workspace:*",
-    "cn.watchrss.element.generated": "workspace:*"
+    "cn.watchrss.element.generated": "workspace:*",
+    "cn.watchrss.element.shared": "workspace:*"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

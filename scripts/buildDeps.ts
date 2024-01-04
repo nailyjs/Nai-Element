@@ -20,6 +20,8 @@ async function main() {
       });
       new Logger("BuildDeps").log(`Done: ${command}`);
     });
+  } else {
+    throw new TypeError("scripts.buildDeps.commands must be an array");
   }
 }
 

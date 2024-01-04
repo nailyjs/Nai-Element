@@ -14,10 +14,6 @@
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.17"
   },
-  "peerDependencies": {
-    "cn.watchrss.element.shared": "workspace:*",
-    "cn.watchrss.element.database": "workspace:*"
-  },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^17.7.2",
