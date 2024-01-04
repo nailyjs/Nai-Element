@@ -1,0 +1,15 @@
+{
+  "title": "I18n",
+  "properties": {
+    "errorCode": {
+      "type": "object",
+      "description": "Error code",
+      "patternProperties": {
+        "^[a-zA-Z0-9_]+$": {
+          "type": "string",
+          "description": "Error message"
+        }
+      }
+    }
+  }
+}

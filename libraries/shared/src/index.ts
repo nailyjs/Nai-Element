@@ -5,3 +5,4 @@ export * from "./modules/throttler";
 export * from "./modules/mail";
 
 export * from "./errors";
+export * from "./common";

@@ -1,0 +1,19 @@
+{
+  "name": "cn.watchrss.element.database",
+  "version": "1.0.0",
+  "main": "../../resources/dist/vendors/database/cjs/index.js",
+  "module": "../../resources/dist/vendors/database/esm/index.js",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "rollup -c rollup.config.mjs",
+    "typeorm": "cross-env NODE_ENV=development typeorm-ts-node-commonjs -d ./src/db.config.ts",
+    "migration:generate": "pnpm run typeorm migration:generate ./src/migrations/lighting",
+    "migration:run": "pnpm run typeorm migration:run"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9"
+  }
+}

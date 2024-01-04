@@ -1,0 +1,40 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "summary": "主页",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            }
+          }
+        },
+        "tags": ["测试"]
+      }
+    }
+  },
+  "info": {
+    "title": "Lightning Passport",
+    "description": "Lightning Passport API",
+    "version": "0.0.0",
+    "contact": {
+      "name": "Zero",
+      "url": "https://naily.cc",
+      "email": "gczgroup@qq.com"
+    },
+    "license": { "name": "UNLICENSED", "url": null }
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" }
+    },
+    "schemas": {}
+  }
+}

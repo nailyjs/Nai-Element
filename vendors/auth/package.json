@@ -1,0 +1,10 @@
+{
+  "name": "cn.watchrss.element.auth",
+  "version": "1.0.0",
+  "main": "../../resources/dist/vendors/auth/cjs/index.js",
+  "module": "../../resources/dist/vendors/auth/esm/index.js",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "rollup -c rollup.config.mjs"
+  }
+}

@@ -14,7 +14,7 @@ declare global {
 export class CommonAuthGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
 
-  canActivate(context: ExecutionContext) {
+  public canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest<Request>();
     const token = this.extractTokenFromHeader(request);
     if (!token) throw new UnauthorizedException("Unauthorized");

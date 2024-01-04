@@ -5,6 +5,23 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "builder": "swc",
-    "typeCheck": true
+    "typeCheck": true,
+    "plugins": [
+      {
+        "name": "@nestjs/swagger",
+        "options": {
+          "classValidatorShim": true,
+          "controllerKeyOfComment": "summary",
+          "introspectComments": true,
+          "dtoKeyOfComment": "description",
+          "controllerFileNameSuffix": ".controller.ts",
+          "dtoFileNameSuffix": [".dto.ts", ".res.dto.ts"],
+          "typeFileNameSuffix": [".input.ts", ".args.ts", ".entity.ts", ".model.ts"]
+        }
+      }
+    ]
+  },
+  "generateOptions": {
+    "spec": false
   }
 }

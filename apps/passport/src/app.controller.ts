@@ -1,9 +1,11 @@
 import { Controller, Get } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("测试")
 @Controller()
 export class AppController {
   /**
-   * 测试接口
+   * 主页
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/03

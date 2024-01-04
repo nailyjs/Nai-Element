@@ -3,6 +3,7 @@
 import { Path } from "nestjs-i18n";
 export type I18nTranslations = {
     "global": {
+        "$schema": string;
         "errorCode": {
             "1000": string;
             "1001": string;

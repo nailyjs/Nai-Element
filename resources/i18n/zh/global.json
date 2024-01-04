@@ -1,4 +1,5 @@
 {
+  "$schema": "../../schema/i18nGlobal.schema.json",
   "errorCode": {
     "1000": "成功",
     "1001": "参数校验错误",
