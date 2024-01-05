@@ -71,6 +71,9 @@ importers:
       cn.watchrss.element.swagger:
         specifier: workspace:*
         version: link:libraries/swagger
+      cn.watchrss.element.validator:
+        specifier: workspace:*
+        version: link:libraries/validator
       js-yaml:
         specifier: ^4.1.0
         version: registry.npmmirror.com/js-yaml@4.1.0
@@ -227,6 +230,8 @@ importers:
   libraries/shared: {}
 
   libraries/swagger: {}
+
+  libraries/validator: {}
 
   vendors/auth: {}
 

@@ -42,12 +42,28 @@
                 }
               }
             }
-          },
-          "403": { "description": "密码错误" },
-          "404": { "description": "用户不存在" },
-          "500": { "description": "服务器内部错误" }
+          }
         },
         "tags": ["登录"]
+      }
+    },
+    "/register": {
+      "post": {
+        "operationId": "RegisterController_registerByEmailPassword",
+        "summary": "通过邮箱密码注册",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterByEmailPasswordBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["注册"]
       }
     }
   },
@@ -77,9 +93,90 @@
         },
         "required": ["username", "password"]
       },
+      "LoginByUsernamePasswordDataOKResponseDTO": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "访问令牌",
+            "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3YXRjcnNzIiwiaWF0IjoxNjEwNjI4NjQyLCJleHAiOjE2MTA2MzIyNDIsImlzcyI6IndhdGNyc3MiLCJzdWIiOiJ3YXRjcnNzIiwidXNlcm5hbWUiOiJaa"
+          },
+          "userID": {
+            "type": "number",
+            "description": "刷新令牌",
+            "default": 1
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "注册时间"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "更新时间"
+          },
+          "username": {
+            "type": "string",
+            "description": "用户名",
+            "default": "Zero"
+          },
+          "ip": { "type": "string", "description": "IP", "default": "0.0.0.0" },
+          "saying": {
+            "type": "string",
+            "description": "个性签名",
+            "default": "这个人很懒，什么都没有写哦"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "头像地址",
+            "default": "https://avatars.githubusercontent.com"
+          }
+        },
+        "required": ["access_token", "userID", "createdAt", "updatedAt", "username", "ip", "saying", "avatar"]
+      },
       "LoginByUsernamePasswordOKResponseDTO": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP状态码",
+            "default": 201
+          },
+          "code": {
+            "type": "number",
+            "description": "系统状态码",
+            "default": 1000
+          },
+          "message": {
+            "type": "string",
+            "description": "信息",
+            "default": "登录成功"
+          },
+          "data": {
+            "description": "数据",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LoginByUsernamePasswordDataOKResponseDTO"
+              }
+            ]
+          }
+        },
+        "required": ["statusCode", "code", "message", "data"]
+      },
+      "RegisterByEmailPasswordBodyDTO": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "description": "邮箱" },
+          "username": { "type": "string", "description": "用户名" },
+          "password": {
+            "type": "string",
+            "description": "密码",
+            "minLength": 6
+          },
+          "verifyCode": { "type": "number", "description": "验证码" }
+        },
+        "required": ["email", "username", "password", "verifyCode"]
       }
     }
   }

@@ -4,6 +4,7 @@ import { CommonConfigModule, CommonI18nModule, CommonThrottlerModule, CommonMail
 import { CommonJwtModule } from "cn.watchrss.element.auth";
 import { CommonTypeOrmModule } from "cn.watchrss.element.database";
 import { LoginModule } from "./modules/login/login.module";
+import { RegisterModule } from "./modules/register/register.module";
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { LoginModule } from "./modules/login/login.module";
     CommonTypeOrmModule.forRoot(),
     CommonErrorModule.forRoot(),
     LoginModule,
+    RegisterModule,
   ],
   controllers: [AppController],
 })

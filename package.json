@@ -8,6 +8,7 @@
     "build:database": "pnpm -F cn.watchrss.element.database build",
     "build:swagger": "pnpm -F cn.watchrss.element.swagger build",
     "build:auth": "pnpm -F cn.watchrss.element.auth build",
+    "build:validator": "pnpm -F cn.watchrss.element.validator build",
     "start:passport": "pnpm -F cn.watchrss.element.passport start:prod",
     "migration:generate": "pnpm -F cn.watchrss.element.database migration:generate",
     "migration:run": "pnpm -F cn.watchrss.element.database migration:run",
@@ -73,7 +74,8 @@
     "cn.watchrss.element.database": "workspace:*",
     "cn.watchrss.element.generated": "workspace:*",
     "cn.watchrss.element.shared": "workspace:*",
-    "cn.watchrss.element.swagger": "workspace:*"
+    "cn.watchrss.element.swagger": "workspace:*",
+    "cn.watchrss.element.validator": "workspace:*"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

@@ -1,5 +1,6 @@
 import { Type } from "@nestjs/common";
 import { SwaggerWatermark } from "../constants";
+import { MethodDescription, MethodStatus } from "../typings";
 
 export function DTO(): ClassDecorator;
 export function DTO() {
@@ -20,9 +21,11 @@ export function DTOStatus(code: number, dto?: Type) {
     if (!dto) throw new TypeError(`'${target.constructor.name}' is not a DTO class, please decorate it with '@DTO()'`);
     const isDTO = Reflect.getMetadata(SwaggerWatermark.DTO, dto);
     if (!isDTO) throw new TypeError(`'${dto.name}' is not a DTO class, please decorate it with '@DTO()'`);
+    const oldMetadata: MethodStatus[] = Reflect.getMetadata(SwaggerWatermark.Status, target, key) || [];
     Reflect.defineMetadata(
       SwaggerWatermark.Status,
       [
+        ...oldMetadata,
         {
           status: code,
           type: dto,
@@ -30,6 +33,24 @@ export function DTOStatus(code: number, dto?: Type) {
       ],
       target,
       key,
+    );
+  };
+}
+
+export function DTODescription(code: number, description: string): ClassDecorator;
+export function DTODescription(code: number, description: string) {
+  return (target: Type) => {
+    const oldMetadata: MethodDescription[] = Reflect.getMetadata(SwaggerWatermark.Description, target) || [];
+    Reflect.defineMetadata(
+      SwaggerWatermark.Description,
+      [
+        ...oldMetadata,
+        {
+          status: code,
+          description,
+        },
+      ],
+      target,
     );
   };
 }

@@ -44,3 +44,4 @@ scripts:
       - pnpm build:auth
       - pnpm build:database
       - pnpm build:swagger
+      - pnpm build:validator

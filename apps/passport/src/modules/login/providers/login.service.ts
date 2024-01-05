@@ -15,9 +15,11 @@ export class LoginService {
     if (!user) throw new NotFoundException(1007);
     if (!compareSync(password, user.password)) throw new ForbiddenException(1008);
     const access_token = this.jwtService.sign({ userID: user.userID });
-    return {
+    const response = {
       ...user,
       access_token,
     };
+    delete response.password;
+    return response;
   }
 }

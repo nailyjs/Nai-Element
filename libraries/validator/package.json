@@ -1,0 +1,10 @@
+{
+  "name": "cn.watchrss.element.validator",
+  "version": "1.0.0",
+  "main": "../../resources/dist/libraries/validator/cjs/index.js",
+  "module": "../../resources/dist/libraries/validator/esm/index.js",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "rollup -c rollup.config.mjs"
+  }
+}
