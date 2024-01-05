@@ -1,8 +1,9 @@
-import { execSync } from "child_process";
+import { exec } from "child_process";
 import { Logger, Module } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { CommonConfigModule } from "cn.watchrss.element.shared";
 import { ConfigService } from "@nestjs/config";
+import { Listr } from "listr2";
 
 async function main() {
   class BuildModule {}
@@ -13,13 +14,41 @@ async function main() {
   const configService = app.get(ConfigService);
   const commands: string[] = configService.getOrThrow("scripts.buildDeps.commands");
   if (commands instanceof Array) {
-    commands.forEach((command) => {
-      new Logger("BuildDeps").log(`Executing: ${command}`);
-      execSync(command, {
-        stdio: "inherit",
-      });
-      new Logger("BuildDeps").log(`Done: ${command}`);
-    });
+    const tasks = new Listr(
+      commands.map((command) => {
+        return {
+          title: command,
+          task: (ctx, renderer) => {
+            return new Promise((resolve) => {
+              renderer.output = `Running ${command}`;
+              const workerProcess = exec(command);
+              workerProcess.stdout.on("data", function (data) {
+                renderer.output = data;
+              });
+              workerProcess.stderr.on("data", function (data) {
+                renderer.output = data;
+              });
+              workerProcess.on("close", function () {
+                renderer.title = `${command} done`;
+                resolve(true);
+              });
+            });
+          },
+        };
+      }),
+      {
+        exitOnError: false,
+        concurrent: true,
+        collectErrors: "minimal",
+      },
+    );
+    try {
+      await tasks.run();
+    } catch (error) {
+      new Logger().error(error);
+      console.error(error);
+      process.exit();
+    }
   } else {
     throw new TypeError("scripts.buildDeps.commands must be an array");
   }

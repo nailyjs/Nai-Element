@@ -1,0 +1,10 @@
+{
+  "name": "cn.watchrss.element.swagger",
+  "version": "1.0.0",
+  "main": "../../resources/dist/libraries/swagger/cjs/index.js",
+  "module": "../../resources/dist/libraries/swagger/esm/index.js",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "rollup -c rollup.config.mjs"
+  }
+}

@@ -5,6 +5,7 @@ export type I18nTranslations = {
     "global": {
         "$schema": string;
         "errorCode": {
+            "999": string;
             "1000": string;
             "1001": string;
             "1002": string;
@@ -12,6 +13,8 @@ export type I18nTranslations = {
             "1004": string;
             "1005": string;
             "1006": string;
+            "1007": string;
+            "1008": string;
         };
     };
 };

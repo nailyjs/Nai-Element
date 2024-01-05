@@ -3,7 +3,7 @@
 # 全局公共配置
 global:
   # 默认语言，可以选zh，en
-  # ! [TODO): en现在还没有翻译，暂时懒得翻译了
+  # ? [TODO): en现在还没有翻译，暂时懒得翻译了
   defaultLanguage: zh
   enableSwagger: true
   # 节流阀门配置。默认为 60 秒内最多 10 次请求，可以开大点
@@ -43,3 +43,4 @@ scripts:
       - pnpm build:shared
       - pnpm build:auth
       - pnpm build:database
+      - pnpm build:swagger

@@ -29,13 +29,13 @@ export default defineConfig({
     {
       format: "commonjs",
       sourcemap: "inline",
-      dir: "../../resources/dist/libraries/shared/cjs",
+      dir: "../../resources/dist/libraries/swagger/cjs",
       strict: false,
     },
     {
       format: "module",
       sourcemap: "inline",
-      dir: "../../resources/dist/libraries/shared/esm",
+      dir: "../../resources/dist/libraries/swagger/esm",
       strict: false,
     },
   ],

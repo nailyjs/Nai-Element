@@ -21,8 +21,8 @@ export class CommonTypeOrmModule {
           entityPrefix: mysql.entityPrefix,
           logging: true,
           autoLoadEntities: true,
-          entities: [join(process.env.RESOURCE_ROOT, "dist/**/*.entity.js")],
-          subscribers: [join(process.env.RESOURCE_ROOT, "dist/**/*.subscriber.js")],
+          entities: [join(process.env.RESOURCE_ROOT, "**/*/cjs/**/*.entity.js")],
+          subscribers: [join(process.env.RESOURCE_ROOT, "**/*/cjs/**/*.subscriber.js")],
         };
       },
     });

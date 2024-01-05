@@ -7,9 +7,9 @@ export class CommonJwtModule {
   public static forRoot() {
     return JwtModule.registerAsync({
       inject: [ConfigService],
+      global: true,
       async useFactory(configService: ConfigService) {
         const secret = configService.get("global.jwt.secret");
-
         return {
           global: true,
           secret: secret,
