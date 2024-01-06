@@ -16,7 +16,7 @@ export class ThrottlerBehindProxyGuard extends ThrottlerGuard implements CanActi
   }
 
   protected async throwThrottlingException(context: ExecutionContext, throttlerLimitDetail: ThrottlerLimitDetail): Promise<void> {
-    const errorMessage = await this.getErrorMessage(context, throttlerLimitDetail);
+    const errorMessage = await super.getErrorMessage(context, throttlerLimitDetail);
     new Logger("ThrottlerException").error(errorMessage);
     throw new ThrottlerException(1014);
   }
