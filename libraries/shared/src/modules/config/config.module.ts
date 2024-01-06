@@ -23,10 +23,12 @@ process.env.RESOURCE_ROOT = join(__dirname, "..", "..", "..", "..", "..", "..");
 export class CommonConfigModule {
   public static getYmlConfig(): Record<string | symbol, any> {
     if (process.env.NODE_ENV && existsSync(join(process.env.RESOURCE_ROOT, `application-${process.env.NODE_ENV}.yml`))) {
+      new Logger(`CommonConfigModule`).log(`Use application-${process.env.NODE_ENV}.yml file`);
       return load(readFileSync(join(process.env.RESOURCE_ROOT, `application-${process.env.NODE_ENV}.yml`), "utf8"));
     }
 
     if (existsSync(join(process.env.RESOURCE_ROOT, "application.yml"))) {
+      new Logger(`CommonConfigModule`).log(`Use application.yml file`);
       return load(readFileSync(join(process.env.RESOURCE_ROOT, "application.yml"), "utf8"));
     } else {
       throw new Logger().error(

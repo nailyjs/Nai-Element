@@ -1,5 +1,5 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
-import { I18nTranslations } from "cn.watchrss.element.generated";
+import { I18nPath, I18nTranslations } from "cn.watchrss.element.generated";
 import { I18nService } from "nestjs-i18n";
 import { map } from "rxjs";
 
@@ -29,10 +29,11 @@ export class ResInterceptor implements NestInterceptor {
             data: d,
           };
         } else if ((typeof d === "string" && this.isNumber(d)) || typeof d === "number") {
+          const message = this.i18nService.t(`global.errorCode.${d}` as I18nPath);
           return {
             statusCode: 200,
             code: Number(d),
-            message: "OK",
+            message: message ? message : this.i18nService.t("global.errorCode.1000"),
           };
         } else if (typeof d === "string") {
           return {

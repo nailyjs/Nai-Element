@@ -47,7 +47,7 @@
         "tags": ["登录"]
       }
     },
-    "/register": {
+    "/register/email/password": {
       "post": {
         "operationId": "RegisterController_registerByEmailPassword",
         "summary": "通过邮箱密码注册",
@@ -65,11 +65,50 @@
         "responses": { "201": { "description": "" } },
         "tags": ["注册"]
       }
+    },
+    "/transport/email": {
+      "post": {
+        "operationId": "EmailController_sendEmailVerifyCode",
+        "summary": "发送邮箱验证码",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendEmailVerifyCodeBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "发送成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendEmailVerifyCode201ResDTO"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "请求过于频繁 目前后端限制的是每60秒最多5次 后端虽然兜了底但是仍请前端自行做好限制",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendEmailVerifyCode429ResDTO"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "info": {
     "title": "Lightning Passport",
-    "description": "Lightning Passport API",
+    "description": "#### 一些可以公开的情报\n\n- 本项目所有接口均限流，每个接口每分钟最多只能调用 300 次，超过限制会返回 429 Too Many Requests 错误。\n- 本项目需要鉴权的接口均需要携带 `Authorization` 头，其值为 `Bearer <access_token>`，其中 `<access_token>` 为通过登录接口获取的JWT令牌。\n- 本项目的 JWT 令牌有效期为 30 天，过期后需要重新登录。\n- 本页面支持直接测试已登录接口，点击下面的`Authorize`按钮，输入`Bearer <access_token>`，其中`<access_token>`为通过登录接口获取的JWT令牌，即可直接测试接口。\n",
     "version": "0.0.0",
     "contact": {
       "name": "Zero",
@@ -93,19 +132,10 @@
         },
         "required": ["username", "password"]
       },
-      "LoginByUsernamePasswordDataOKResponseDTO": {
+      "LoginByUsernamePasswordDataUserOKResponseDTO": {
         "type": "object",
         "properties": {
-          "access_token": {
-            "type": "string",
-            "description": "访问令牌",
-            "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3YXRjcnNzIiwiaWF0IjoxNjEwNjI4NjQyLCJleHAiOjE2MTA2MzIyNDIsImlzcyI6IndhdGNyc3MiLCJzdWIiOiJ3YXRjcnNzIiwidXNlcm5hbWUiOiJaa"
-          },
-          "userID": {
-            "type": "number",
-            "description": "刷新令牌",
-            "default": 1
-          },
+          "userID": { "type": "number", "description": "用户ID", "default": 1 },
           "createdAt": {
             "format": "date-time",
             "type": "string",
@@ -133,7 +163,22 @@
             "default": "https://avatars.githubusercontent.com"
           }
         },
-        "required": ["access_token", "userID", "createdAt", "updatedAt", "username", "ip", "saying", "avatar"]
+        "required": ["userID", "createdAt", "updatedAt", "username", "ip", "saying", "avatar"]
+      },
+      "LoginByUsernamePasswordDataOKResponseDTO": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "description": "用户信息",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LoginByUsernamePasswordDataUserOKResponseDTO"
+              }
+            ]
+          },
+          "access_token": { "type": "string", "description": "访问令牌" }
+        },
+        "required": ["user", "access_token"]
       },
       "LoginByUsernamePasswordOKResponseDTO": {
         "type": "object",
@@ -177,6 +222,29 @@
           "verifyCode": { "type": "number", "description": "验证码" }
         },
         "required": ["email", "username", "password", "verifyCode"]
+      },
+      "SendEmailVerifyCodeBodyDTO": {
+        "type": "object",
+        "properties": { "email": { "type": "string", "description": "邮箱" } },
+        "required": ["email"]
+      },
+      "SendEmailVerifyCode201ResDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "object", "default": 201 },
+          "code": { "type": "object", "default": 1012 },
+          "message": { "type": "object", "default": "发送成功" }
+        },
+        "required": ["statusCode", "code", "message"]
+      },
+      "SendEmailVerifyCode429ResDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "object", "default": 429 },
+          "code": { "type": "object", "default": 1014 },
+          "message": { "type": "object", "default": "请求过于频繁，请稍后再试" }
+        },
+        "required": ["statusCode", "code", "message"]
       }
     }
   }

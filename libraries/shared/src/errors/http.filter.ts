@@ -21,6 +21,7 @@ export class CommonHttpFilter implements ExceptionFilter {
         code: typeof msg !== "number" ? Number(msg) : msg,
         message: this.i18nService.t(`global.errorCode.${msg}`),
       });
+      return new Logger(CommonHttpFilter.name).error(JSON.stringify(exception));
     }
 
     if (typeof msg === "string") {
@@ -29,6 +30,7 @@ export class CommonHttpFilter implements ExceptionFilter {
         code: 0,
         message: msg,
       });
+      return new Logger(CommonHttpFilter.name).error(JSON.stringify(exception));
     }
 
     if (typeof msg === "object") {
@@ -38,8 +40,7 @@ export class CommonHttpFilter implements ExceptionFilter {
         message: msg["message"] || exception.message,
         ...msg,
       });
+      return new Logger(CommonHttpFilter.name).error(JSON.stringify(exception));
     }
-
-    return new Logger(CommonHttpFilter.name).error(JSON.stringify(exception));
   }
 }

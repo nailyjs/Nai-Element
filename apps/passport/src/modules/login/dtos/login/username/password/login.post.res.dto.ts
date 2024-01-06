@@ -2,6 +2,15 @@ import { DTO, DTODescription, DTOStatus } from "cn.watchrss.element.swagger";
 
 export class LoginByUsernamePasswordDataOKResponseDTO {
   /**
+   * 用户信息
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/06
+   * @type {LoginByUsernamePasswordDataUserOKResponseDTO}
+   * @memberof LoginByUsernamePasswordDataOKResponseDTO
+   */
+  user: LoginByUsernamePasswordDataUserOKResponseDTO;
+  /**
    * 访问令牌
    *
    * @author Zero <gczgroup@qq.com>
@@ -9,10 +18,12 @@ export class LoginByUsernamePasswordDataOKResponseDTO {
    * @type {string}
    * @memberof LoginByUsernamePasswordDataOKResponseDTO
    */
-  access_token: string =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3YXRjcnNzIiwiaWF0IjoxNjEwNjI4NjQyLCJleHAiOjE2MTA2MzIyNDIsImlzcyI6IndhdGNyc3MiLCJzdWIiOiJ3YXRjcnNzIiwidXNlcm5hbWUiOiJaa";
+  access_token: string;
+}
+
+export class LoginByUsernamePasswordDataUserOKResponseDTO {
   /**
-   * 刷新令牌
+   * 用户ID
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/06

@@ -6,15 +6,20 @@ import { Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { SwaggerModule } from "@nestjs/swagger";
 import { EnableSwagger } from "cn.watchrss.element.shared";
+import { readFileSync } from "fs";
 
 (async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    snapshot: true,
+  });
   const configService = app.get(ConfigService);
   const port = configService.getOrThrow("passport.port");
 
   // Swagger
   await SwaggerModule.loadPluginMetadata(metadata);
-  const [openAPIObject, generate] = EnableSwagger(app, (builder) => builder.setTitle("Lightning Passport").setDescription("Lightning Passport API"));
+  const [openAPIObject, generate] = EnableSwagger(app, (builder) => {
+    return builder.setTitle("Lightning Passport").setDescription(readFileSync("./DESC.md").toString("utf-8"));
+  });
   generate("passport.openapi.json", openAPIObject);
   await app.listen(port);
   return app;

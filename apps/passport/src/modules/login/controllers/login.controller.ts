@@ -1,9 +1,9 @@
 import { Body, Controller, Post, UseInterceptors } from "@nestjs/common";
 import { LoginService } from "../providers/login.service";
-import { LoginByUsernamePasswordDTO } from "../dtos/login.dto";
+import { LoginByUsernamePasswordDTO } from "../dtos/login/username/password/login.post.dto";
 import { ApiTags } from "@nestjs/swagger";
 import { ResInterceptor } from "cn.watchrss.element.shared";
-import { LoginByUsernamePasswordDataOKResponseDTO, LoginByUsernamePasswordOKResponseDTO } from "../dtos/login.res.dto";
+import { LoginByUsernamePasswordDataOKResponseDTO, LoginByUsernamePasswordOKResponseDTO } from "../dtos/login/username/password/login.post.res.dto";
 import { SwaggerResponse } from "cn.watchrss.element.swagger";
 
 @ApiTags("登录")
@@ -17,6 +17,7 @@ export class LoginController {
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/05
    * @param {LoginByUsernamePasswordDTO} body - 登录信息
+   * @returns {Promise<LoginByUsernamePasswordDataOKResponseDTO>} 登录成功信息
    * @memberof LoginController
    */
   @Post("username/password")

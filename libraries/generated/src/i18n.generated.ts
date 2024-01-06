@@ -15,6 +15,26 @@ export type I18nTranslations = {
             "1006": string;
             "1007": string;
             "1008": string;
+            "1009": string;
+            "1010": string;
+            "1011": string;
+            "1012": string;
+            "1013": string;
+            "1014": string;
+        };
+    };
+    "passport": {
+        "email": {
+            "template": {
+                "verify": string;
+                "your-code-is": string;
+                "tip1": string;
+                "tip2": string;
+                "link": {
+                    "text": string;
+                    "href": string;
+                };
+            };
         };
     };
 };

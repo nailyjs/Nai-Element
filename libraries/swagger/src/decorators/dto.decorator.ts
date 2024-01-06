@@ -14,7 +14,18 @@ export function DTOStatus(code: number, dto: Type): MethodDecorator;
 export function DTOStatus(code: number, dto?: Type) {
   return (target: Type | Object, key?: string | symbol) => {
     if (typeof target === "function") {
-      Reflect.defineMetadata(SwaggerWatermark.Status, code, target);
+      const oldMetadata: MethodStatus[] = Reflect.getMetadata(SwaggerWatermark.Status, target) || [];
+      Reflect.defineMetadata(
+        SwaggerWatermark.Status,
+        [
+          ...oldMetadata,
+          {
+            status: code,
+            type: target,
+          },
+        ],
+        target,
+      );
       return;
     }
 

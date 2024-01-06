@@ -16,5 +16,5 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
   },
-  "exclude": ["rollup.config.mjs"]
+  "include": ["src"]
 }

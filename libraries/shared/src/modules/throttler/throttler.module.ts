@@ -15,14 +15,12 @@ export class CommonThrottlerModule {
     return ThrottlerModule.forRootAsync({
       inject: [ConfigService],
       useFactory(configService: ConfigService) {
-        return {
-          throttlers: [
-            {
-              ttl: configService.get("global.throttler.ttl") ? configService.get("global.throttler.ttl") : 60,
-              limit: configService.get("global.throttler.limit") ? configService.get("global.throttler.limit") : 10,
-            },
-          ],
-        };
+        return [
+          {
+            ttl: configService.get("global.throttler.ttl") ? configService.get("global.throttler.ttl") : 60000,
+            limit: configService.get("global.throttler.limit") ? configService.get("global.throttler.limit") : 300,
+          },
+        ];
       },
     });
   }

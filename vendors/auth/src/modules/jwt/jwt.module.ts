@@ -9,10 +9,14 @@ export class CommonJwtModule {
       inject: [ConfigService],
       global: true,
       async useFactory(configService: ConfigService) {
-        const secret = configService.get("global.jwt.secret");
+        const secret = configService.getOrThrow("global.jwt.secret");
+        const expiresIn = configService.getOrThrow("global.jwt.expiresIn");
         return {
           global: true,
           secret: secret,
+          signOptions: {
+            expiresIn: expiresIn ? expiresIn : "30d",
+          },
         };
       },
     });

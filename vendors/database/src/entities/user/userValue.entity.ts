@@ -24,6 +24,6 @@ export class UserValue {
   @Column({ comment: "用户经验" })
   experience: number;
 
-  @OneToOne(() => User, (user) => user.userPay)
+  @OneToOne(() => User, (user) => user.userValue)
   user: User;
 }

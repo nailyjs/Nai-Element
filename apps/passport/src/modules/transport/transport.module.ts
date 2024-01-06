@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
-import { RegisterController } from "./controllers/register.controller";
 import { EmailService } from "../../providers/email.service";
+import { EmailController } from "./controllers/email.controller";
 import { UserRepository } from "cn.watchrss.element.database";
 
 @Module({
-  controllers: [RegisterController],
+  controllers: [EmailController],
   providers: [EmailService, UserRepository],
 })
-export class RegisterModule {}
+export class TransportModule {}

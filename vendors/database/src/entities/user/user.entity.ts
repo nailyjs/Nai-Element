@@ -21,13 +21,19 @@ export class User {
   @Column({ comment: "IP" })
   ip: string;
 
-  @Column({ comment: "个性签名" })
+  @Column({ comment: "个性签名", default: "这个人很懒，什么都没有写哦" })
   saying: string;
 
   @Column({ comment: "头像" })
   avatar: string;
 
+  @Column({ comment: "电子邮件地址" })
+  email: string;
+
+  @Column({ comment: "手机号码" })
+  phone: string;
+
   @OneToOne(() => UserValue, (userValue) => userValue.user)
   @JoinColumn()
-  userPay: UserValue;
+  userValue: UserValue;
 }

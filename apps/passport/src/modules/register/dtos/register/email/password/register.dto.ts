@@ -2,7 +2,7 @@ import { DTO, DTOStatus } from "cn.watchrss.element.swagger";
 import { IsEmail, IsNotEmpty, IsNumber, IsRegExp, IsString, MinLength } from "cn.watchrss.element.validator";
 
 @DTO()
-@DTOStatus(200)
+@DTOStatus(201)
 export class RegisterByEmailPasswordBodyDTO {
   /**
    * 邮箱

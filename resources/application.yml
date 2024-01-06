@@ -14,19 +14,26 @@ global:
   datasource:
     # 数据库类型，目前只支持mysql
     mysql:
-      host: gz-cynosdbmysql-grp-4ywssxjx.sql.tencentcdb.com
-      port: 25018
-      username: community
-      password: Gh14789632
-      database: element
+      host: localhost
+      port: 3306
+      username: unknown
+      password: unknown
+      database: unknown
       entityPrefix: element_
       logging: true
+    # redis 配置
+    redis:
+      host: localhost
+      port: 6379
+      # db: 0
+      keyPrefix: element_
+      password: unknown
   # 邮箱配置
   email:
     # smtp地址，一行写完就行
-    transport: smtp://gczgroup@qq.com:uzmnmbdulihugjif@smtp.qq.com
+    transport: smtp://app@smtp.qq.com
     # 发件人
-    from: '"腕上小助手" <gczgroup@qq.com>'
+    from: '"腕上心电社区" <gczgroup@qq.com>'
   jwt:
     secret: Watch-LightningLion
 
