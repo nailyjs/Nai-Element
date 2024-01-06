@@ -6,7 +6,7 @@ global:
   # ? [TODO): en现在还没有翻译，暂时懒得翻译了
   defaultLanguage: zh
   enableSwagger: true
-  # 节流阀门配置。默认为 60 秒内最多 10 次请求，可以开大点
+  # 节流阀门配置。默认为 60000 毫秒内最多 300 次请求，可以开大点
   throttler:
     ttl: 60
     limit: 300
@@ -35,7 +35,10 @@ global:
     # 发件人
     from: '"腕上心电社区" <gczgroup@qq.com>'
   jwt:
-    secret: Watch-LightningLion
+    # 保密，不要泄露
+    secret: JWTSERCRET
+    # token过期时间 可以用这个来控制登录时长
+    expiresIn: 30d
 
 # 账户微服务配置
 passport:
