@@ -5,7 +5,6 @@ import { CommonJwtModule } from "cn.watchrss.element.auth";
 import { CommonTypeOrmModule } from "cn.watchrss.element.database";
 import { LoginModule } from "./modules/login/login.module";
 import { RegisterModule } from "./modules/register/register.module";
-import { DevtoolsModule } from "@nestjs/devtools-integration";
 import { TransportModule } from "./modules/transport/transport.module";
 import { APP_GUARD } from "@nestjs/core";
 
@@ -17,9 +16,9 @@ import { APP_GUARD } from "@nestjs/core";
     Shared.CommonMailerModule.forRoot(),
     Shared.CommonErrorModule.forRoot(),
     Shared.CommonCacheModule.forRoot(),
+    Shared.CommonDevModule.forRoot(),
     CommonJwtModule.forRoot(),
     CommonTypeOrmModule.forRoot(),
-    DevtoolsModule.register({ http: true, port: 8000 }),
     LoginModule,
     RegisterModule,
     TransportModule,

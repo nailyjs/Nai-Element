@@ -4,6 +4,7 @@ export * from "./modules/i18n";
 export * from "./modules/throttler";
 export * from "./modules/mail";
 export * from "./modules/error";
+export * from "./modules/dev";
 
 export * from "./errors";
 export * from "./common";
@@ -15,6 +16,7 @@ import * as I18n from "./modules/i18n";
 import * as Throttler from "./modules/throttler";
 import * as Mail from "./modules/mail";
 import * as Error from "./modules/error";
+import * as Dev from "./modules/dev";
 
 import * as Common from "./common";
 import * as Errors from "./errors";
@@ -27,6 +29,7 @@ export default {
   ...Throttler,
   ...Mail,
   ...Error,
+  ...Dev,
   ...Common,
   ...Errors,
   ...Interceptors,
