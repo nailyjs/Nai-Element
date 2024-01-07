@@ -5,7 +5,9 @@ import { SendEmailVerifyCodeBodyDTO } from "../dtos/transport/email/email.dto";
 import { Throttle } from "@nestjs/throttler";
 import { SwaggerResponse } from "cc.naily.element.swagger";
 import { SendEmailVerifyCode201ResDTO, SendEmailVerifyCode429ResDTO } from "../dtos/transport/email/email.res.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("传输")
 @Controller("transport")
 export class EmailController {
   constructor(private readonly emailService: EmailService) {}

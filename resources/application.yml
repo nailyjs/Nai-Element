@@ -46,6 +46,8 @@ global:
 passport:
   # 账户微服务 端口
   port: 3000
+  # 账户微服务 名称
+  name: Passport
 
 ####################### 以下内容由开发者修改 #######################
 
@@ -57,3 +59,8 @@ scripts:
       - pnpm build:database
       - pnpm build:swagger
       - pnpm build:validator
+
+# 是否启动开发者工具 仅在开发者模式下生效
+devtool:
+  port: 8000
+  enable: true

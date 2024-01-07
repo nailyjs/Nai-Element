@@ -1,5 +1,6 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, UseInterceptors } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { ResInterceptor } from "cc.naily.element.shared";
 
 @ApiTags("测试")
 @Controller()
@@ -13,7 +14,8 @@ export class AppController {
    * @memberof AppController
    */
   @Get()
-  public getHello(): string {
-    return "Hello World!";
+  @UseInterceptors(ResInterceptor)
+  public getHello(): number {
+    return 1000;
   }
 }

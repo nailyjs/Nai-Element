@@ -91,7 +91,7 @@ export default async () => {
         ],
       ],
       controllers: [
-        [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: String } } }],
+        [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
         [
           import("./modules/login/controllers/login.controller"),
           {

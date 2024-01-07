@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  # 账户微服务
+  passport:
+    ports:
+      # 映射端口
+      - "3000:3000"
+    volumes:
+      - /Users/guhuan/Documents/Personal/Docker/test:/naily_config
+    environment:
+      # 在这里覆写您的配置文件名称，如`./naily_config/app.yml`
+      # 您可以把./naily_config文件夹看作是上面的target文件夹路径，这里的app.yml就是您的配置文件名称
+      - CONFIG_PATH=/naily_config/app.yml
+    build: .
