@@ -1,5 +1,5 @@
 import { ArgumentsHost, Catch, ExceptionFilter, Logger } from "@nestjs/common";
-import { I18nTranslations } from "cn.watchrss.element.generated";
+import { I18nTranslations } from "cc.naily.element.generated";
 import { Response } from "express";
 import { I18nService } from "nestjs-i18n";
 

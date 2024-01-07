@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm";
 import { NestFactory } from "@nestjs/core";
 import { Module } from "@nestjs/common";
-import { CommonConfigModule } from "cn.watchrss.element.shared";
+import { CommonConfigModule } from "cc.naily.element.shared";
 import { ConfigService } from "@nestjs/config";
 import { join } from "path";
 

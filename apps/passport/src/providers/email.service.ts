@@ -2,10 +2,10 @@ import { ForbiddenException, Inject, Injectable } from "@nestjs/common";
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
 import { Cache } from "cache-manager";
 import { hashSync, genSaltSync } from "bcrypt";
-import { User, UserRepository } from "cn.watchrss.element.database";
+import { User, UserRepository } from "cc.naily.element.database";
 import { MailerService } from "@nestjs-modules/mailer";
 import { I18nService } from "nestjs-i18n";
-import { I18nTranslations } from "cn.watchrss.element.generated";
+import { I18nTranslations } from "cc.naily.element.generated";
 
 @Injectable()
 export class EmailService {

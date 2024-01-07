@@ -1,4 +1,4 @@
-import { DTO, DTODescription, DTOStatus } from "cn.watchrss.element.swagger";
+import { DTO, DTODescription, DTOStatus } from "cc.naily.element.swagger";
 
 export class LoginByUsernamePasswordDataOKResponseDTO {
   /**

@@ -1,5 +1,5 @@
-import { DTO, DTOStatus } from "cn.watchrss.element.swagger";
-import { IsEmail, IsNotEmpty, IsNumber, IsRegExp, IsString, MinLength } from "cn.watchrss.element.validator";
+import { DTO, DTOStatus } from "cc.naily.element.swagger";
+import { IsEmail, IsNotEmpty, IsNumber, IsRegExp, IsString, MinLength } from "cc.naily.element.validator";
 
 @DTO()
 @DTOStatus(201)

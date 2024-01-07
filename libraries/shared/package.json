@@ -1,5 +1,5 @@
 {
-  "name": "cn.watchrss.element.shared",
+  "name": "cc.naily.element.shared",
   "version": "1.0.0",
   "main": "../../resources/dist/libraries/shared/cjs/index.js",
   "module": "../../resources/dist/libraries/shared/esm/index.js",

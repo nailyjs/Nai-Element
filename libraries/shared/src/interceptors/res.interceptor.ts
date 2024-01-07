@@ -1,5 +1,5 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
-import { I18nPath, I18nTranslations } from "cn.watchrss.element.generated";
+import { I18nPath, I18nTranslations } from "cc.naily.element.generated";
 import { I18nService } from "nestjs-i18n";
 import { map } from "rxjs";
 

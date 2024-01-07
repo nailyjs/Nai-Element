@@ -1,12 +1,12 @@
 import { Module } from "@nestjs/common";
 import { APP_GUARD } from "@nestjs/core";
 import { AppController } from "./app.controller";
-import { CommonJwtModule } from "cn.watchrss.element.auth";
-import { CommonTypeOrmModule } from "cn.watchrss.element.database";
+import { CommonJwtModule } from "cc.naily.element.auth";
+import { CommonTypeOrmModule } from "cc.naily.element.database";
 import { LoginModule } from "./modules/login/login.module";
 import { RegisterModule } from "./modules/register/register.module";
 import { TransportModule } from "./modules/transport/transport.module";
-import Shared, { ThrottlerBehindProxyGuard } from "cn.watchrss.element.shared";
+import Shared, { ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
 
 @Module({
   imports: [

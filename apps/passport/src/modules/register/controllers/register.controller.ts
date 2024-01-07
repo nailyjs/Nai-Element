@@ -2,7 +2,7 @@ import { Body, Controller, Ip, Post, UseInterceptors } from "@nestjs/common";
 import { RegisterByEmailPasswordBodyDTO } from "../dtos/register/email/password/register.dto";
 import { ApiTags } from "@nestjs/swagger";
 import { EmailService } from "../../../providers/email.service";
-import { ResInterceptor } from "cn.watchrss.element.shared";
+import { ResInterceptor } from "cc.naily.element.shared";
 
 @ApiTags("注册")
 @Controller("register")

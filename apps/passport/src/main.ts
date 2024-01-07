@@ -5,7 +5,7 @@ import { AppModule } from "./app.module";
 import { Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { SwaggerModule } from "@nestjs/swagger";
-import { EnableSwagger } from "cn.watchrss.element.shared";
+import { EnableSwagger } from "cc.naily.element.shared";
 import { readFileSync } from "fs";
 
 (async function bootstrap() {

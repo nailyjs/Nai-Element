@@ -1,5 +1,5 @@
 {
-  "name": "cn.watchrss.element.database",
+  "name": "cc.naily.element.database",
   "version": "1.0.0",
   "main": "../../resources/dist/vendors/database/cjs/index.js",
   "module": "../../resources/dist/vendors/database/esm/index.js",

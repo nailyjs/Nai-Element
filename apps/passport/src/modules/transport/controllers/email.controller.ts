@@ -1,9 +1,9 @@
 import { BadRequestException, Body, Controller, Post, UseInterceptors } from "@nestjs/common";
 import { EmailService } from "../../../providers/email.service";
-import { ResInterceptor } from "cn.watchrss.element.shared";
+import { ResInterceptor } from "cc.naily.element.shared";
 import { SendEmailVerifyCodeBodyDTO } from "../dtos/transport/email/email.dto";
 import { Throttle } from "@nestjs/throttler";
-import { SwaggerResponse } from "cn.watchrss.element.swagger";
+import { SwaggerResponse } from "cc.naily.element.swagger";
 import { SendEmailVerifyCode201ResDTO, SendEmailVerifyCode429ResDTO } from "../dtos/transport/email/email.res.dto";
 
 @Controller("transport")

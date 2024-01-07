@@ -1,18 +1,18 @@
 {
   "name": "v29",
   "scripts": {
-    "dev:passport": "pnpm -F cn.watchrss.element.passport start:dev",
+    "dev:passport": "pnpm -F cc.naily.element.passport start:dev",
     "build": "tsx scripts/buildDeps.ts",
-    "build:passport": "pnpm -F cn.watchrss.element.passport build",
-    "build:shared": "pnpm -F cn.watchrss.element.shared build",
-    "build:database": "pnpm -F cn.watchrss.element.database build",
-    "build:swagger": "pnpm -F cn.watchrss.element.swagger build",
-    "build:auth": "pnpm -F cn.watchrss.element.auth build",
-    "build:validator": "pnpm -F cn.watchrss.element.validator build",
-    "start:passport": "pnpm -F cn.watchrss.element.passport start:prod",
-    "migration:generate": "pnpm -F cn.watchrss.element.database migration:generate",
-    "migration:run": "pnpm -F cn.watchrss.element.database migration:run",
-    "migration": "pnpm -F cn.watchrss.element.database migration:generate;pnpm -F cn.watchrss.element.database migration:run",
+    "build:passport": "pnpm -F cc.naily.element.passport build",
+    "build:shared": "pnpm -F cc.naily.element.shared build",
+    "build:database": "pnpm -F cc.naily.element.database build",
+    "build:swagger": "pnpm -F cc.naily.element.swagger build",
+    "build:auth": "pnpm -F cc.naily.element.auth build",
+    "build:validator": "pnpm -F cc.naily.element.validator build",
+    "start:passport": "pnpm -F cc.naily.element.passport start:prod",
+    "migration:generate": "pnpm -F cc.naily.element.database migration:generate",
+    "migration:run": "pnpm -F cc.naily.element.database migration:run",
+    "migration": "pnpm -F cc.naily.element.database migration:generate;pnpm -F cc.naily.element.database migration:run",
     "format": "prettier --write ./",
     "lint": "eslint \"./**/*.ts\" --fix",
     "prepare": "husky install && pnpm build:shared && pnpm build",
@@ -75,12 +75,12 @@
     "typeorm": "^0.3.17"
   },
   "peerDependencies": {
-    "cn.watchrss.element.auth": "workspace:*",
-    "cn.watchrss.element.database": "workspace:*",
-    "cn.watchrss.element.generated": "workspace:*",
-    "cn.watchrss.element.shared": "workspace:*",
-    "cn.watchrss.element.swagger": "workspace:*",
-    "cn.watchrss.element.validator": "workspace:*"
+    "cc.naily.element.auth": "workspace:*",
+    "cc.naily.element.database": "workspace:*",
+    "cc.naily.element.generated": "workspace:*",
+    "cc.naily.element.shared": "workspace:*",
+    "cc.naily.element.swagger": "workspace:*",
+    "cc.naily.element.validator": "workspace:*"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

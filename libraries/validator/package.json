@@ -1,5 +1,5 @@
 {
-  "name": "cn.watchrss.element.validator",
+  "name": "cc.naily.element.validator",
   "version": "1.0.0",
   "main": "../../resources/dist/libraries/validator/cjs/index.js",
   "module": "../../resources/dist/libraries/validator/esm/index.js",

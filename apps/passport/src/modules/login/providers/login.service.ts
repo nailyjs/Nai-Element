@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { compareSync } from "bcrypt";
-import { UserRepository } from "cn.watchrss.element.database";
+import { UserRepository } from "cc.naily.element.database";
 
 @Injectable()
 export class LoginService {

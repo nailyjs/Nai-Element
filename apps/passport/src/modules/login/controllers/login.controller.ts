@@ -2,9 +2,9 @@ import { Body, Controller, Post, UseInterceptors } from "@nestjs/common";
 import { LoginService } from "../providers/login.service";
 import { LoginByUsernamePasswordDTO } from "../dtos/login/username/password/login.post.dto";
 import { ApiTags } from "@nestjs/swagger";
-import { ResInterceptor } from "cn.watchrss.element.shared";
+import { ResInterceptor } from "cc.naily.element.shared";
 import { LoginByUsernamePasswordDataOKResponseDTO, LoginByUsernamePasswordOKResponseDTO } from "../dtos/login/username/password/login.post.res.dto";
-import { SwaggerResponse } from "cn.watchrss.element.swagger";
+import { SwaggerResponse } from "cc.naily.element.swagger";
 
 @ApiTags("登录")
 @Controller("login")

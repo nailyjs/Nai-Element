@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { LoginController } from "./controllers/login.controller";
 import { LoginService } from "./providers/login.service";
-import { UserRepository } from "cn.watchrss.element.database";
+import { UserRepository } from "cc.naily.element.database";
 
 @Module({
   controllers: [LoginController],

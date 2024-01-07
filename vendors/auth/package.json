@@ -1,5 +1,5 @@
 {
-  "name": "cn.watchrss.element.auth",
+  "name": "cc.naily.element.auth",
   "version": "1.0.0",
   "main": "../../resources/dist/vendors/auth/cjs/index.js",
   "module": "../../resources/dist/vendors/auth/esm/index.js",

@@ -1,4 +1,4 @@
-import "cn.watchrss.element.shared";
+import "cc.naily.element.shared";
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigService } from "@nestjs/config";

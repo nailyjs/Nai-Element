@@ -12,7 +12,7 @@ function checkPnpm() {
 
 function checkShared() {
   try {
-    require("cn.watchrss.element.shared");
+    require("cc.naily.element.shared");
     return true;
   } catch (error) {
     return false;
@@ -52,7 +52,7 @@ export function getEnvTasks(): ListrTask[] {
       task(ctx, renderer) {
         return new Promise((resolve) => {
           if (checkShared()) return resolve(true);
-          renderer.title = "cn.watchrss.element.shared is not builded. Try to build...";
+          renderer.title = "cc.naily.element.shared is not builded. Try to build...";
           try {
             const worker = exec("pnpm run build:shared");
 
@@ -63,11 +63,11 @@ export function getEnvTasks(): ListrTask[] {
               renderer.title = data;
             });
             worker.on("close", function () {
-              renderer.title = "cn.watchrss.element.shared builded";
+              renderer.title = "cc.naily.element.shared builded";
               resolve(true);
             });
           } catch (error) {
-            renderer.title = "cn.watchrss.element.shared build failed. Try to install...";
+            renderer.title = "cc.naily.element.shared build failed. Try to install...";
             try {
               const worker = exec("pnpm install");
 
@@ -78,11 +78,11 @@ export function getEnvTasks(): ListrTask[] {
                 renderer.title = data;
               });
               worker.on("close", function () {
-                renderer.title = "cn.watchrss.element.shared installed";
+                renderer.title = "cc.naily.element.shared installed";
                 resolve(true);
               });
             } catch (error) {
-              renderer.title = "cn.watchrss.element.shared install failed. Please install cn.watchrss.element.shared manually.";
+              renderer.title = "cc.naily.element.shared install failed. Please install cc.naily.element.shared manually.";
               process.exit();
             }
           }
