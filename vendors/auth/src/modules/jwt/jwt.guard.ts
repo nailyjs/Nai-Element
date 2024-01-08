@@ -5,7 +5,13 @@ import { Request } from "express";
 declare global {
   namespace Express {
     export interface Request {
-      user: { userID: number };
+      user: Request.user;
+    }
+
+    export namespace Request {
+      export interface user {
+        userID: number;
+      }
     }
   }
 }
@@ -13,6 +19,8 @@ declare global {
 @Injectable()
 export abstract class CommonAuthGuardService {
   protected extractTokenFromHeader(request: Request): string | undefined {
+    if (!request.headers) return undefined;
+    if (!request.headers.authorization) return undefined;
     const [type, token] = request.headers.authorization.split(" ") ?? [];
     return type === "Bearer" ? token : undefined;
   }
@@ -32,7 +40,7 @@ export class CommonOptionalAuthGuard extends CommonAuthGuardService implements C
       try {
         request.user = this.jwtService.verify(token);
       } catch (error) {
-        throw new ForbiddenException("Token verification failed");
+        throw new ForbiddenException(1016);
       }
     }
 
@@ -49,12 +57,12 @@ export class CommonMustAuthGuard extends CommonAuthGuardService implements CanAc
   public canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest<Request>();
     const token = super.extractTokenFromHeader(request);
-    if (!token) throw new UnauthorizedException("Unauthorized");
+    if (!token) throw new UnauthorizedException(1016);
 
     try {
       request.user = this.jwtService.verify(token);
     } catch (error) {
-      throw new ForbiddenException("Token verification failed");
+      throw new ForbiddenException(1016);
     }
 
     return true;

@@ -12,6 +12,7 @@ import { UserService } from "../providers/user.service";
 import { ResInterceptor } from "cc.naily.element.shared";
 import { SwaggerResponse } from "cc.naily.element.swagger";
 import { GetLoggingUser200ResDTO } from "../dtos/user/logging/logging.res.dto";
+import { Auth, User } from "cc.naily.element.auth";
 
 @ApiTags("用户")
 @Controller("user")
@@ -25,10 +26,11 @@ export class UserController {
    * @author Zero <gczgroup@qq.com>
    * @since 2024
    */
+  @Auth()
   @Get("logging")
   @UseInterceptors(ResInterceptor)
   @SwaggerResponse(GetLoggingUser200ResDTO)
-  public getLoggingUser() {
-    return this.userService.getUserByLogging(1);
+  public getLoggingUser(@User() user: Express.Request.user) {
+    return this.userService.getUserByLogging(user.userID);
   }
 }

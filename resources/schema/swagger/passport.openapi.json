@@ -10,11 +10,7 @@
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "type": "number"
-                }
-              }
+              "application/json": { "schema": { "type": "number" } }
             }
           }
         },
@@ -66,11 +62,7 @@
             }
           }
         },
-        "responses": {
-          "201": {
-            "description": ""
-          }
-        },
+        "responses": { "201": { "description": "" } },
         "tags": ["注册"]
       }
     },
@@ -131,7 +123,8 @@
             }
           }
         },
-        "tags": ["用户"]
+        "tags": ["用户"],
+        "security": [{ "bearer": [] }]
       }
     }
   },
@@ -144,44 +137,27 @@
       "url": "https://naily.cc",
       "email": "gczgroup@qq.com"
     },
-    "license": {
-      "name": "UNLICENSED",
-      "url": null
-    }
+    "license": { "name": "UNLICENSED", "url": null }
   },
   "tags": [],
   "servers": [],
   "components": {
     "securitySchemes": {
-      "bearer": {
-        "scheme": "bearer",
-        "bearerFormat": "JWT",
-        "type": "http"
-      }
+      "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" }
     },
     "schemas": {
       "LoginByUsernamePasswordDTO": {
         "type": "object",
         "properties": {
-          "username": {
-            "type": "string",
-            "description": "用户名"
-          },
-          "password": {
-            "type": "string",
-            "description": "密码"
-          }
+          "username": { "type": "string", "description": "用户名" },
+          "password": { "type": "string", "description": "密码" }
         },
         "required": ["username", "password"]
       },
       "LoginByUsernamePasswordDataUserOKResponseDTO": {
         "type": "object",
         "properties": {
-          "userID": {
-            "type": "number",
-            "description": "用户ID",
-            "default": 1
-          },
+          "userID": { "type": "number", "description": "用户ID", "default": 1 },
           "createdAt": {
             "format": "date-time",
             "type": "string",
@@ -197,11 +173,7 @@
             "description": "用户名",
             "default": "Zero"
           },
-          "ip": {
-            "type": "string",
-            "description": "IP",
-            "default": "0.0.0.0"
-          },
+          "ip": { "type": "string", "description": "IP", "default": "0.0.0.0" },
           "saying": {
             "type": "string",
             "description": "个性签名",
@@ -226,10 +198,7 @@
               }
             ]
           },
-          "access_token": {
-            "type": "string",
-            "description": "访问令牌"
-          }
+          "access_token": { "type": "string", "description": "访问令牌" }
         },
         "required": ["user", "access_token"]
       },
@@ -265,101 +234,51 @@
       "RegisterByEmailPasswordBodyDTO": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string",
-            "description": "邮箱"
-          },
-          "username": {
-            "type": "string",
-            "description": "用户名"
-          },
+          "email": { "type": "string", "description": "邮箱" },
+          "username": { "type": "string", "description": "用户名" },
           "password": {
             "type": "string",
             "description": "密码",
             "minLength": 6
           },
-          "verifyCode": {
-            "type": "number",
-            "description": "验证码"
-          }
+          "verifyCode": { "type": "number", "description": "验证码" }
         },
         "required": ["email", "username", "password", "verifyCode"]
       },
       "SendEmailVerifyCodeBodyDTO": {
         "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "邮箱"
-          }
-        },
+        "properties": { "email": { "type": "string", "description": "邮箱" } },
         "required": ["email"]
       },
       "SendEmailVerifyCode201ResDTO": {
         "type": "object",
         "properties": {
-          "statusCode": {
-            "type": "object",
-            "default": 201
-          },
-          "code": {
-            "type": "object",
-            "default": 1012
-          },
-          "message": {
-            "type": "object",
-            "default": "发送成功"
-          }
+          "statusCode": { "type": "object", "default": 201 },
+          "code": { "type": "object", "default": 1012 },
+          "message": { "type": "object", "default": "发送成功" }
         },
         "required": ["statusCode", "code", "message"]
       },
       "SendEmailVerifyCode429ResDTO": {
         "type": "object",
         "properties": {
-          "statusCode": {
-            "type": "object",
-            "default": 429
-          },
-          "code": {
-            "type": "object",
-            "default": 1014
-          },
-          "message": {
-            "type": "object",
-            "default": "请求过于频繁，请稍后再试"
-          }
+          "statusCode": { "type": "object", "default": 429 },
+          "code": { "type": "object", "default": 1014 },
+          "message": { "type": "object", "default": "请求过于频繁，请稍后再试" }
         },
         "required": ["statusCode", "code", "message"]
       },
       "GetLoggingUser200ResDTODataUserDTO": {
         "type": "object",
         "properties": {
-          "userID": {
-            "type": "number"
-          },
-          "createdAt": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updatedAt": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          },
-          "ip": {
-            "type": "string"
-          },
-          "saying": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "phone": {
-            "type": "string"
-          }
+          "userID": { "type": "number" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" },
+          "username": { "type": "string" },
+          "ip": { "type": "string" },
+          "saying": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string" }
         },
         "required": ["userID", "createdAt", "updatedAt", "username", "ip", "saying"]
       },
@@ -375,15 +294,9 @@
       "GetLoggingUser200ResDTO": {
         "type": "object",
         "properties": {
-          "statusCode": {
-            "type": "number"
-          },
-          "code": {
-            "type": "number"
-          },
-          "message": {
-            "type": "string"
-          },
+          "statusCode": { "type": "number" },
+          "code": { "type": "number" },
+          "message": { "type": "string" },
           "data": {
             "$ref": "#/components/schemas/GetLoggingUser200ResDTODataDTO"
           }
