@@ -21,7 +21,7 @@ export class RegisterController {
   public async registerByEmailPassword(@Body() body: RegisterByEmailPasswordBodyDTO, @Ip() ip: string) {
     await this.emailService.checkCode(body.email, body.verifyCode);
     const user = await this.emailService.registerByEmailPassword(body.email, body.username, body.password, ip);
-    this.emailService.deleteCode(body.email);
+    this.emailService.deleteCode(body.email).then();
     return { user };
   }
 }

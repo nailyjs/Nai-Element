@@ -8,4 +8,7 @@ node_modules
 
 .DS_Store
 
+# coverage test
+*/**coverage/**/*
+
 application-*.yml
