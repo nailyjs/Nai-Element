@@ -9,6 +9,6 @@ node_modules
 .DS_Store
 
 # coverage test
-*/**coverage/**/*
+coverage
 
 application-*.yml
