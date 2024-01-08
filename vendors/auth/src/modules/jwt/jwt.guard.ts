@@ -4,33 +4,59 @@ import { Request } from "express";
 
 declare global {
   namespace Express {
-    interface Request {
-      user: any;
+    export interface Request {
+      user: { userID: number };
     }
   }
 }
 
 @Injectable()
-export class CommonAuthGuard implements CanActivate {
-  constructor(private readonly jwtService: JwtService) {}
+export abstract class CommonAuthGuardService {
+  protected extractTokenFromHeader(request: Request): string | undefined {
+    const [type, token] = request.headers.authorization.split(" ") ?? [];
+    return type === "Bearer" ? token : undefined;
+  }
+}
+
+@Injectable()
+export class CommonOptionalAuthGuard extends CommonAuthGuardService implements CanActivate {
+  constructor(private readonly jwtService: JwtService) {
+    super();
+  }
 
   public canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest<Request>();
-    const token = this.extractTokenFromHeader(request);
+    const token = super.extractTokenFromHeader(request);
+
+    if (token) {
+      try {
+        request.user = this.jwtService.verify(token);
+      } catch (error) {
+        throw new ForbiddenException("Token verification failed");
+      }
+    }
+
+    return true;
+  }
+}
+
+@Injectable()
+export class CommonMustAuthGuard extends CommonAuthGuardService implements CanActivate {
+  constructor(private readonly jwtService: JwtService) {
+    super();
+  }
+
+  public canActivate(context: ExecutionContext) {
+    const request = context.switchToHttp().getRequest<Request>();
+    const token = super.extractTokenFromHeader(request);
     if (!token) throw new UnauthorizedException("Unauthorized");
 
     try {
-      const payload = this.jwtService.verify(token);
-      request.user = payload;
+      request.user = this.jwtService.verify(token);
     } catch (error) {
       throw new ForbiddenException("Token verification failed");
     }
 
     return true;
-  }
-
-  private extractTokenFromHeader(request: Request): string | undefined {
-    const [type, token] = request.headers.authorization?.split(" ") ?? [];
-    return type === "Bearer" ? token : undefined;
   }
 }
