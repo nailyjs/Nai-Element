@@ -1,12 +1,21 @@
 import "cc.naily.element.shared";
-import { Module } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigService } from "@nestjs/config";
 import { join } from "path";
 
 @Module({})
 export class CommonTypeOrmModule {
-  public static forRoot() {
+  /**
+   * 注册主数据库模块
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/08
+   * @static
+   * @return {DynamicModule}
+   * @memberof CommonTypeOrmModule
+   */
+  public static forRoot(): DynamicModule {
     return TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory(configService: ConfigService) {

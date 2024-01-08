@@ -1,10 +1,19 @@
-import { Module } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { DevtoolsModule } from "@nestjs/devtools-integration";
 
 @Module({})
 export class CommonDevModule {
-  public static forRoot() {
+  /**
+   * 注册开发工具模块
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/08
+   * @static
+   * @return {DynamicModule}
+   * @memberof CommonDevModule
+   */
+  public static forRoot(): DynamicModule {
     return DevtoolsModule.registerAsync({
       inject: [ConfigService],
       useFactory(configService: ConfigService) {

@@ -1,10 +1,19 @@
-import { Module } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
 
 @Module({})
 export class CommonJwtModule {
-  public static forRoot() {
+  /**
+   * 注册JWT模块
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/08
+   * @static
+   * @return {DynamicModule}
+   * @memberof CommonJwtModule
+   */
+  public static forRoot(): DynamicModule {
     return JwtModule.registerAsync({
       inject: [ConfigService],
       global: true,

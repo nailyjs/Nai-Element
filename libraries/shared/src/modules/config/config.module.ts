@@ -1,4 +1,4 @@
-import { Logger, Module } from "@nestjs/common";
+import { DynamicModule, INestApplication, Logger, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { existsSync, readFileSync } from "fs";
 import { load } from "js-yaml";
@@ -21,7 +21,16 @@ process.env.VENDOR_ROOT = join(__dirname, "..", "..", "..", "..", "..", "..", ".
 process.env.RESOURCE_ROOT = join(__dirname, "..", "..", "..", "..", "..", "..");
 
 @Module({})
-export class CommonConfigModule {
+export class CommonConfigModule extends ConfigModule implements ConfigModule {
+  /**
+   * 获取配置文件
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/08
+   * @static
+   * @return {*}  {(Record<string | symbol, any>)}
+   * @memberof CommonConfigModule
+   */
   public static getYmlConfig(): Record<string | symbol, any> {
     // 判断环境变量中是否有配置文件路径
     if (process.env.CONFIG_PATH) {
@@ -51,13 +60,32 @@ export class CommonConfigModule {
     );
   }
 
-  public basicCheck(configSerivce: ConfigService) {
+  /**
+   * 启动前的基础检查
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/08
+   * @template App
+   * @param {App} app
+   * @memberof CommonConfigModule
+   */
+  public basicCheck<App extends INestApplication>(app: App) {
+    const configSerivce = app.get(ConfigService);
     configSerivce.getOrThrow("scripts.buildDeps.commands");
     configSerivce.getOrThrow("global");
   }
 
-  public static forRoot() {
-    return ConfigModule.forRoot({
+  /**
+   * 全局注册公共配置模块 用于加载yml配置文件
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/08
+   * @static
+   * @return {DynamicModule}
+   * @memberof CommonConfigModule
+   */
+  public static forRoot(): DynamicModule {
+    return super.forRoot({
       isGlobal: true,
       cache: true,
       load: [this.getYmlConfig],

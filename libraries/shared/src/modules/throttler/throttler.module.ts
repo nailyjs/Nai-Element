@@ -5,13 +5,22 @@
  * or modified without prior authorization.
  */
 
-import { Module } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { ThrottlerModule } from "@nestjs/throttler";
 import { ConfigService } from "@nestjs/config";
 
 @Module({})
 export class CommonThrottlerModule {
-  public static forRoot() {
+  /**
+   * 注册限流模块
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/08
+   * @static
+   * @return {DynamicModule}
+   * @memberof CommonThrottlerModule
+   */
+  public static forRoot(): DynamicModule {
     return ThrottlerModule.forRootAsync({
       inject: [ConfigService],
       useFactory(configService: ConfigService) {

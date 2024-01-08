@@ -1,11 +1,20 @@
-import { Module } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { join } from "path";
 import { ConfigService } from "@nestjs/config";
 import { AcceptLanguageResolver, I18nModule, QueryResolver } from "nestjs-i18n";
 
 @Module({})
 export class CommonI18nModule {
-  public static forRoot() {
+  /**
+   * 注册国际化模块
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/08
+   * @static
+   * @return {DynamicModule}
+   * @memberof CommonI18nModule
+   */
+  public static forRoot(): DynamicModule {
     return I18nModule.forRootAsync({
       inject: [ConfigService],
       useFactory(configService: ConfigService) {

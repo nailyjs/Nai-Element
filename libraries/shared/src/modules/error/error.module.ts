@@ -4,6 +4,15 @@ import { CommonHttpFilter, CommonUnknownFilter } from "../../errors";
 
 @Module({})
 export class CommonErrorModule {
+  /**
+   * 注册全局错误拦截器
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/08
+   * @static
+   * @return {*}  {DynamicModule}
+   * @memberof CommonErrorModule
+   */
   public static forRoot(): DynamicModule {
     return {
       module: CommonErrorModule,

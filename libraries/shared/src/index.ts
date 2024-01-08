@@ -6,6 +6,7 @@ export * from "./modules/mail";
 export * from "./modules/error";
 export * from "./modules/dev";
 
+export * from "./interfaces";
 export * from "./errors";
 export * from "./common";
 export * from "./interceptors";
@@ -18,6 +19,7 @@ import * as Mail from "./modules/mail";
 import * as Error from "./modules/error";
 import * as Dev from "./modules/dev";
 
+import * as Interfaces from "./interfaces";
 import * as Common from "./common";
 import * as Errors from "./errors";
 import * as Interceptors from "./interceptors";
@@ -30,6 +32,7 @@ export default {
   ...Mail,
   ...Error,
   ...Dev,
+  ...Interfaces,
   ...Common,
   ...Errors,
   ...Interceptors,

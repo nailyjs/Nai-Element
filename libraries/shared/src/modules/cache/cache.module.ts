@@ -1,12 +1,21 @@
-import { Module } from "@nestjs/common";
+import { DynamicModule, Module } from "@nestjs/common";
 import { CacheModule } from "@nestjs/cache-manager";
 import { ConfigService } from "@nestjs/config";
 import { RedisOptions } from "ioredis";
 import { redisStore } from "cache-manager-ioredis-yet";
 
 @Module({})
-export class CommonCacheModule {
-  public static forRoot() {
+export class CommonCacheModule extends CacheModule implements CacheModule {
+  /**
+   * 注册缓存模块
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/08
+   * @static
+   * @return {DynamicModule}
+   * @memberof CommonCacheModule
+   */
+  public static forRoot(): DynamicModule {
     return CacheModule.registerAsync<RedisOptions>({
       inject: [ConfigService],
       isGlobal: true,

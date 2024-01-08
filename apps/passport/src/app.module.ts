@@ -19,9 +19,9 @@ import Shared, { ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
     Shared.CommonDevModule.forRoot(),
     CommonJwtModule.forRoot(),
     CommonTypeOrmModule.forRoot(),
-    LoginModule,
-    RegisterModule,
-    TransportModule,
+    LoginModule.register(),
+    RegisterModule.register(),
+    TransportModule.register(),
   ],
   controllers: [AppController],
   providers: [
