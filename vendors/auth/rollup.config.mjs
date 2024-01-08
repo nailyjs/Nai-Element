@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { defineConfig } from "rollup";
 import { extname, relative } from "path";
 import swc from "@rollup/plugin-swc";
@@ -13,9 +15,9 @@ const input = Object.fromEntries(
       relative("src", file.slice(0, file.length - extname(file).length)),
       // 这里可以将相对路径扩展为绝对路径，例如
       // src/nested/foo 会变成 /project/src/nested/foo.js
-      file,
+      file
     ];
-  }),
+  })
 );
 
 export default defineConfig({
@@ -30,13 +32,13 @@ export default defineConfig({
       format: "commonjs",
       sourcemap: "inline",
       dir: "../../resources/dist/vendors/auth/cjs",
-      strict: false,
+      strict: false
     },
     {
       format: "module",
       sourcemap: "inline",
       dir: "../../resources/dist/vendors/auth/esm",
-      strict: false,
-    },
-  ],
+      strict: false
+    }
+  ]
 });

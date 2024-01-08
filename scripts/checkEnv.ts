@@ -52,7 +52,7 @@ export function getEnvTasks(): ListrTask[] {
       task(ctx, renderer) {
         return new Promise((resolve) => {
           if (checkShared()) return resolve(true);
-          renderer.title = "cc.naily.element.shared is not builded. Try to build...";
+          renderer.title = "cc.naily.element.shared is not built. Try to build...";
           try {
             const worker = exec("pnpm run build:shared");
 
@@ -63,7 +63,7 @@ export function getEnvTasks(): ListrTask[] {
               renderer.title = data;
             });
             worker.on("close", function () {
-              renderer.title = "cc.naily.element.shared builded";
+              renderer.title = "cc.naily.element.shared built";
               resolve(true);
             });
           } catch (error) {

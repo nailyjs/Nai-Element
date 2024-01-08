@@ -55,24 +55,10 @@ export class CommonConfigModule extends ConfigModule implements ConfigModule {
     }
 
     // 什么都没有，报错
-    throw new Logger(CommonConfigModule.name).error(
+    new Logger(CommonConfigModule.name).error(
       "No application.yml or application-*.yml file found, please at least create an empty application.yml file in resources folder.",
     );
-  }
-
-  /**
-   * 启动前的基础检查
-   *
-   * @author Zero <gczgroup@qq.com>
-   * @date 2024/01/08
-   * @template App
-   * @param {App} app
-   * @memberof CommonConfigModule
-   */
-  public basicCheck<App extends INestApplication>(app: App) {
-    const configSerivce = app.get(ConfigService);
-    configSerivce.getOrThrow("scripts.buildDeps.commands");
-    configSerivce.getOrThrow("global");
+    throw new Error("No application.yml or application-*.yml file found, please at least create an empty application.yml file in resources folder.");
   }
 
   /**
@@ -90,5 +76,20 @@ export class CommonConfigModule extends ConfigModule implements ConfigModule {
       cache: true,
       load: [this.getYmlConfig],
     });
+  }
+
+  /**
+   * 启动前的基础检查
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/08
+   * @template App
+   * @param {App} app
+   * @memberof CommonConfigModule
+   */
+  public basicCheck<App extends INestApplication>(app: App) {
+    const configService = app.get(ConfigService);
+    configService.getOrThrow("scripts.buildDeps.commands");
+    configService.getOrThrow("global");
   }
 }

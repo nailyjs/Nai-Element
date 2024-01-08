@@ -6,10 +6,6 @@ import { I18nService } from "nestjs-i18n";
 export class CommonHttpFilter implements ExceptionFilter {
   constructor(private readonly i18nService: I18nService) {}
 
-  private isNumber(value: unknown): boolean {
-    return !Number.isNaN(new Number(value));
-  }
-
   public catch(exception: HttpException, host: ArgumentsHost): void {
     const status = exception.getStatus();
     const msg: unknown = exception.getResponse();
@@ -42,5 +38,9 @@ export class CommonHttpFilter implements ExceptionFilter {
       });
       return new Logger(CommonHttpFilter.name).error(JSON.stringify(exception));
     }
+  }
+
+  private isNumber(value: unknown): boolean {
+    return !Number.isNaN(Number(value));
   }
 }

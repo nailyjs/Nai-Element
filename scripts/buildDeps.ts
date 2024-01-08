@@ -29,7 +29,9 @@ new Listr(
       async task(ctx, renderer) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const { CommonConfigModule } = require("cc.naily.element.shared");
+
         class BuildModule {}
+
         Module({
           imports: [CommonConfigModule.forRoot()],
         })(BuildModule);
@@ -90,4 +92,6 @@ new Listr(
     },
     concurrent: false,
   },
-).run();
+)
+  .run()
+  .then();

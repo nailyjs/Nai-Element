@@ -19,8 +19,8 @@ export class CommonCacheModule extends CacheModule implements CacheModule {
     return CacheModule.registerAsync<RedisOptions>({
       inject: [ConfigService],
       isGlobal: true,
-      async useFactory(cofigService: ConfigService) {
-        const redisConfig = cofigService.getOrThrow("global.datasource.redis");
+      async useFactory(configService: ConfigService) {
+        const redisConfig = configService.getOrThrow("global.datasource.redis");
         return {
           isGlobal: true,
           ...redisConfig,

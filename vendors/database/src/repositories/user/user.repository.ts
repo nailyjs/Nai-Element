@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
-import { Repository, EntityRepository } from "../../decorators";
-import { User } from "../../entities/user/user.entity";
+import { EntityRepository, Repository } from "../../decorators";
+import { User } from "../../entities";
 
 @Repository
 export class UserRepository extends EntityRepository<User> {

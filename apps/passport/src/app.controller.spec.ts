@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect } from "vitest";
 import { Test, TestingModule } from "@nestjs/testing";
 import { AppController } from "./app.controller";
 import { ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
@@ -21,11 +21,6 @@ describe("AppController", () => {
     }).compile();
 
     appController = app.get<AppController>(AppController);
-  });
-
-  describe("root", () => {
-    it("should return 1000", () => {
-      expect(appController.getHello()).toBe(1000);
-    });
+    expect(appController.getHello()).toBe(1000);
   });
 });

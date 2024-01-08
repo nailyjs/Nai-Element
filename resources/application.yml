@@ -38,7 +38,7 @@ global:
     from: '"腕上心电社区" <gczgroup@qq.com>'
   jwt:
     # 保密，不要泄露
-    secret: JWTSERCRET
+    secret: JWT_SECRET
     # token过期时间 可以用这个来控制登录时长
     expiresIn: 30d
 
