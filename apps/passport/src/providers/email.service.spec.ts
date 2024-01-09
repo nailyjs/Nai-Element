@@ -1,3 +1,4 @@
+import "jest";
 import { beforeEach, describe, expect, it } from "vitest";
 import { Test } from "@nestjs/testing";
 import { AppModule } from "../app.module";
@@ -15,9 +16,9 @@ describe("EmailService", () => {
       }).compile();
       service = moduleRef.get(EmailService);
 
-      expect(service.deleteCode).toBeDefined();
-      expect(service.checkCode).toBeDefined();
-      expect(service.sendCode).toBeDefined();
+      expect(service.sendCode).toBeInstanceOf(Function);
+      expect(service.deleteCode).toBeInstanceOf(Function);
+      expect(service.checkCode).toBeInstanceOf(Function);
     });
   });
 });
