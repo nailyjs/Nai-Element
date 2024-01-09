@@ -4,6 +4,7 @@ import { AppController } from "./app.controller";
 import { ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
 import { APP_GUARD } from "@nestjs/core";
 import { AppModule } from "./app.module";
+import "jest";
 
 describe("AppController", () => {
   let appController: AppController;
@@ -21,6 +22,9 @@ describe("AppController", () => {
     }).compile();
 
     appController = app.get<AppController>(AppController);
+  });
+
+  it("should return 1000", () => {
     expect(appController.getHello()).toBe(1000);
   });
 });

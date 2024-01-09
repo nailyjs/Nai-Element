@@ -1,7 +1,8 @@
 // throttler-behind-proxy.guard.ts
 import { ThrottlerException as ParentThrottlerException, ThrottlerGuard } from "@nestjs/throttler";
-import { CanActivate, ExecutionContext, Injectable, Logger } from "@nestjs/common";
+import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { ThrottlerLimitDetail } from "@nestjs/throttler/dist/throttler.guard.interface";
+import { CommonLogger } from "../logger";
 
 class ThrottlerException extends ParentThrottlerException {
   constructor(errorCode: number) {
@@ -17,7 +18,7 @@ export class ThrottlerBehindProxyGuard extends ThrottlerGuard implements CanActi
 
   protected async throwThrottlingException(context: ExecutionContext, throttlerLimitDetail: ThrottlerLimitDetail): Promise<void> {
     const errorMessage = await super.getErrorMessage(context, throttlerLimitDetail);
-    new Logger("ThrottlerException").error(errorMessage);
+    new CommonLogger("ThrottlerException").error(errorMessage);
     throw new ThrottlerException(1014);
   }
 }

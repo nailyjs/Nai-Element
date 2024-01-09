@@ -1,0 +1,6 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="notice" value="Copyright (c) naily.cc &amp;#36;originalComment.match(&quot;Copyright \(c\) (\d+)&quot;, 1, &quot;-&quot;, &quot;&amp;#36;today.year&quot;)&amp;#36;today.year.&#10;&#10;The code contained in this file is the property of naily.cc.&#10;This code is provided &quot;AS IS&quot; without warranty of any kind, either expressed or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, or non-infringement.&#10;Unauthorized copying, distribution, or use for commercial purposes is strictly prohibited." />
+    <option name="myName" value="Zero" />
+  </copyright>
+</component>

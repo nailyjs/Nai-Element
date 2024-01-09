@@ -1,13 +1,25 @@
+/*
+ * Copyright (c) naily.cc 2024.
+ *
+ * The code contained in this file is the property of naily.cc.
+ * This code is provided "AS IS" without warranty of any kind, either expressed or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, or non-infringement.
+ * Unauthorized copying, distribution, or use for commercial purposes is strictly prohibited.
+ */
+
 import { Body, Controller, Ip, Post, UseInterceptors } from "@nestjs/common";
 import { RegisterByEmailPasswordBodyDTO } from "../dtos/register/email/password/register.dto";
 import { ApiTags } from "@nestjs/swagger";
-import { EmailService } from "../../../providers/email.service";
 import { ResInterceptor } from "cc.naily.element.shared";
+import { RegisterService } from "../providers/register.service";
+import { EmailService } from "../../../providers/email.service";
 
 @ApiTags("注册")
 @Controller("register")
 export class RegisterController {
-  constructor(private readonly emailService: EmailService) {}
+  constructor(
+    private readonly registerService: RegisterService,
+    private readonly emailService: EmailService,
+  ) {}
 
   /**
    * 通过邮箱密码注册
@@ -20,7 +32,7 @@ export class RegisterController {
   @UseInterceptors(ResInterceptor)
   public async registerByEmailPassword(@Body() body: RegisterByEmailPasswordBodyDTO, @Ip() ip: string) {
     await this.emailService.checkCode(body.email, body.verifyCode);
-    const user = await this.emailService.registerByEmailPassword(body.email, body.username, body.password, ip);
+    const user = await this.registerService.registerByEmailPassword(body.email, body.username, body.password, ip);
     this.emailService.deleteCode(body.email).then();
     return { user };
   }

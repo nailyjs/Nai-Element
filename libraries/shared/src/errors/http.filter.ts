@@ -1,6 +1,7 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Logger } from "@nestjs/common";
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from "@nestjs/common";
 import { Response } from "express";
 import { I18nService } from "nestjs-i18n";
+import { CommonLogger } from "../modules/logger";
 
 @Catch(HttpException)
 export class CommonHttpFilter implements ExceptionFilter {
@@ -17,7 +18,7 @@ export class CommonHttpFilter implements ExceptionFilter {
         code: typeof msg !== "number" ? Number(msg) : msg,
         message: this.i18nService.t(`global.errorCode.${msg}`),
       });
-      return new Logger(CommonHttpFilter.name).error(JSON.stringify(exception));
+      return new CommonLogger(CommonHttpFilter.name).error(JSON.stringify(exception));
     }
 
     if (typeof msg === "string") {
@@ -26,7 +27,7 @@ export class CommonHttpFilter implements ExceptionFilter {
         code: 0,
         message: msg,
       });
-      return new Logger(CommonHttpFilter.name).error(JSON.stringify(exception));
+      return new CommonLogger(CommonHttpFilter.name).error(JSON.stringify(exception));
     }
 
     if (typeof msg === "object") {
@@ -36,7 +37,7 @@ export class CommonHttpFilter implements ExceptionFilter {
         message: msg["message"] || exception.message,
         ...msg,
       });
-      return new Logger(CommonHttpFilter.name).error(JSON.stringify(exception));
+      return new CommonLogger(CommonHttpFilter.name).error(JSON.stringify(exception));
     }
   }
 

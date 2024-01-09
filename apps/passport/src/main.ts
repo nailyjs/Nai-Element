@@ -3,19 +3,20 @@ import metadata from "./metadata";
 import { NestFactory } from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { AppModule } from "./app.module";
-import { Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { SwaggerModule } from "@nestjs/swagger";
-import { EnableSwagger } from "cc.naily.element.shared";
+import { CommonLogger, EnableSwagger } from "cc.naily.element.shared";
 
 (async function bootstrap() {
   console.clear();
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     snapshot: true,
+    logger: new CommonLogger(),
     cors: {
       origin: "*",
     },
   });
+  app.useLogger(await app.resolve(CommonLogger));
   const configService = app.get(ConfigService);
   const port = configService.getOrThrow("passport.port");
   const name = configService.getOrThrow("passport.name");
@@ -29,5 +30,5 @@ import { EnableSwagger } from "cc.naily.element.shared";
   await app.listen(port);
   return app;
 })().then(async (app) => {
-  new Logger("NestApplication").log(`Passport app is running on ${await app.getUrl()}`);
+  new CommonLogger("NestApplication").verbose(`Passport app is running on ${await app.getUrl()}`);
 });

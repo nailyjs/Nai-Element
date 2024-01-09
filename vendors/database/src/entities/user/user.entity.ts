@@ -19,19 +19,19 @@ export class User {
   @Column({ comment: "密码", nullable: false })
   password: string;
 
-  @Column({ comment: "IP" })
+  @Column({ comment: "IP", nullable: true })
   ip: string;
 
-  @Column({ comment: "个性签名", default: "这个人很懒，什么都没有写哦" })
+  @Column({ comment: "个性签名", nullable: true, default: "这个人很懒，什么都没有写哦" })
   saying: string;
 
-  @Column({ comment: "头像" })
+  @Column({ comment: "头像", nullable: true })
   avatar: string;
 
-  @Column({ comment: "电子邮件地址" })
+  @Column({ comment: "电子邮件地址", nullable: true })
   email: string;
 
-  @Column({ comment: "手机号码" })
+  @Column({ comment: "手机号码", nullable: true })
   phone: string;
 
   @OneToOne(() => UserValue, (userValue) => userValue.user)

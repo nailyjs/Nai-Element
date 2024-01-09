@@ -1,9 +1,9 @@
-/**
- * @Date 2024-01-08 15-44-15
- * @Author Zero 1203970284@qq.com
- * @FilePath apps/passport/src/modules/user/controllers
- * @CreatedBy WebStorm
- * @Copyright (c) 2024 by Zero, All Rights Reserved.
+/*
+ * Copyright (c) naily.cc 2024.
+ *
+ * The code contained in this file is the property of naily.cc.
+ * This code is provided "AS IS" without warranty of any kind, either expressed or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, or non-infringement.
+ * Unauthorized copying, distribution, or use for commercial purposes is strictly prohibited.
  */
 
 import { Controller, Get, UseInterceptors } from "@nestjs/common";

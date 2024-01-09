@@ -1,12 +1,21 @@
-import { INestApplication, Logger } from "@nestjs/common";
+import { INestApplication } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from "@nestjs/swagger";
 import { writeFileSync } from "fs";
 import { format } from "prettier";
 import { join } from "path";
+import { CommonLogger } from "../modules/logger";
 
 export type SwaggerBuilderCallback = (builder: DocumentBuilder) => void;
 
+/**
+ * 启用Swagger
+ *
+ * @param app app
+ * @param callback 回调
+ * @function EnableSwagger
+ * @exports
+ */
 export function EnableSwagger<App extends INestApplication>(
   app: App,
   callback?: SwaggerBuilderCallback,
@@ -32,11 +41,11 @@ export function EnableSwagger<App extends INestApplication>(
       async (path, openapi) => {
         const finalPath = join(process.env.RESOURCE_ROOT, "schema/swagger", path);
         const value = await format(JSON.stringify(openapi), { parser: "json" });
-        new Logger("PrettierService").log(
+        new CommonLogger("PrettierService").log(
           "Formatted swagger file to " + finalPath.replace(process.env.PROJECT_ROOT, "").replace("/resources", "resources"),
         );
         writeFileSync(finalPath, value);
-        new Logger("SwaggerGenerate").log(
+        new CommonLogger("SwaggerGenerate").log(
           "Generate swagger file to " + finalPath.replace(process.env.PROJECT_ROOT, "").replace("/resources", "resources"),
         );
       },

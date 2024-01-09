@@ -241,7 +241,11 @@
             "description": "密码",
             "minLength": 6
           },
-          "verifyCode": { "type": "number", "description": "验证码" }
+          "verifyCode": {
+            "type": "number",
+            "description": "验证码",
+            "maximum": 999999
+          }
         },
         "required": ["email", "username", "password", "verifyCode"]
       },

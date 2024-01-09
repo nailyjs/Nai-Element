@@ -19,6 +19,7 @@ import { UserModule } from "./modules/user/user.module";
     Shared.CommonErrorModule.forRoot(),
     Shared.CommonCacheModule.forRoot(),
     Shared.CommonDevModule.forRoot(),
+    Shared.CommonLoggerModule.forRoot(),
     CommonJwtModule.forRoot(),
     CommonTypeOrmModule.forRoot(),
     LoginModule.register(),

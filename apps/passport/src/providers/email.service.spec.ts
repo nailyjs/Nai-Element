@@ -6,19 +6,19 @@ import { UserRepository } from "cc.naily.element.database";
 import { EmailService } from "./email.service";
 
 describe("EmailService", () => {
-  it("should be right", async () => {
-    let service: EmailService;
+  let service: EmailService;
 
-    beforeEach(async () => {
-      const moduleRef = await Test.createTestingModule({
-        imports: [AppModule],
-        providers: [EmailService, UserRepository],
-      }).compile();
-      service = moduleRef.get(EmailService);
+  beforeEach(async () => {
+    const moduleRef = await Test.createTestingModule({
+      imports: [AppModule],
+      providers: [EmailService, UserRepository],
+    }).compile();
+    service = moduleRef.get(EmailService);
+  });
 
-      expect(service.sendCode).toBeInstanceOf(Function);
-      expect(service.deleteCode).toBeInstanceOf(Function);
-      expect(service.checkCode).toBeInstanceOf(Function);
-    });
+  it("should be right", () => {
+    expect(service.sendCode).toBeInstanceOf(Function);
+    expect(service.deleteCode).toBeInstanceOf(Function);
+    expect(service.checkCode).toBeInstanceOf(Function);
   });
 });

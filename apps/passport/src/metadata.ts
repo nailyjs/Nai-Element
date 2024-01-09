@@ -67,7 +67,7 @@ export default async () => {
               email: { required: true, type: () => String, description: "\u90AE\u7BB1" },
               username: { required: true, type: () => String, description: "\u7528\u6237\u540D" },
               password: { required: true, type: () => String, description: "\u5BC6\u7801", minLength: 6 },
-              verifyCode: { required: true, type: () => Number, description: "\u9A8C\u8BC1\u7801" },
+              verifyCode: { required: true, type: () => Number, description: "\u9A8C\u8BC1\u7801", maximum: 999999 },
             },
           },
         ],

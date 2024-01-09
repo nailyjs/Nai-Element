@@ -1,0 +1,808 @@
+{"level":"info","message":"Use application-development.yml file"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"level":"info","message":"Use application-development.yml file"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"verbose","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"info","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"warn","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"verbose","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"verbose","message":"Passport app is running on http://[::1]:3000"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application..."}
+{"context":"CommonConfigModule","level":"info","message":"Use application-development.yml file"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DiscoveryModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonLoggerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"ThrottlerModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"DevtoolsModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CacheModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"I18nModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"CommonErrorModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"TransportModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"LoginModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"RegisterModule dependencies initialized"}
+{"context":"InstanceLoader","level":"info","message":"UserModule dependencies initialized"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route"}
+{"context":"RoutesResolver","level":"info","message":"LoginController {/login}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login/username/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"RegisterController {/register}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/register/email/password, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/transport}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/transport/email, POST} route"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user/logging, GET} route"}
+{"context":"PrettierService","level":"info","message":"Formatted swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"SwaggerGenerate","level":"info","message":"Generate swagger file to resources/schema/swagger/passport.openapi.json"}
+{"context":"I18nService","level":"info","message":"Checking translation changes"}
+{"context":"I18nService","level":"info","message":"No changes detected"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started"}
+{"context":"NestApplication","level":"verbose","message":"Passport app is running on http://[::1]:3000"}

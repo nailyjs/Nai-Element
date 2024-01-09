@@ -1,5 +1,5 @@
 import { DTO, DTOStatus } from "cc.naily.element.swagger";
-import { IsEmail, IsNotEmpty, IsNumber, IsRegExp, IsString, MinLength } from "cc.naily.element.validator";
+import { IsEmail, IsNotEmpty, IsNumber, IsRegExp, IsString, Max, MinLength } from "cc.naily.element.validator";
 
 @DTO()
 @DTOStatus(201)
@@ -48,6 +48,7 @@ export class RegisterByEmailPasswordBodyDTO {
    * @type {number}
    * @memberof RegisterByEmailPasswordBodyDTO
    */
+  @Max(999999)
   @IsNumber()
   @IsNotEmpty()
   verifyCode: number;

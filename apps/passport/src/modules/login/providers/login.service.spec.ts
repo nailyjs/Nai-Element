@@ -3,6 +3,7 @@ import { Test } from "@nestjs/testing";
 import { LoginService } from "./login.service";
 import { UserRepository } from "cc.naily.element.database";
 import { AppModule } from "../../../app.module";
+import "jest";
 
 describe("LoginService", () => {
   let loginService: LoginService;
