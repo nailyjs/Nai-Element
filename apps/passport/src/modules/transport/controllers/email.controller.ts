@@ -18,7 +18,7 @@ export class EmailController {
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/07
    * @param {SendEmailVerifyCodeBodyDTO} body
-   * @return {*}
+   * @return {Promise<number>} 1012: 发送成功 1013: 发送失败
    * @memberof EmailController
    */
   @Post("email")
@@ -26,7 +26,7 @@ export class EmailController {
   @Throttle({ default: { limit: 5, ttl: 60000 } })
   @SwaggerResponse(SendEmailVerifyCode429ResDTO)
   @SwaggerResponse(SendEmailVerifyCode201ResDTO)
-  public async sendEmailVerifyCode(@Body() body: SendEmailVerifyCodeBodyDTO) {
+  public async sendEmailVerifyCode(@Body() body: SendEmailVerifyCodeBodyDTO): Promise<number> {
     const result = await this.emailService.sendCode(body.email);
     if (result) {
       return 1012;
