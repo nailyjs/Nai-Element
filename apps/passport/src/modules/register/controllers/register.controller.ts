@@ -9,7 +9,7 @@
 import { Body, Controller, Ip, Post, UseInterceptors } from "@nestjs/common";
 import { RegisterByEmailPasswordBodyDTO } from "../dtos/register/email/password/register.dto";
 import { ApiTags } from "@nestjs/swagger";
-import { ResInterceptor } from "cc.naily.element.shared";
+import { CommonLogger, ResInterceptor } from "cc.naily.element.shared";
 import { RegisterService } from "../providers/register.service";
 import { EmailService } from "../../../providers/email.service";
 
@@ -19,6 +19,7 @@ export class RegisterController {
   constructor(
     private readonly registerService: RegisterService,
     private readonly emailService: EmailService,
+    private readonly commonLogger: CommonLogger,
   ) {}
 
   /**
@@ -34,6 +35,8 @@ export class RegisterController {
     await this.emailService.checkCode(body.email, body.verifyCode);
     const user = await this.registerService.registerByEmailPassword(body.email, body.username, body.password, ip);
     this.emailService.deleteCode(body.email).then();
+    this.commonLogger.setContext(RegisterController.name);
+    this.commonLogger.log(`用户注册成功 ${JSON.stringify(user)}`);
     return { user };
   }
 }
