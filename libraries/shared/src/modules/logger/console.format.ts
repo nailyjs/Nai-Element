@@ -8,7 +8,7 @@
 
 import { format } from "winston";
 import { TransformableInfo } from "logform";
-import { blue, blueBright, cyan, cyanBright, green, greenBright, magenta, magentaBright, red, redBright, yellow, yellowBright } from "chalk";
+import { cyan, cyanBright, green, greenBright, magenta, magentaBright, red, redBright, yellow, yellowBright } from "chalk";
 
 export const consoleFormat = format.printf((info: TransformableInfo) => {
   const { level, message, context } = info;
@@ -19,7 +19,7 @@ export const consoleFormat = format.printf((info: TransformableInfo) => {
   if (level === "error") {
     return `${red(`[${label}] ${pid}  -`)} ${timestamp}    ${red(`${formattedLevel} ${redBright(context ? `[${context}]` : "")} ${message}`)}`;
   } else if (level === "info") {
-    return `${blue(`[${label}] ${pid}  -`)} ${timestamp}    ${blue(`${formattedLevel} ${blueBright(context ? `[${context}]` : "")} ${message}`)}`;
+    return `${green(`[${label}] ${pid}  -`)} ${timestamp}    ${green(`${formattedLevel} ${greenBright(context ? `[${context}]` : "")} ${message}`)}`;
   } else if (level === "debug") {
     return `${cyan(`[${label}] ${pid}  -`)} ${timestamp}    ${cyan(`${formattedLevel}  ${cyanBright(context ? `[${context}]` : "")} ${message}`)}`;
   } else if (level === "warn") {
