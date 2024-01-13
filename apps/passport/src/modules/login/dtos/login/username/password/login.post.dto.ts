@@ -1,3 +1,5 @@
+import { IsNotEmpty, IsString } from "cc.naily.element.validator";
+
 export class LoginByUsernamePasswordDTO {
   /**
    * 用户名
@@ -7,6 +9,8 @@ export class LoginByUsernamePasswordDTO {
    * @type {string}
    * @memberof LoginByUsernamePasswordDTO
    */
+  @IsString()
+  @IsNotEmpty()
   readonly username: string;
 
   /**
@@ -17,5 +21,7 @@ export class LoginByUsernamePasswordDTO {
    * @type {string}
    * @memberof LoginByUsernamePasswordDTO
    */
+  @IsString()
+  @IsNotEmpty()
   readonly password: string;
 }

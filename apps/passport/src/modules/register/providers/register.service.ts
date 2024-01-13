@@ -7,23 +7,15 @@
  */
 
 import { ForbiddenException, Injectable } from "@nestjs/common";
-import { User, UserRepository } from "cc.naily.element.database";
-import { genSaltSync, hashSync } from "bcrypt";
+import { UserRepository } from "cc.naily.element.database";
 
 @Injectable()
 export class RegisterService {
   constructor(private readonly userRepository: UserRepository) {}
 
   public async registerByEmailPassword(email: string, username: string, password: string, ip: string) {
-    const user = await this.userRepository.findOneBy({ email });
+    const user = await this.userRepository.checkEmailOrUsername(email, username);
     if (user) throw new ForbiddenException(1009);
-    const newUser = new User();
-    newUser.email = email;
-    newUser.username = username;
-    newUser.password = hashSync(password, genSaltSync());
-    newUser.ip = ip;
-    await this.userRepository.save(newUser);
-    user.password = undefined;
-    return user;
+    return await this.userRepository.registerByEmail(email, username, password, ip);
   }
 }

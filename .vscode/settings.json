@@ -14,6 +14,7 @@
     "user": "admin",
     "login": "admin",
     "register": "admin",
-    "transport": "mail"
+    "transport": "mail",
+    "pay": "controller"
   }
 }

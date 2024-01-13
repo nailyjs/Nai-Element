@@ -27,8 +27,8 @@ export const consoleFormat = format.printf((info: TransformableInfo) => {
       `${formattedLevel}  ${yellowBright(context ? `[${context}]` : "")} ${message}`,
     )}`;
   } else if (level === "verbose") {
-    return `${magenta(`[${label}] ${pid}  -`)} ${timestamp}    ${magenta(
-      `${formattedLevel}  ${magentaBright(context ? `[${context}]` : "")} ${message}`,
+    return `${magenta(`[${label}] ${pid}  -`)} ${timestamp} ${magenta(
+      `${formattedLevel} ${magentaBright(context ? `[${context}]` : "")} ${message}`,
     )}`;
   } else {
     return `${green(`[${label}] ${pid}  -`)} ${timestamp}    ${green(`${formattedLevel}  ${greenBright(context ? `[${context}]` : "")} ${message}`)}`;

@@ -14,6 +14,7 @@ export class CommonUnknownFilter implements ExceptionFilter {
       statusCode: 500,
       code: 999,
       message: this.i18nService.t(`global.errorCode.999`),
+      timestamp: new Date(),
     };
 
     console.error(exception);

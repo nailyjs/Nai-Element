@@ -36,11 +36,33 @@ global:
     transport: smtp://app@smtp.qq.com
     # 发件人
     from: '"腕上心电社区" <gczgroup@qq.com>'
+  # JWT配置
   jwt:
     # 保密，不要泄露
     secret: JWT_SECRET
     # token过期时间 可以用这个来控制登录时长
     expiresIn: 30d
+  # 支付配置
+  pay:
+    # 当前启用的的支付方式
+    enabled:
+      - xunhupay
+    # 迅虎支付配置
+    xunhupay:
+      # APP的名字
+      name: 心电社区 - 充值
+      # APPID
+      appid: 200000114514
+      # APP SECRET
+      appsecret: a1145142411451114514145114514b
+      # 必填。用户支付成功后，我们服务器会主动发送一个post消息到这个网址(注意：当前接口内，SESSION内容无效，手机端不支持中文域名)
+      notify_url: http://localhost:3000/api/pay/xunhupay/notify
+      # 可选。用户支付成功后，我们会让用户浏览器自动跳转到这个网址
+      return_url: http://localhost:3000/api/pay/xunhupay/return
+      # 可选。用户支付成功后，我们会通过这个网址通知您的服务器
+      callback_url: http://localhost:3000/api/pay/xunhupay/callback
+      # 网关，不要改 除非迅虎支付网关变了
+      gateway: https://api.xunhupay.com/payment/do.html
 
 # 账户微服务配置
 passport:

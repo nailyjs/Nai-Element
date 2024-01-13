@@ -23,7 +23,7 @@ export class RegisterController {
   ) {}
 
   /**
-   * 通过邮箱密码注册
+   * 通过邮箱验证码和密码注册
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/06

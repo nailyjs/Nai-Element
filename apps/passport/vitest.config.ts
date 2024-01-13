@@ -14,6 +14,7 @@ export default defineProject({
   resolve: {
     alias: {
       "@": "./src",
+      src: "./src",
     },
   },
   plugins: [

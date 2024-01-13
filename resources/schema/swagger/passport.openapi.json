@@ -50,7 +50,7 @@
     "/register/email/password": {
       "post": {
         "operationId": "RegisterController_registerByEmailPassword",
-        "summary": "通过邮箱密码注册",
+        "summary": "通过邮箱验证码和密码注册",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -125,6 +125,74 @@
         },
         "tags": ["用户"],
         "security": [{ "bearer": [] }]
+      }
+    },
+    "/user/avatar": {
+      "put": {
+        "operationId": "UserController_updateAvatar",
+        "summary": "更新头像",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutUserAvatarBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["用户"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/pay/xunhupay": {
+      "post": {
+        "operationId": "XunhupayController_xunhupay",
+        "summary": "迅虎支付",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayControllerXunhupayBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["充值"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/pay/xunhupay/notify": {
+      "post": {
+        "operationId": "XunhupayController_xunhupayNotify",
+        "summary": "迅虎微信支付回调 请勿调用",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            }
+          }
+        },
+        "tags": ["充值"]
       }
     }
   },
@@ -306,6 +374,29 @@
           }
         },
         "required": ["statusCode", "code", "message", "data"]
+      },
+      "PutUserAvatarBodyDTO": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string", "description": "头像地址" }
+        },
+        "required": ["url"]
+      },
+      "PayControllerXunhupayBodyDTO": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "支付金额",
+            "minimum": 0.01
+          },
+          "type": {
+            "type": "string",
+            "description": "支付方式 xunhupayWechat 迅虎微信支付 xunhupayAlipay 迅虎支付宝支付",
+            "default": "xunhupayWechat"
+          }
+        },
+        "required": ["amount", "type"]
       }
     }
   }

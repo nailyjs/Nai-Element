@@ -11,7 +11,7 @@ export class LoginService {
   ) {}
 
   public async loginByUsernamePassword(username: string, password: string) {
-    const user = await this.userRepository.findOneBy({ username, password });
+    const user = await this.userRepository.findOneBy({ username });
     if (!user) throw new NotFoundException(1007);
     if (!compareSync(password, user.password)) throw new ForbiddenException(1008);
     const access_token = this.jwtService.sign({ userID: user.userID });

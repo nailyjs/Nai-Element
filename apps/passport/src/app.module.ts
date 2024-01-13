@@ -1,5 +1,5 @@
 import helmet from "helmet";
-import { APP_GUARD } from "@nestjs/core";
+import { APP_GUARD, APP_PIPE } from "@nestjs/core";
 import { AppController } from "./app.controller";
 import { CommonJwtModule } from "cc.naily.element.auth";
 import { CommonTypeOrmModule } from "cc.naily.element.database";
@@ -9,6 +9,8 @@ import { TransportModule } from "./modules/transport/transport.module";
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import Shared, { ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
 import { UserModule } from "./modules/user/user.module";
+import { PayModule } from "./modules/pay/pay.module";
+import { CommonValidationPipe } from "cc.naily.element.validator";
 
 @Module({
   imports: [
@@ -26,12 +28,17 @@ import { UserModule } from "./modules/user/user.module";
     RegisterModule.register(),
     TransportModule.register(),
     UserModule.register(),
+    PayModule.register(),
   ],
   controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,
       useClass: ThrottlerBehindProxyGuard,
+    },
+    {
+      provide: APP_PIPE,
+      useClass: CommonValidationPipe,
     },
   ],
 })

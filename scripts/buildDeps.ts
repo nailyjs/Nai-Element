@@ -31,7 +31,6 @@ new Listr(
         const { CommonConfigModule } = require("cc.naily.element.shared");
 
         class BuildModule {}
-
         Module({
           imports: [CommonConfigModule.forRoot()],
         })(BuildModule);

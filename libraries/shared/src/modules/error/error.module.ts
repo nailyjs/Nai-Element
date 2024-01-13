@@ -1,6 +1,7 @@
 import { DynamicModule, Module } from "@nestjs/common";
 import { APP_FILTER } from "@nestjs/core";
 import { CommonHttpFilter, CommonUnknownFilter } from "../../errors";
+import { CommonAxiosFilter } from "../../errors/axios.filter";
 
 @Module({})
 export class CommonErrorModule {
@@ -24,6 +25,10 @@ export class CommonErrorModule {
         {
           provide: APP_FILTER,
           useClass: CommonHttpFilter,
+        },
+        {
+          provide: APP_FILTER,
+          useClass: CommonAxiosFilter,
         },
       ],
     };

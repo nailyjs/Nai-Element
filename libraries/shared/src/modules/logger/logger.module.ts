@@ -10,43 +10,48 @@ import { DynamicModule, Global, Module } from "@nestjs/common";
 import { CommonLogger } from "./logger.service";
 import { createLogger, format, transports as WinstonTransports } from "winston";
 import { consoleFormat } from "./console.format";
+import { join } from "path";
+
+function loggerPath(level: string) {
+  return join("log", process.env.NODE_ENV ? process.env.NODE_ENV : "", `${level}.log`);
+}
 
 export const LOGGER = createLogger({
   level: "debug",
   transports: [
     // 打印
     new WinstonTransports.Console({
-      format: consoleFormat,
+      format: format.combine(format.timestamp(), consoleFormat),
     }),
     // JSON
     new WinstonTransports.File({
-      filename: "log/json/all.log",
-      format: format.json(),
+      filename: loggerPath("all"),
+      format: format.combine(format.timestamp(), format.json()),
     }),
     new WinstonTransports.File({
-      filename: "log/json/info.log",
+      filename: loggerPath("info"),
       level: "info",
-      format: format.json(),
+      format: format.combine(format.timestamp(), format.json()),
     }),
     new WinstonTransports.File({
-      filename: "log/json/error.log",
+      filename: loggerPath("error"),
       level: "error",
-      format: format.json(),
+      format: format.combine(format.timestamp(), format.json()),
     }),
     new WinstonTransports.File({
-      filename: "log/json/verbose.log",
+      filename: loggerPath("verbose"),
       level: "verbose",
-      format: format.json(),
+      format: format.combine(format.timestamp(), format.json()),
     }),
     new WinstonTransports.File({
-      filename: "log/json/warn.log",
+      filename: loggerPath("warn"),
       level: "warn",
-      format: format.json(),
+      format: format.combine(format.timestamp(), format.json()),
     }),
     new WinstonTransports.File({
-      filename: "log/json/debug.log",
+      filename: loggerPath("debug"),
       level: "debug",
-      format: format.json(),
+      format: format.combine(format.timestamp(), format.json()),
     }),
   ],
 });

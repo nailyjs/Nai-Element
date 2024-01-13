@@ -17,6 +17,7 @@ export class CommonHttpFilter implements ExceptionFilter {
         statusCode: status,
         code: typeof msg !== "number" ? Number(msg) : msg,
         message: this.i18nService.t(`global.errorCode.${msg}`),
+        timestamp: new Date(),
       });
       return new CommonLogger(CommonHttpFilter.name).error(JSON.stringify(exception));
     }
@@ -26,6 +27,7 @@ export class CommonHttpFilter implements ExceptionFilter {
         statusCode: status,
         code: 0,
         message: msg,
+        timestamp: new Date(),
       });
       return new CommonLogger(CommonHttpFilter.name).error(JSON.stringify(exception));
     }
@@ -35,6 +37,7 @@ export class CommonHttpFilter implements ExceptionFilter {
         statusCode: status,
         code: msg["code"] || 0,
         message: msg["message"] || exception.message,
+        timestamp: new Date(),
         ...msg,
       });
       return new CommonLogger(CommonHttpFilter.name).error(JSON.stringify(exception));

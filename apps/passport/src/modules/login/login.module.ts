@@ -5,6 +5,7 @@ import { UserRepository } from "cc.naily.element.database";
 import { BusinessModule } from "cc.naily.element.shared";
 
 @Module({
+  imports: [],
   controllers: [LoginController],
   providers: [LoginService, UserRepository],
 })

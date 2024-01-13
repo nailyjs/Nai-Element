@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserValue } from "./userValue.entity";
 import { UserControl } from "./userControl.entity";
+import { UserOrder } from "./userOrder.entity";
 
 @Entity()
 export class User {
@@ -41,4 +42,8 @@ export class User {
   @OneToOne(() => UserControl, (userControl) => userControl.user)
   @JoinColumn()
   userControl: UserControl;
+
+  @OneToMany(() => UserOrder, (userOrder) => userOrder.user)
+  @JoinColumn()
+  userOrder: UserOrder[];
 }

@@ -7,7 +7,7 @@
  */
 
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { UserControlRepository, UserRepository } from "cc.naily.element.database";
+import { User, UserControlRepository, UserRepository } from "cc.naily.element.database";
 
 @Injectable()
 export class UserService {
@@ -27,8 +27,10 @@ export class UserService {
     const user = await this.userRepository.findOne({
       where: { userID },
       select: { password: false },
+      relations: { userControl: true, userValue: true },
     });
     if (!user) throw new BadRequestException(1015);
+    user.password = undefined;
     return { user };
   }
 
@@ -43,7 +45,7 @@ export class UserService {
     const userControl = await this.userControlRepository.findOne({
       where: { user: { userID } },
     });
-    if (!userControl) throw new BadRequestException(1015);
+    if (!userControl) await this.userRepository.registerControl(await this.userRepository.findOneBy({ userID }));
 
     const user = await this.userRepository.findOne({
       where: { userID },
@@ -55,5 +57,22 @@ export class UserService {
     });
     if (!user) throw new BadRequestException(1015);
     return { user };
+  }
+
+  /**
+   * 更新头像
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/14
+   * @param {string} url 头像地址
+   * @param {number} userID 用户id
+   * @return {User}
+   * @memberof UserService
+   */
+  public async updateAvatar(url: string, userID: number): Promise<User> {
+    const user = await this.userRepository.findOneBy({ userID });
+    if (!user) throw new BadRequestException(1015);
+    user.avatar = url;
+    return await this.userRepository.save(user);
   }
 }

@@ -114,6 +114,25 @@ export default async () => {
             },
           },
         ],
+        [
+          import("./modules/user/dtos/user/avatar/avatar.dto"),
+          { PutUserAvatarBodyDTO: { url: { required: true, type: () => String, description: "\u5934\u50CF\u5730\u5740" } } },
+        ],
+        [
+          import("./modules/pay/dtos/pay/wx/xunhupay.dto"),
+          {
+            PayControllerXunhupayBodyDTO: {
+              amount: { required: true, type: () => Number, description: "\u652F\u4ED8\u91D1\u989D", minimum: 0.01 },
+              type: {
+                required: true,
+                type: () => String,
+                description:
+                  "\u652F\u4ED8\u65B9\u5F0F xunhupayWechat \u8FC5\u864E\u5FAE\u4FE1\u652F\u4ED8 xunhupayAlipay \u8FC5\u864E\u652F\u4ED8\u5B9D\u652F\u4ED8",
+                default: "xunhupayWechat",
+              },
+            },
+          },
+        ],
       ],
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
@@ -130,7 +149,9 @@ export default async () => {
         ],
         [
           import("./modules/register/controllers/register.controller"),
-          { RegisterController: { registerByEmailPassword: { summary: "\u901A\u8FC7\u90AE\u7BB1\u5BC6\u7801\u6CE8\u518C" } } },
+          {
+            RegisterController: { registerByEmailPassword: { summary: "\u901A\u8FC7\u90AE\u7BB1\u9A8C\u8BC1\u7801\u548C\u5BC6\u7801\u6CE8\u518C" } },
+          },
         ],
         [
           import("./modules/transport/controllers/email.controller"),
@@ -138,7 +159,21 @@ export default async () => {
         ],
         [
           import("./modules/user/controllers/user.controller"),
-          { UserController: { getLoggingUser: { summary: "\u83B7\u53D6\u5DF2\u767B\u5F55\u7528\u6237\u4FE1\u606F" } } },
+          {
+            UserController: {
+              getLoggingUser: { summary: "\u83B7\u53D6\u5DF2\u767B\u5F55\u7528\u6237\u4FE1\u606F" },
+              updateAvatar: { summary: "\u66F4\u65B0\u5934\u50CF", type: Object },
+            },
+          },
+        ],
+        [
+          import("./modules/pay/controllers/xunhupay.controller"),
+          {
+            XunhupayController: {
+              xunhupay: { summary: "\u8FC5\u864E\u652F\u4ED8", type: Object },
+              xunhupayNotify: { summary: "\u8FC5\u864E\u5FAE\u4FE1\u652F\u4ED8\u56DE\u8C03 \u8BF7\u52FF\u8C03\u7528", type: String },
+            },
+          },
         ],
       ],
     },

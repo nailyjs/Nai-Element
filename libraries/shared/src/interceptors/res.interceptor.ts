@@ -19,6 +19,7 @@ export class ResInterceptor implements NestInterceptor {
             statusCode: typeof d.statusCode === "number" ? d.statusCode : 200,
             code: typeof d.code === "number" ? d.code : 0,
             message: typeof d.message === "number" ? d.message : "OK",
+            timestamp: new Date(),
             ...d,
           };
         } else if (typeof d === "object") {
@@ -26,6 +27,7 @@ export class ResInterceptor implements NestInterceptor {
             statusCode: 200,
             code: 1000,
             message: this.i18nService.t("global.errorCode.1000"),
+            timestamp: new Date(),
             data: d,
           };
         } else if ((typeof d === "string" && this.isNumber(d)) || typeof d === "number") {
@@ -34,12 +36,14 @@ export class ResInterceptor implements NestInterceptor {
             statusCode: 200,
             code: Number(d),
             message: message ? message : this.i18nService.t("global.errorCode.1000"),
+            timestamp: new Date(),
           };
         } else if (typeof d === "string") {
           return {
             statusCode: 200,
             code: 1000,
             message: d,
+            timestamp: new Date(),
           };
         }
       }),

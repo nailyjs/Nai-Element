@@ -23,6 +23,13 @@ export type I18nTranslations = {
             "1014": string;
             "1015": string;
             "1016": string;
+            "1017": string;
+            "1018": string;
+            "1019": string;
+            "1020": string;
+            "1021": string;
+            "1022": string;
+            "1023": string;
         };
     };
     "passport": {

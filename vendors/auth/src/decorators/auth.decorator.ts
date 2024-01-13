@@ -1,6 +1,7 @@
-import { applyDecorators, createParamDecorator, UseGuards } from "@nestjs/common";
-import { CommonMustAuthGuard, CommonOptionalAuthGuard } from "../modules/jwt";
+import { applyDecorators, createParamDecorator, ExecutionContext, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth } from "@nestjs/swagger";
+import { CommonAuthGuard } from "../guards/common.guard";
+import { Request } from "express";
 
 /**
  * 授权装饰器
@@ -12,8 +13,8 @@ import { ApiBearerAuth } from "@nestjs/swagger";
  * @author Zero <gczgroup@qq.com>
  * @since 2024
  */
-export function Auth(isOptional: boolean = false): ClassDecorator & MethodDecorator {
-  return applyDecorators(ApiBearerAuth(), UseGuards(isOptional ? CommonOptionalAuthGuard : CommonMustAuthGuard));
+export function Auth(): ClassDecorator & MethodDecorator {
+  return applyDecorators(ApiBearerAuth(), UseGuards(CommonAuthGuard));
 }
 
 /**
@@ -23,9 +24,7 @@ export function Auth(isOptional: boolean = false): ClassDecorator & MethodDecora
  * @description 用于获取已登录用户信息 必须在控制器方法的参数中使用
  * @returns {ParameterDecorator}
  */
-export function User(): ParameterDecorator {
-  return createParamDecorator((data, ctx) => {
-    const request = ctx.switchToHttp().getRequest();
-    return request.user;
-  });
-}
+export const User = createParamDecorator((data: unknown, ctx: ExecutionContext) => {
+  const request = ctx.switchToHttp().getRequest<Request>();
+  return request.user;
+});
