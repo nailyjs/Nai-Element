@@ -1,6 +1,7 @@
 {
   "name": "cc.naily.element.validator",
-  "version": "1.0.0",
+  "version": "5.0.0",
+  "private": true,
   "main": "../../resources/dist/libraries/validator/cjs/index.js",
   "module": "../../resources/dist/libraries/validator/esm/index.js",
   "types": "./src/index.ts",

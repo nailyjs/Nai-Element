@@ -1,6 +1,7 @@
 {
   "name": "cc.naily.element.swagger",
-  "version": "1.0.0",
+  "version": "5.0.0",
+  "private": true,
   "main": "../../resources/dist/libraries/swagger/cjs/index.js",
   "module": "../../resources/dist/libraries/swagger/esm/index.js",
   "types": "./src/index.ts",
