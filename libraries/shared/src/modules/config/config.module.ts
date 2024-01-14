@@ -11,6 +11,7 @@ declare global {
       PROJECT_ROOT: string;
       RESOURCE_ROOT: string;
       VENDOR_ROOT: string;
+      PUBLIC_ROOT: string;
       NODE_ENV: string;
       CONFIG_PATH?: string;
     }
@@ -19,6 +20,7 @@ declare global {
 
 process.env.PROJECT_ROOT = join(__dirname, "..", "..", "..", "..", "..", "..", "..");
 process.env.VENDOR_ROOT = join(__dirname, "..", "..", "..", "..", "..", "..", "..", "vendors");
+process.env.PUBLIC_ROOT = join(__dirname, "..", "..", "..", "..", "..", "..", "..", "public");
 process.env.RESOURCE_ROOT = join(__dirname, "..", "..", "..", "..", "..", "..");
 
 @Module({})

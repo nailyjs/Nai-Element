@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, Post, UseInterceptors } from "@nestjs/common";
 import { XunhupayService } from "../providers/xunhupay.service";
 import { ApiTags } from "@nestjs/swagger";
-import { PayControllerXunhupayBodyDTO } from "../dtos/pay/wx/xunhupay.dto";
+import { PayControllerXunhupayBodyDTO } from "../dtos/pay/xunhupay/xunhupay.dto";
 import { ResInterceptor } from "cc.naily.element.shared";
 import { XunhupayNotify } from "../interfaces/xunhupay.interface";
 import { User as UserEntity, UserOrderRepository } from "cc.naily.element.database";
@@ -12,8 +12,8 @@ import { PayService } from "../providers/pay.service";
 @Controller("pay/xunhupay")
 export class XunhupayController {
   constructor(
-    private readonly xunhupayService: XunhupayService,
     private readonly payService: PayService,
+    private readonly xunhupayService: XunhupayService,
     private readonly userOrderRepository: UserOrderRepository,
   ) {}
 
@@ -28,7 +28,7 @@ export class XunhupayController {
   @Auth()
   @UseInterceptors(ResInterceptor)
   public async xunhupay(@User() user: Omit<UserEntity, "password">, @Body() { amount, type }: PayControllerXunhupayBodyDTO) {
-    const data = await this.xunhupayService.xunhupay(amount, type as "xunhupayWechat" | "xunhupayAlipay");
+    const data = await this.xunhupayService.pay(amount, type as "xunhupayWechat" | "xunhupayAlipay");
     // 在数据库里创建订单
     await this.userOrderRepository.createOrder(
       user,

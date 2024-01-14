@@ -6,11 +6,17 @@ node_modules
 !package.json
 !tsconfig.json
 
+# macOS finder file
 .DS_Store
 
+# log files
 log
 
 # coverage test
 coverage
 
+# development environment's files
+public/development
+
+# custom environment's config files
 application-*.yml

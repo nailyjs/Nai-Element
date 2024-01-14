@@ -17,7 +17,7 @@ export const consoleFormat = format.printf((info: TransformableInfo) => {
   const formattedLevel = level.toUpperCase();
   const label = "Naily";
   if (level === "error") {
-    return `${red(`[${label}] ${pid}  -`)} ${timestamp}    ${red(`${formattedLevel} ${redBright(context ? `[${context}]` : "")} ${message}`)}`;
+    return `${red(`[${label}] ${pid}  -`)} ${timestamp}   ${red(`${formattedLevel} ${redBright(context ? `[${context}]` : "")} ${message}`)}`;
   } else if (level === "info") {
     return `${green(`[${label}] ${pid}  -`)} ${timestamp}    ${green(`${formattedLevel} ${greenBright(context ? `[${context}]` : "")} ${message}`)}`;
   } else if (level === "debug") {

@@ -4,11 +4,11 @@ import { ConfigService } from "@nestjs/config";
 @Injectable()
 export class PayService {
   constructor(private readonly configService: ConfigService) {
-    const value = configService.getOrThrow<string[]>("global.pay.enabled");
-    if (!Array.isArray(value)) throw new Error("global.pay.enabled must be an array");
-    value.forEach((payMethod) => {
-      if (typeof payMethod !== "string") throw new Error("global.pay.enabled must be an array of string");
-    });
+    // 初始化检查各种支付方式是否启用
+    this.check("alipay");
+    this.check("wechat");
+    this.check("xunhupayWechat");
+    this.check("xunhupayAlipay");
   }
 
   /**
@@ -16,12 +16,25 @@ export class PayService {
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/13
-   * @param {("xunhupay" | "wechat" | "alipay")} payMethod
+   * @param {("xunhupay" | "wechat" | "alipay")} payMethod 支付方式
    * @return {boolean}
    * @memberof PayService
    */
   public check(payMethod: "xunhupayWechat" | "xunhupayAlipay" | "wechat" | "alipay"): boolean {
     const enabled = this.configService.getOrThrow<string[]>("global.pay.enabled");
+    if (!Array.isArray(enabled)) throw new Error("global.pay.enabled must be an array");
+    enabled.forEach((payMethod) => {
+      if (typeof payMethod !== "string") {
+        throw new Error("global.pay.enabled must be an array of string");
+      }
+      if (payMethod !== "alipay" && payMethod !== "wechat" && payMethod !== "xunhupayWechat" && payMethod !== "xunhupayAlipay")
+        throw new Error("YMLCONFIG ERROR! payMethod must be alipay or wechat or xunhupayWechat or xunhupayAlipay");
+
+      if (!this.configService.get("global.pay." + payMethod)) {
+        throw new Error(`YMLCONFIG ERROR! ${payMethod} is not configured in global.pay, please check your config file`);
+      }
+    });
+
     return enabled.includes(payMethod);
   }
 
@@ -56,7 +69,7 @@ export class PayService {
    * @date 2024/01/14
    * @private
    * @param {number} text
-   * @return {*}  {number}
+   * @return {number}
    * @memberof PayService
    */
   public handleMoney(text: number): number {

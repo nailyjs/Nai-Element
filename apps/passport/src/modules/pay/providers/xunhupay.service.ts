@@ -5,9 +5,10 @@ import { HttpService } from "@nestjs/axios";
 import { ConfigService } from "@nestjs/config";
 import { PayService } from "./pay.service";
 import { Xunhupay, XunhupayBody } from "../interfaces/xunhupay.interface";
+import { PayServiceImpl, PayServiceResponse } from "../interfaces/pay.interface";
 
 @Injectable()
-export class XunhupayService {
+export class XunhupayService implements PayServiceImpl {
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
@@ -47,11 +48,11 @@ export class XunhupayService {
    * @param {string} title
    * @memberof WechatService
    */
-  public async xunhupay(
+  public async pay<T = Xunhupay>(
     amount: number,
     type: "xunhupayWechat" | "xunhupayAlipay",
     title: string = this.configService.get(`global.pay.${type}.name`) ? this.configService.get(`global.pay.${type}.name`) : "充值",
-  ): Promise<any> {
+  ): Promise<PayServiceResponse<T>> {
     // 检查是否开启迅虎支付
     if (this.payService.check(type) === false) throw new BadRequestException(1018);
 
@@ -96,8 +97,8 @@ export class XunhupayService {
 
     // 返回请求结果
     return {
-      ...data,
-      trade_order_id,
+      trade_order_id: trade_order_id.toString(),
+      response_data: data,
     };
   }
 }
