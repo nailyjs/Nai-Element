@@ -32,6 +32,16 @@ export class CommonTypeOrmModule {
           autoLoadEntities: true,
           entities: [join(process.env.RESOURCE_ROOT, "**/*/cjs/**/*.entity.js")],
           subscribers: [join(process.env.RESOURCE_ROOT, "**/*/cjs/**/*.subscriber.js")],
+          cache: {
+            type: "ioredis",
+            duration: 1000 * 10,
+            options: {
+              host: configService.getOrThrow("global.datasource.redis.host"),
+              port: configService.getOrThrow("global.datasource.redis.port"),
+              password: configService.getOrThrow("global.datasource.redis.password"),
+              db: configService.get("global.datasource.redis.db"),
+            },
+          },
         };
       },
     });

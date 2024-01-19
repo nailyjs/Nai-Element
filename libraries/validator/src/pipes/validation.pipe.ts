@@ -1,6 +1,6 @@
 import { ArgumentMetadata, BadRequestException, Injectable, PipeTransform } from "@nestjs/common";
 import { I18nService } from "nestjs-i18n";
-import { I18nTranslations } from "cc.naily.element.generated";
+import { I18nPath, I18nTranslations } from "cc.naily.element.generated";
 import { plainToClass } from "class-transformer";
 import { ValidationError, validate } from "class-validator";
 
@@ -19,10 +19,18 @@ export class CommonValidationPipe implements PipeTransform {
     const object = plainToClass(metatype, value);
     const errors = await validate(object);
     if (errors.length > 0) {
-      throw new BadRequestException({
-        code: 1017,
-        message: `${this.i18nService.t("global.errorCode.1017").replace("{}", `{${this.getFirstError(errors)}}`)}`,
-      });
+      const firstError = this.getFirstError(errors);
+      if (!firstError.startsWith("global.errorCode.")) {
+        throw new BadRequestException({
+          code: 1017,
+          message: `${this.i18nService.t("global.errorCode.1017").replace("{}", `{${firstError}}`)}`,
+        });
+      } else {
+        throw new BadRequestException({
+          code: parseInt(firstError.replace("global.errorCode.", "")),
+          message: `${this.i18nService.t(firstError as I18nPath)}`,
+        });
+      }
     }
     return value;
   }

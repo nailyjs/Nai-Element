@@ -5,6 +5,7 @@ import { CommonValidationPipe } from "cc.naily.element.validator";
 import { APP_GUARD, APP_PIPE } from "@nestjs/core";
 import { ProductModule } from "./modules/product/product.module";
 import { CommonTypeOrmModule } from "cc.naily.element.database";
+import { CommonJwtModule } from "cc.naily.element.auth";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CommonTypeOrmModule } from "cc.naily.element.database";
     Shared.CommonDevModule.forRoot(),
     Shared.CommonLoggerModule.forRoot(),
     CommonTypeOrmModule.forRoot(),
+    CommonJwtModule.forRoot(),
     ProductModule.register(),
   ],
   controllers: [AppController],

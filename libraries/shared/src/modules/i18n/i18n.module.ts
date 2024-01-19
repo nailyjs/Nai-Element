@@ -28,7 +28,13 @@ export class CommonI18nModule {
           typesOutputPath: join(process.env.PROJECT_ROOT, "libraries/generated/src/i18n.generated.ts"),
         };
       },
-      resolvers: [AcceptLanguageResolver, new QueryResolver(["lang", "locale"])],
+      resolvers: [
+        AcceptLanguageResolver,
+        {
+          use: QueryResolver,
+          options: ["lang", "locale"],
+        },
+      ],
     });
   }
 }

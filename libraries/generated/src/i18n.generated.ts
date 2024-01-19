@@ -31,6 +31,8 @@ export type I18nTranslations = {
             "1022": string;
             "1023": string;
             "1024": string;
+            "1025": string;
+            "1026": string;
         };
     };
     "passport": {

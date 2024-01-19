@@ -30,5 +30,5 @@ import { CommonLogger, EnableSwagger } from "cc.naily.element.shared";
   await app.listen(port);
   return app;
 })().then(async (app) => {
-  new CommonLogger("NestApplication").verbose(`Passport app is running on ${await app.getUrl()}`);
+  new CommonLogger("NestApplication").verbose(`Shop app is running on ${await app.getUrl()}`);
 });

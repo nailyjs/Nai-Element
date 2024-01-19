@@ -26,8 +26,23 @@
             "name": "orderTime",
             "required": false,
             "in": "query",
-            "description": "排序方式",
-            "schema": { "enum": ["latest", "oldtest"], "type": "string" }
+            "description": "时间排序",
+            "schema": {
+              "default": "latest",
+              "enum": ["latest", "oldest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderHot",
+            "required": false,
+            "in": "query",
+            "description": "热度排序",
+            "schema": {
+              "default": "hottest",
+              "enum": ["hottest", "coldest"],
+              "type": "string"
+            }
           },
           {
             "name": "filterTags",
@@ -48,6 +63,29 @@
           }
         },
         "tags": ["产品"]
+      },
+      "post": {
+        "operationId": "ProductController_createProduct",
+        "summary": "创建商品",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PostCreateProductDTO" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["产品"],
+        "security": [{ "bearer": [] }]
       }
     }
   },
@@ -68,6 +106,43 @@
     "securitySchemes": {
       "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" }
     },
-    "schemas": {}
+    "schemas": {
+      "PostCreateProductDTO": {
+        "type": "object",
+        "properties": {
+          "productName": { "type": "string", "description": "商品名称" },
+          "productIntroduction": {
+            "type": "string",
+            "description": "商品描述"
+          },
+          "productPrice": {
+            "type": "number",
+            "description": "商品金额 单位分"
+          },
+          "productDiscountPrice": {
+            "type": "number",
+            "description": "商品折扣价 单位分 可选（或者传入0）",
+            "default": 0
+          },
+          "productStock": {
+            "type": "number",
+            "description": "库存数量",
+            "default": 0,
+            "minimum": 0
+          },
+          "productTags": {
+            "description": "商品标签",
+            "type": "array",
+            "items": { "type": "number" }
+          },
+          "productStatus": {
+            "type": "boolean",
+            "description": "商品状态 立即上架请填true，暂不上架请填false",
+            "default": true
+          }
+        },
+        "required": ["productName", "productIntroduction", "productPrice", "productStock", "productTags", "productStatus"]
+      }
+    }
   }
 }

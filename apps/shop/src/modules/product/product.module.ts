@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
 import { BusinessModule } from "cc.naily.element.shared";
 import { ProductController } from "./product.controller";
-import { ShopProductRepository } from "cc.naily.element.database";
+import { ShopProductRepository, ShopProductTagRepository } from "cc.naily.element.database";
 
 @Module({
   controllers: [ProductController],
-  providers: [ShopProductRepository],
+  providers: [ShopProductRepository, ShopProductTagRepository],
 })
 export class ProductModule extends BusinessModule {}

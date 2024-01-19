@@ -5,9 +5,14 @@ import { CommonLogger } from "../modules/logger";
 
 @Catch(HttpException)
 export class CommonHttpFilter implements ExceptionFilter {
-  constructor(private readonly i18nService: I18nService) {}
+  constructor(
+    private readonly i18nService: I18nService,
+    private readonly commonLogger: CommonLogger,
+  ) {}
 
   public catch(exception: HttpException, host: ArgumentsHost): void {
+    this.commonLogger.setContext(CommonHttpFilter.name);
+
     const status = exception.getStatus();
     const msg: unknown = exception.getResponse();
     const response = host.switchToHttp().getResponse<Response>();
@@ -19,7 +24,8 @@ export class CommonHttpFilter implements ExceptionFilter {
         message: this.i18nService.t(`global.errorCode.${msg}`),
         timestamp: new Date(),
       });
-      return new CommonLogger(CommonHttpFilter.name).error(JSON.stringify(exception));
+
+      return this.commonLogger.error(JSON.stringify(exception));
     }
 
     if (typeof msg === "string") {
@@ -29,7 +35,7 @@ export class CommonHttpFilter implements ExceptionFilter {
         message: msg,
         timestamp: new Date(),
       });
-      return new CommonLogger(CommonHttpFilter.name).error(JSON.stringify(exception));
+      return this.commonLogger.error(JSON.stringify(exception));
     }
 
     if (typeof msg === "object") {
@@ -40,11 +46,11 @@ export class CommonHttpFilter implements ExceptionFilter {
         timestamp: new Date(),
         ...msg,
       });
-      return new CommonLogger(CommonHttpFilter.name).error(JSON.stringify(exception));
+      return this.commonLogger.error(JSON.stringify(exception));
     }
   }
 
-  private isNumber(value: unknown): boolean {
+  private isNumber<T>(value: T): boolean {
     return !Number.isNaN(Number(value));
   }
 }
