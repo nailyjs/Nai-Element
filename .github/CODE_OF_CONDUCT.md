@@ -6,8 +6,6 @@
 
 项目维护者有权利和责任删除、编辑或拒绝与本行为准则不一致的评论、提交、代码、wiki 编辑、问题和其他贡献。不遵守行为准则的项目维护者可能会被项目团队移除。
 
-项目维护者有权利和责任删除、编辑或拒绝与本行为准则不一致的评论、提交、代码、wiki 编辑、问题和其他贡献。不遵守行为准则的项目维护者可能会被项目团队移除。
-
 可以通过开启一个 issue 或者联系项目维护者来报告滥用、骚扰或其他不可接受的行为。
 
 This Code of Conduct is adapted from the [Contributor Covenant](https://contributor-covenant.org), version 1.0.0, available at [http://contributor-covenant.org/version/1/0/0/](http://contributor-covenant.org/version/1/0/0/)
