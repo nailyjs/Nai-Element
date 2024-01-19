@@ -179,8 +179,8 @@ export default async () => {
           import("./modules/pay/controllers/xunhupay.controller"),
           {
             XunhupayController: {
-              xunhupay: { summary: "\u8FC5\u864E\u652F\u4ED8" },
-              xunhupayNotify: { summary: "\u8FC5\u864E\u5FAE\u4FE1\u652F\u4ED8\u56DE\u8C03 \u8BF7\u52FF\u8C03\u7528", type: String },
+              pay: { summary: "\u8FC5\u864E\u652F\u4ED8" },
+              notify: { summary: "\u8FC5\u864E\u5FAE\u4FE1\u652F\u4ED8\u56DE\u8C03 \u8BF7\u52FF\u8C03\u7528", type: String },
             },
           },
         ],
@@ -188,8 +188,8 @@ export default async () => {
           import("./modules/pay/controllers/wechat.controller"),
           {
             WechatController: {
-              wechat: { summary: "\u5B98\u65B9\u5FAE\u4FE1\u652F\u4ED8", type: Object },
-              notify: { summary: "\u652F\u4ED8\u901A\u77E5\u63A5\u53E3 \u8BF7\u52FF\u624B\u52A8\u8C03\u7528" },
+              pay: { summary: "\u5B98\u65B9\u5FAE\u4FE1\u652F\u4ED8", type: Object },
+              notify: { summary: "\u5B98\u65B9\u5FAE\u4FE1\u652F\u4ED8\u901A\u77E5\u63A5\u53E3 \u8BF7\u52FF\u624B\u52A8\u8C03\u7528" },
             },
           },
         ],

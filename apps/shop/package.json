@@ -1,0 +1,12 @@
+{
+  "name": "cc.naily.element.shop",
+  "version": "5.0.0",
+  "private": true,
+  "scripts": {
+    "build": "nest build",
+    "start": "nest start",
+    "start:dev": "cross-env NODE_ENV=development nest start --watch",
+    "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
+    "start:prod": "cross-env NODE_ENV=production; node ../../resources/dist/apps/passport/main"
+  }
+}

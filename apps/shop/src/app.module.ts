@@ -1,0 +1,34 @@
+import { Module } from "@nestjs/common";
+import { AppController } from "./app.controller";
+import Shared, { ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
+import { CommonValidationPipe } from "cc.naily.element.validator";
+import { APP_GUARD, APP_PIPE } from "@nestjs/core";
+import { ProductModule } from "./modules/product/product.module";
+import { CommonTypeOrmModule } from "cc.naily.element.database";
+
+@Module({
+  imports: [
+    Shared.CommonConfigModule.forRoot(),
+    Shared.CommonI18nModule.forRoot(),
+    Shared.CommonThrottlerModule.forRoot(),
+    Shared.CommonMailerModule.forRoot(),
+    Shared.CommonErrorModule.forRoot(),
+    Shared.CommonCacheModule.forRoot(),
+    Shared.CommonDevModule.forRoot(),
+    Shared.CommonLoggerModule.forRoot(),
+    CommonTypeOrmModule.forRoot(),
+    ProductModule.register(),
+  ],
+  controllers: [AppController],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerBehindProxyGuard,
+    },
+    {
+      provide: APP_PIPE,
+      useClass: CommonValidationPipe,
+    },
+  ],
+})
+export class AppModule {}

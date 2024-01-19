@@ -10,14 +10,16 @@ import { UserOrderRepository } from "cc.naily.element.database";
 
 @Injectable()
 export class WechatService implements PayServiceImpl {
-  constructor(
-    @Inject(WECHAT_PAY_MANAGER)
-    private readonly wxPayService: WxPay,
-    private readonly payService: PayService,
-    private readonly configService: ConfigService,
-    private readonly commonLogger: CommonLogger,
-    private readonly userOrderRepository: UserOrderRepository,
-  ) {}
+  @Inject(WECHAT_PAY_MANAGER)
+  private readonly wxPayService: WxPay;
+  @Inject()
+  private readonly payService: PayService;
+  @Inject()
+  private readonly configService: ConfigService;
+  @Inject()
+  private readonly commonLogger: CommonLogger;
+  @Inject()
+  private readonly userOrderRepository: UserOrderRepository;
 
   public async pay(openid: string, userID: number, desc: string, total: number, ip: string): Promise<PayServiceResponse> {
     const trade_no = this.payService.getOrderNo().toString();
@@ -72,19 +74,26 @@ export class WechatService implements PayServiceImpl {
    * @memberof WechatService
    */
   public async notify(ciphertext: string, associated_data: string, nonce: string): Promise<boolean> {
-    // 解密数据
-    const data: IWechatNotifyGCM = this.wxPayService.decipher_gcm(ciphertext, associated_data, nonce);
-    // 支付状态
-    const trade_state = data.trade_state;
-    // 商户订单号
-    const out_trade_no = data.out_trade_no;
-    if (trade_state !== "SUCCESS") return false;
-    // 查询订单
-    const order = await this.userOrderRepository.findOneBy({ tradeOrderID: out_trade_no });
-    if (!order) return false;
-    // 更新订单状态
-    order.status = "success";
-    await this.userOrderRepository.save(order);
-    return true;
+    try {
+      // 解密数据
+      const data: IWechatNotifyGCM = this.wxPayService.decipher_gcm(ciphertext, associated_data, nonce);
+      // 支付状态
+      const trade_state = data.trade_state;
+      // 商户订单号
+      const out_trade_no = data.out_trade_no;
+      if (trade_state !== "SUCCESS") return false;
+      // 查询订单
+      const order = await this.userOrderRepository.findOneBy({ tradeOrderID: out_trade_no });
+      if (!order) return false;
+      // 更新订单状态
+      order.status = "success";
+      await this.userOrderRepository.save(order);
+      return true;
+    } catch (error) {
+      console.error(error);
+      this.commonLogger.setContext(WechatService.name);
+      this.commonLogger.error(`官方微信支付通知失败`);
+      return false;
+    }
   }
 }

@@ -12,7 +12,7 @@ export class UserValue {
   @UpdateDateColumn({ comment: "更新时间" })
   updatedAt: Date;
 
-  @Column({ comment: "用户余额，单位分", default: 0 })
+  @Column({ comment: "用户余额 单位分", default: 0 })
   balance: number;
 
   @Column({ comment: "用户积分", default: 0 })

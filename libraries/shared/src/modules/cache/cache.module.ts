@@ -1,9 +1,10 @@
-import { DynamicModule, Module } from "@nestjs/common";
+import { DynamicModule, Global, Module } from "@nestjs/common";
 import { CacheModule } from "@nestjs/cache-manager";
 import { ConfigService } from "@nestjs/config";
 import { RedisOptions } from "ioredis";
 import { redisStore } from "cache-manager-ioredis-yet";
 
+@Global()
 @Module({})
 export class CommonCacheModule extends CacheModule implements CacheModule {
   /**
@@ -24,7 +25,9 @@ export class CommonCacheModule extends CacheModule implements CacheModule {
         return {
           isGlobal: true,
           ...redisConfig,
-          store: await redisStore(redisConfig),
+          store: await redisStore({
+            ...redisConfig,
+          }),
         };
       },
     });

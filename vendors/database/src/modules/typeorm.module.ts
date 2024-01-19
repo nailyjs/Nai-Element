@@ -19,7 +19,7 @@ export class CommonTypeOrmModule {
     return TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory(configService: ConfigService) {
-        const mysql = configService.get("global.datasource.mysql") || {};
+        const mysql: Record<string, any> = configService.get("global.datasource.mysql") || {};
         return {
           type: "mysql",
           host: mysql.host,

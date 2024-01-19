@@ -3,14 +3,15 @@ import { XunhupayService } from "../providers/xunhupay.service";
 import { ApiTags } from "@nestjs/swagger";
 import { PayControllerXunhupayBodyDTO } from "../dtos/pay/xunhupay/xunhupay.dto";
 import { ResInterceptor } from "cc.naily.element.shared";
-import { XunhupayNotify } from "../interfaces/xunhupay.interface";
+import { Xunhupay, XunhupayNotify } from "../interfaces/xunhupay.interface";
 import { User as UserEntity, UserOrderRepository } from "cc.naily.element.database";
 import { Auth, User } from "cc.naily.element.auth";
 import { PayService } from "../providers/pay.service";
+import { PayServiceImpl, PayServiceResponse } from "../interfaces/pay.interface";
 
 @ApiTags("充值")
 @Controller("pay/xunhupay")
-export class XunhupayController {
+export class XunhupayController implements PayServiceImpl {
   constructor(
     private readonly payService: PayService,
     private readonly xunhupayService: XunhupayService,
@@ -27,7 +28,7 @@ export class XunhupayController {
   @Post()
   @Auth()
   @UseInterceptors(ResInterceptor)
-  public async xunhupay(@User() user: Omit<UserEntity, "password">, @Body() { amount, type }: PayControllerXunhupayBodyDTO) {
+  public async pay<T = Xunhupay>(@User() user: Omit<UserEntity, "password">, @Body() { amount, type }: PayControllerXunhupayBodyDTO) {
     const data = await this.xunhupayService.pay(amount, type as "xunhupayWechat" | "xunhupayAlipay");
     // 在数据库里创建订单
     await this.userOrderRepository.createOrder(
@@ -38,7 +39,7 @@ export class XunhupayController {
       "pending",
     );
     data.trade_order_id = undefined;
-    return data;
+    return data as PayServiceResponse<T>;
   }
 
   /**
@@ -50,7 +51,7 @@ export class XunhupayController {
    * @memberof PayController
    */
   @Post("notify")
-  public async xunhupayNotify(@Body() body: XunhupayNotify) {
+  public async notify(@Body() body: XunhupayNotify) {
     const updated = await this.userOrderRepository.updateStatus(body.trade_order_id);
     if (!updated) throw new BadRequestException(1022);
     return "success";

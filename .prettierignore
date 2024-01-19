@@ -9,3 +9,7 @@ node_modules
 .DS_Store
 
 generated
+
+pnpm-lock.yaml
+yarn.lock
+package-lock.json

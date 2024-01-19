@@ -6,6 +6,7 @@
     "db.config.ts": "database"
   },
   "material-icon-theme.folders.associations": {
+    ".nova": "vscode",
     "migrations": "database",
     "repositories": "interface",
     "entities": "class",

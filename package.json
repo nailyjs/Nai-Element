@@ -2,6 +2,7 @@
   "name": "v29",
   "scripts": {
     "dev:passport": "pnpm -F cc.naily.element.passport start:dev",
+    "dev:shop": "pnpm -F cc.naily.element.shop start:dev",
     "build": "tsx scripts/buildDeps.ts",
     "build:passport": "pnpm -F cc.naily.element.passport build",
     "build:shared": "pnpm -F cc.naily.element.shared build",

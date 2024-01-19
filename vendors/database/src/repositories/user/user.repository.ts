@@ -101,7 +101,7 @@ export class UserRepository extends EntityRepository<User> {
    * @author Zero <gczgroup@qq.com>
    * @since 2024
    */
-  private registerValue(user: User) {
+  public registerValue(user: User) {
     const value = new UserValue();
     value.user = user;
     return this.dataSource.getRepository(UserValue).save(value);
