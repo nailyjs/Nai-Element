@@ -1,6 +1,6 @@
 {
   "name": "cc.naily.element.shared",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "private": true,
   "main": "../../resources/dist/libraries/shared/cjs/index.js",
   "module": "../../resources/dist/libraries/shared/esm/index.js",
