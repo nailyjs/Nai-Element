@@ -17,6 +17,7 @@ import { CommonJwtModule } from "cc.naily.element.auth";
     Shared.CommonCacheModule.forRoot(),
     Shared.CommonDevModule.forRoot(),
     Shared.CommonLoggerModule.forRoot(),
+    Shared.CommonUpyunModule.forRoot(),
     CommonTypeOrmModule.forRoot(),
     CommonJwtModule.forRoot(),
     ProductModule.register(),
