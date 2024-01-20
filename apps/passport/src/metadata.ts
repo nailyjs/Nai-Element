@@ -142,6 +142,10 @@ export default async () => {
             },
           },
         ],
+        [
+          import("./modules/file/dtos/file/upload/image/image.dto"),
+          { PostFileUploadImageDTO: { file: { required: true, type: () => Object, description: "\u591A\u5F20\u56FE\u7247" } } },
+        ],
       ],
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
@@ -192,6 +196,10 @@ export default async () => {
               notify: { summary: "\u5B98\u65B9\u5FAE\u4FE1\u652F\u4ED8\u901A\u77E5\u63A5\u53E3 \u8BF7\u52FF\u624B\u52A8\u8C03\u7528" },
             },
           },
+        ],
+        [
+          import("./modules/file/controllers/file.controller"),
+          { FileController: { uploadImage: { summary: "\u4E0A\u4F20\u56FE\u7247", type: Object } } },
         ],
       ],
     },

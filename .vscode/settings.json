@@ -16,6 +16,7 @@
     "login": "admin",
     "register": "admin",
     "transport": "mail",
-    "pay": "controller"
+    "pay": "controller",
+    "file": "images"
   }
 }

@@ -14,98 +14,190 @@
             }
           }
         },
-        "tags": ["主页"]
+        "tags": ["测试"]
       }
     },
-    "/product": {
-      "get": {
-        "operationId": "ProductController_listProduct",
-        "summary": "获取商品列表",
-        "parameters": [
-          {
-            "name": "orderTime",
-            "required": false,
-            "in": "query",
-            "description": "时间排序",
-            "schema": {
-              "default": "latest",
-              "enum": ["latest", "oldest"],
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderHot",
-            "required": false,
-            "in": "query",
-            "description": "热度排序",
-            "schema": {
-              "default": "hottest",
-              "enum": ["hottest", "coldest"],
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderPrice",
-            "required": false,
-            "in": "query",
-            "description": "价格排序",
-            "schema": {
-              "default": "highest",
-              "enum": ["highest", "lowest"],
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderSold",
-            "required": false,
-            "in": "query",
-            "description": "销量排序",
-            "schema": {
-              "default": "highest",
-              "enum": ["highest", "lowest"],
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderStock",
-            "required": false,
-            "in": "query",
-            "description": "库存排序",
-            "schema": {
-              "default": "highest",
-              "enum": ["highest", "lowest"],
-              "type": "string"
-            }
-          },
-          {
-            "name": "filterTags",
-            "required": false,
-            "in": "query",
-            "description": "过滤标签",
-            "schema": { "type": "array", "items": { "type": "number" } }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": { "type": "array", "items": { "type": "object" } }
-              }
-            }
-          }
-        },
-        "tags": ["产品"]
-      },
+    "/login/username/password": {
       "post": {
-        "operationId": "ProductController_createProduct",
-        "summary": "创建商品",
+        "operationId": "LoginController_loginByUsernamePassword",
+        "summary": "通过用户名密码登录",
         "parameters": [],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/PostCreateProductDTO" }
+              "schema": {
+                "$ref": "#/components/schemas/LoginByUsernamePasswordDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "登录成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginByUsernamePasswordOKResponseDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["登录"]
+      }
+    },
+    "/register/email/password": {
+      "post": {
+        "operationId": "RegisterController_registerByEmailPassword",
+        "summary": "通过邮箱验证码和密码注册",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterByEmailPasswordBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["注册"]
+      }
+    },
+    "/transport/email": {
+      "post": {
+        "operationId": "EmailController_sendEmailVerifyCode",
+        "summary": "发送邮箱验证码",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendEmailVerifyCodeBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "发送成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendEmailVerifyCode201ResDTO"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "请求过于频繁 目前后端限制的是每60秒最多5次 后端虽然兜了底但是仍请前端自行做好限制",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendEmailVerifyCode429ResDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["传输"]
+      }
+    },
+    "/user/logging": {
+      "get": {
+        "operationId": "UserController_getLoggingUser",
+        "summary": "获取已登录用户信息",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "获取已登录用户信息成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetLoggingUser200ResDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["用户"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/user/avatar": {
+      "put": {
+        "operationId": "UserController_updateAvatar",
+        "summary": "更新头像",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutUserAvatarBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["用户"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/pay/xunhupay": {
+      "post": {
+        "operationId": "XunhupayController_pay",
+        "summary": "迅虎支付",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayControllerXunhupayBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["充值"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/pay/xunhupay/notify": {
+      "post": {
+        "operationId": "XunhupayController_notify",
+        "summary": "迅虎微信支付回调 请勿调用",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            }
+          }
+        },
+        "tags": ["充值"]
+      }
+    },
+    "/pay/wechat": {
+      "post": {
+        "operationId": "WechatController_pay",
+        "summary": "官方微信支付",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PostPayWechatBodyDTO" }
             }
           }
         },
@@ -117,107 +209,49 @@
             }
           }
         },
-        "tags": ["产品"],
-        "security": [{ "bearer": [] }]
-      },
-      "delete": {
-        "operationId": "ProductController_deleteProduct",
-        "summary": "删除商品",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": { "schema": { "type": "boolean" } }
-            }
-          }
-        },
-        "tags": ["产品"],
+        "tags": ["充值"],
         "security": [{ "bearer": [] }]
       }
     },
-    "/product/search": {
-      "get": {
-        "operationId": "ProductController_searchProduct",
-        "summary": "搜索商品",
-        "parameters": [
-          {
-            "name": "orderTime",
-            "required": false,
-            "in": "query",
-            "description": "时间排序",
-            "schema": {
-              "default": "latest",
-              "enum": ["latest", "oldest"],
-              "type": "string"
+    "/pay/wechat/notify": {
+      "post": {
+        "operationId": "WechatController_notify",
+        "summary": "官方微信支付通知接口 请勿手动调用",
+        "parameters": [],
+        "responses": { "201": { "description": "" } },
+        "tags": ["充值"]
+      }
+    },
+    "/file/upload/image": {
+      "post": {
+        "operationId": "FileController_uploadImage",
+        "summary": "上传图片",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/PostFileUploadImageDTO"
+              }
             }
-          },
-          {
-            "name": "orderHot",
-            "required": false,
-            "in": "query",
-            "description": "热度排序",
-            "schema": {
-              "default": "hottest",
-              "enum": ["hottest", "coldest"],
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderPrice",
-            "required": false,
-            "in": "query",
-            "description": "价格排序",
-            "schema": {
-              "default": "highest",
-              "enum": ["highest", "lowest"],
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderSold",
-            "required": false,
-            "in": "query",
-            "description": "销量排序",
-            "schema": {
-              "default": "highest",
-              "enum": ["highest", "lowest"],
-              "type": "string"
-            }
-          },
-          {
-            "name": "orderStock",
-            "required": false,
-            "in": "query",
-            "description": "库存排序",
-            "schema": {
-              "default": "highest",
-              "enum": ["highest", "lowest"],
-              "type": "string"
-            }
-          },
-          {
-            "name": "filterTags",
-            "required": false,
-            "in": "query",
-            "description": "过滤标签",
-            "schema": { "type": "array", "items": { "type": "number" } }
-          },
-          {
-            "name": "keyword",
-            "required": true,
-            "in": "query",
-            "description": "搜索关键字",
-            "schema": { "type": "string" }
           }
-        ],
-        "responses": { "200": { "description": "" } },
-        "tags": ["产品"]
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["文件"],
+        "security": [{ "bearer": [] }]
       }
     }
   },
   "info": {
-    "title": "Shop",
+    "title": "Passport",
     "description": "#### 一些可以公开的情报\n\n- 本项目所有接口均限流，每个接口每分钟最多只能调用 300 次，超过限制会返回 429 Too Many Requests 错误；\n- 本项目需要鉴权的接口均需要携带 `Authorization` 头，其值为 `Bearer <access_token>`，其中 `<access_token>` 为通过登录接口获取的JWT令牌；\n- 本项目的 JWT 令牌有效期为 30 天，过期后需要重新登录；\n- 本页面支持直接测试已登录接口，点击下面的`Authorize`按钮，输入您的JWT令牌即可直接测试接口（不需要携带`Bearer `）。\n",
     "version": "0.0.0",
     "contact": {
@@ -234,41 +268,208 @@
       "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" }
     },
     "schemas": {
-      "PostCreateProductDTO": {
+      "LoginByUsernamePasswordDTO": {
         "type": "object",
         "properties": {
-          "productName": { "type": "string", "description": "商品名称" },
-          "productIntroduction": {
+          "username": { "type": "string", "description": "用户名" },
+          "password": { "type": "string", "description": "密码" }
+        },
+        "required": ["username", "password"]
+      },
+      "LoginByUsernamePasswordDataUserOKResponseDTO": {
+        "type": "object",
+        "properties": {
+          "userID": { "type": "number", "description": "用户ID", "default": 1 },
+          "createdAt": {
+            "format": "date-time",
             "type": "string",
-            "description": "商品描述"
+            "description": "注册时间"
           },
-          "productPrice": {
-            "type": "number",
-            "description": "商品金额 单位分"
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "更新时间"
           },
-          "productDiscountPrice": {
-            "type": "number",
-            "description": "商品折扣价 单位分 可选（或者传入0）",
-            "default": 0
+          "username": {
+            "type": "string",
+            "description": "用户名",
+            "default": "Zero"
           },
-          "productStock": {
-            "type": "number",
-            "description": "库存数量",
-            "default": 0,
-            "minimum": 0
+          "ip": { "type": "string", "description": "IP", "default": "0.0.0.0" },
+          "saying": {
+            "type": "string",
+            "description": "个性签名",
+            "default": "这个人很懒，什么都没有写哦"
           },
-          "productTags": {
-            "description": "商品标签",
-            "type": "array",
-            "items": { "type": "number" }
-          },
-          "productStatus": {
-            "type": "boolean",
-            "description": "商品状态 立即上架请填true，暂不上架请填false",
-            "default": true
+          "avatar": {
+            "type": "string",
+            "description": "头像地址",
+            "default": "https://avatars.githubusercontent.com"
           }
         },
-        "required": ["productName", "productIntroduction", "productPrice", "productStock", "productTags", "productStatus"]
+        "required": ["userID", "createdAt", "updatedAt", "username", "ip", "saying", "avatar"]
+      },
+      "LoginByUsernamePasswordDataOKResponseDTO": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "description": "用户信息",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LoginByUsernamePasswordDataUserOKResponseDTO"
+              }
+            ]
+          },
+          "access_token": { "type": "string", "description": "访问令牌" }
+        },
+        "required": ["user", "access_token"]
+      },
+      "LoginByUsernamePasswordOKResponseDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP状态码",
+            "default": 201
+          },
+          "code": {
+            "type": "number",
+            "description": "系统状态码",
+            "default": 1000
+          },
+          "message": {
+            "type": "string",
+            "description": "信息",
+            "default": "登录成功"
+          },
+          "data": {
+            "description": "数据",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LoginByUsernamePasswordDataOKResponseDTO"
+              }
+            ]
+          }
+        },
+        "required": ["statusCode", "code", "message", "data"]
+      },
+      "RegisterByEmailPasswordBodyDTO": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "description": "邮箱" },
+          "username": { "type": "string", "description": "用户名" },
+          "password": {
+            "type": "string",
+            "description": "密码",
+            "minLength": 6
+          },
+          "verifyCode": {
+            "type": "number",
+            "description": "验证码",
+            "maximum": 999999
+          }
+        },
+        "required": ["email", "username", "password", "verifyCode"]
+      },
+      "SendEmailVerifyCodeBodyDTO": {
+        "type": "object",
+        "properties": { "email": { "type": "string", "description": "邮箱" } },
+        "required": ["email"]
+      },
+      "SendEmailVerifyCode201ResDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "object", "default": 201 },
+          "code": { "type": "object", "default": 1012 },
+          "message": { "type": "object", "default": "发送成功" }
+        },
+        "required": ["statusCode", "code", "message"]
+      },
+      "SendEmailVerifyCode429ResDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "object", "default": 429 },
+          "code": { "type": "object", "default": 1014 },
+          "message": { "type": "object", "default": "请求过于频繁，请稍后再试" }
+        },
+        "required": ["statusCode", "code", "message"]
+      },
+      "GetLoggingUser200ResDTODataUserDTO": {
+        "type": "object",
+        "properties": {
+          "userID": { "type": "number" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" },
+          "username": { "type": "string" },
+          "ip": { "type": "string" },
+          "saying": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string" }
+        },
+        "required": ["userID", "createdAt", "updatedAt", "username", "ip", "saying"]
+      },
+      "GetLoggingUser200ResDTODataDTO": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/GetLoggingUser200ResDTODataUserDTO"
+          }
+        },
+        "required": ["user"]
+      },
+      "GetLoggingUser200ResDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "number" },
+          "code": { "type": "number" },
+          "message": { "type": "string" },
+          "data": {
+            "$ref": "#/components/schemas/GetLoggingUser200ResDTODataDTO"
+          }
+        },
+        "required": ["statusCode", "code", "message", "data"]
+      },
+      "PutUserAvatarBodyDTO": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string", "description": "头像地址" }
+        },
+        "required": ["url"]
+      },
+      "PayControllerXunhupayBodyDTO": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "支付金额",
+            "minimum": 0.01
+          },
+          "type": {
+            "type": "string",
+            "description": "支付方式 xunhupayWechat 迅虎微信支付 xunhupayAlipay 迅虎支付宝支付",
+            "default": "xunhupayWechat"
+          }
+        },
+        "required": ["amount", "type"]
+      },
+      "PostPayWechatBodyDTO": {
+        "type": "object",
+        "properties": {
+          "openid": { "type": "string", "description": "用户的openid" },
+          "amount": { "type": "number", "description": "金额", "minimum": 0.01 }
+        },
+        "required": ["openid", "amount"]
+      },
+      "PostFileUploadImageDTO": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "多张图片",
+            "format": "binary"
+          }
+        },
+        "required": ["file"]
       }
     }
   }

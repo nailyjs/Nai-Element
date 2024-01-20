@@ -1,8 +1,8 @@
-import { DynamicModule, Module } from "@nestjs/common";
+import { DynamicModule, Global, Module } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { Client, Service } from "upyun";
+import { Service } from "upyun";
+import { UpyunService } from "./upyun.service";
 
-export const UPYUN_CLIENT = "__UPYUN_CLIENT__";
 export interface UpyunModuleOptions {
   /**
    * 服务名称
@@ -33,6 +33,7 @@ export interface UpyunModuleOptions {
   password?: string;
 }
 
+@Global()
 @Module({})
 export class CommonUpyunModule {
   public static forRoot(): DynamicModule {
@@ -41,14 +42,17 @@ export class CommonUpyunModule {
       global: true,
       providers: [
         {
-          provide: UPYUN_CLIENT,
-          inject: [ConfigService],
-          useFactory(configService: ConfigService) {
-            const options: UpyunModuleOptions = configService.getOrThrow("global.datasource.upyun");
-            return new Client(new Service(options.serviceName, options.operatorName, options.password));
+          provide: UpyunService,
+          useFactory: (configService: ConfigService) => {
+            const options: UpyunModuleOptions = configService.get<UpyunModuleOptions>("global.datasource.upyun");
+            console.log(options);
+            const service = new Service(options.serviceName, options.operatorName, options.password);
+            return new UpyunService(service, configService);
           },
+          inject: [ConfigService],
         },
       ],
+      exports: [UpyunService],
     };
   }
 }
