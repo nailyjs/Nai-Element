@@ -5,56 +5,83 @@ global:
   # 默认语言，可以选zh，en
   # ? [TODO): en现在还没有翻译，暂时懒得翻译了
   defaultLanguage: zh
+  # 是否启用swagger
   enableSwagger: true
-  # 节流阀门配置。默认为 60000 毫秒内最多 300 次请求，可以开大点
+  ####################### 节流阀门配置 #######################
+  # 默认为 60000 毫秒内最多 300 次请求，可以开大点
   # 这个配置是为了防止恶意请求，比如一个人用爬虫刷接口
   # 这只是全局的节流阀门，某些路由如邮件发送接口（目前是60秒最多5个请求），会有自己的节流阀门配置 需要更改限制的话 只能修改代码
   throttler:
     ttl: 60000
     limit: 300
-  # 数据源配置
+  ####################### 数据源配置 #######################
   datasource:
     # 数据库类型，目前只支持mysql
     mysql:
       host: localhost
       port: 3306
-      username: unknown
-      password: unknown
-      database: unknown
+      username: root
+      password: root
+      database: element
       entityPrefix: element_
       logging: true
-    # redis 配置
+    upyun:
+      # 又拍云服务名
+      serviceName: naily
+      # 又拍云操作员
+      operatorName: naily
+      # 又拍云操作员密码
+      password: naily00000000000000000000000000000000
+      # 又拍云域名
+      domain: http://static.naily.cc
+      # 文件存储的目录
+      baseDir: /element/
     redis:
       host: localhost
       port: 6379
-      # db: 0
       keyPrefix: element_
-      password: unknown
-  # 邮箱配置
+      password: naily
+  ####################### 邮箱配置 #######################
   email:
     # smtp地址，一行写完就行
-    transport: smtp://app@smtp.qq.com
+    transport: smtp://gczgroup@qq.com:uzmnmbdulihugjif@smtp.qq.com
     # 发件人
-    from: '"腕上心电社区" <gczgroup@qq.com>'
-  # JWT配置
+    from: '"naily.cc" <gczgroup@qq.com>'
+  ####################### JWT配置 #######################
   jwt:
     # 保密，不要泄露
     secret: JWT_SECRET
     # token过期时间 可以用这个来控制登录时长
     expiresIn: 30d
-  # 支付配置
+  ####################### 支付配置 #######################
   pay:
     # 当前启用的的支付方式
     enabled:
-      - xunhupay
-    # 迅虎支付配置
-    xunhupay:
+      - xunhupayWechat
+      - wechat
+    ####################### 微信支付配置 #######################
+    # 公钥/私钥/证书，请填入`public/<环境>/`目录下
+    wechat:
       # APP的名字
-      name: 心电社区 - 充值
+      name: 微信 - 充值
+      # 直连商户申请的公众号或移动应用appid
+      appid: naily0000000
+      # 商户号
+      mchid: naily0000000000
+      # v3回调key
+      key: naily00000000000000000000000000000000
+      # 证书序列号
+      serial_no: naily0000000000000000000000000000000000000000
+      # 回调通知地址
+      notify_url: http://localhost:3000/api/pay/wechat/notify
+    ####################### 迅虎微信支付配置 #######################
+    xunhupayWechat:
+      # APP的名字
+      name: 虎皮椒 - 充值
       # APPID
-      appid: 200000114514
+      appid: naily000000000000
       # APP SECRET
-      appsecret: a1145142411451114514145114514b
+      appsecret: naily00000000000000000000000000000000
       # 必填。用户支付成功后，我们服务器会主动发送一个post消息到这个网址(注意：当前接口内，SESSION内容无效，手机端不支持中文域名)
       notify_url: http://localhost:3000/api/pay/xunhupay/notify
       # 可选。用户支付成功后，我们会让用户浏览器自动跳转到这个网址
@@ -64,15 +91,23 @@ global:
       # 网关，不要改 除非迅虎支付网关变了
       gateway: https://api.xunhupay.com/payment/do.html
 
-# 账户微服务配置
+####################### 账户微服务配置 #######################
 passport:
   # 账户微服务 端口
   port: 3000
   # 账户微服务 名称
   name: Passport
 
+####################### 商店微服务配置 #######################
+shop:
+  # 商店微服务 端口
+  port: 3001
+  # 商店微服务 名称
+  name: Shop
+
 ####################### 以下内容由开发者修改 #######################
 
+# 脚本
 scripts:
   buildDeps:
     commands:
