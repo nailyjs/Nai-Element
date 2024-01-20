@@ -3,6 +3,8 @@ import { UserValue } from "./userValue.entity";
 import { UserControl } from "./userControl.entity";
 import { UserOrder } from "./userOrder.entity";
 import { ShopProduct } from "../shop/product.entity";
+import { UserSubscribeOrder } from "./userSubscribeOrder.entity";
+import { ShopSubscribe } from "../shop/subscribe.entity";
 
 @Entity()
 export class User {
@@ -38,16 +40,25 @@ export class User {
 
   @OneToOne(() => UserValue, (userValue) => userValue.user)
   @JoinColumn()
-  userValue: UserValue;
+  userValues: UserValue;
 
   @OneToOne(() => UserControl, (userControl) => userControl.user)
   @JoinColumn()
-  userControl: UserControl;
+  userControls: UserControl;
 
   @OneToMany(() => UserOrder, (userOrder) => userOrder.user)
   @JoinColumn()
-  userOrder: UserOrder[];
+  userOrders: UserOrder[];
 
   @OneToMany(() => ShopProduct, (product) => product.user)
-  userProduct: ShopProduct[];
+  @JoinColumn()
+  userProducts: ShopProduct[];
+
+  @OneToMany(() => ShopSubscribe, (subscribe) => subscribe.author)
+  @JoinColumn()
+  userSubscribes: ShopSubscribe[];
+
+  @OneToMany(() => UserSubscribeOrder, (userSubscribeOrder) => userSubscribeOrder.user)
+  @JoinColumn()
+  userSubscribeOrders: UserSubscribeOrder[];
 }

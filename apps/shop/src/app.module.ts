@@ -6,6 +6,7 @@ import { APP_GUARD, APP_PIPE } from "@nestjs/core";
 import { ProductModule } from "./modules/product/product.module";
 import { CommonTypeOrmModule } from "cc.naily.element.database";
 import { CommonJwtModule } from "cc.naily.element.auth";
+import { SubscribeModule } from "./modules/subscribe/subscribe.module";
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { CommonJwtModule } from "cc.naily.element.auth";
     CommonTypeOrmModule.forRoot(),
     CommonJwtModule.forRoot(),
     ProductModule.register(),
+    SubscribeModule.register(),
   ],
   controllers: [AppController],
   providers: [

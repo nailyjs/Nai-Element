@@ -266,6 +266,117 @@
         "responses": { "200": { "description": "" } },
         "tags": ["产品"]
       }
+    },
+    "/subscribe": {
+      "get": {
+        "operationId": "SubscribeController_getSubscribeList",
+        "summary": "获取订阅制商品列表",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"]
+      },
+      "post": {
+        "operationId": "SubscribeController_createSubscribe",
+        "summary": "创建一个订阅制的商品",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PostSubscribeBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"],
+        "security": [{ "bearer": [] }]
+      },
+      "put": {
+        "operationId": "SubscribeController_subscribe",
+        "summary": "订阅一个订阅制的商品",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutSubscribeBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/subscribe/single": {
+      "get": {
+        "operationId": "SubscribeController_getSubscribeSingle",
+        "summary": "根据`subscribeID`获取单个订阅制商品",
+        "parameters": [
+          {
+            "name": "subscribeID",
+            "required": true,
+            "in": "query",
+            "description": "订阅制商品ID",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"]
+      }
+    },
+    "/subscribe/user/status": {
+      "get": {
+        "operationId": "SubscribeController_getSubscribeStatus",
+        "summary": "获取当前用户某个订阅制商品的订阅状态",
+        "parameters": [
+          {
+            "name": "subscribeID",
+            "required": true,
+            "in": "query",
+            "description": "订阅制商品ID",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"],
+        "security": [{ "bearer": [] }]
+      }
     }
   },
   "info": {
@@ -331,6 +442,23 @@
           }
         },
         "required": ["productID"]
+      },
+      "PostSubscribeBodyDTO": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "description": "商品标题" },
+          "introduction": { "type": "string", "description": "商品介绍" },
+          "duration": { "type": "number", "description": "商品时长（天）" },
+          "price": { "type": "number", "description": "商品价格（元）" }
+        },
+        "required": ["title", "introduction", "duration", "price"]
+      },
+      "PutSubscribeBodyDTO": {
+        "type": "object",
+        "properties": {
+          "subscribeID": { "type": "number", "description": "订阅制商品ID" }
+        },
+        "required": ["subscribeID"]
       }
     }
   }

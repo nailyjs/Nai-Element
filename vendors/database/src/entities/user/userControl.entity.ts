@@ -12,7 +12,7 @@ export class UserControl {
   @UpdateDateColumn({ comment: "更新时间" })
   updatedAt: Date;
 
-  @OneToOne(() => User, (user) => user.userControl)
+  @OneToOne(() => User, (user) => user.userControls)
   user: User;
 
   @Column({ comment: "是否公开邮箱" })

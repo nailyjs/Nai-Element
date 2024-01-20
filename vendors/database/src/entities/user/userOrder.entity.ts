@@ -15,7 +15,7 @@ export class UserOrder {
   @UpdateDateColumn({ comment: "更新时间" })
   updatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.userOrder)
+  @ManyToOne(() => User, (user) => user.userOrders)
   user: User;
 
   @Column({ nullable: false, comment: "金额" })

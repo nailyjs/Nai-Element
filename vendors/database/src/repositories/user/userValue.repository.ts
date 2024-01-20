@@ -15,4 +15,21 @@ export class UserValueRepository extends EntityRepository<UserValue> {
   constructor(dataSource: DataSource) {
     super(UserValue, dataSource.createEntityManager(), dataSource.createQueryRunner());
   }
+
+  /**
+   * 直接减少用户余额
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/21
+   * @param {number} userID 用户ID
+   * @param {number} amount 减少的金额
+   * @return {Promise<false | UserValue>} false表示余额不足
+   * @memberof UserValueRepository
+   */
+  public async reduceBalance(userID: number, amount: number): Promise<false | UserValue> {
+    const value = await this.findOneBy({ user: { userID } });
+    value.balance -= amount;
+    if (value.balance < 0) return false;
+    return this.save(value);
+  }
 }

@@ -41,6 +41,19 @@ export default async () => {
             DeletedeleteProductDTO: { productID: { required: true, type: () => Object, description: "\u5546\u54C1id" } },
           },
         ],
+        [
+          import("./modules/subscribe/dtos/subscribe/subscribe.dto"),
+          {
+            PostSubscribeBodyDTO: {
+              title: { required: true, type: () => String, description: "\u5546\u54C1\u6807\u9898" },
+              introduction: { required: true, type: () => String, description: "\u5546\u54C1\u4ECB\u7ECD" },
+              duration: { required: true, type: () => Number, description: "\u5546\u54C1\u65F6\u957F\uFF08\u5929\uFF09" },
+              price: { required: true, type: () => Number, description: "\u5546\u54C1\u4EF7\u683C\uFF08\u5143\uFF09" },
+            },
+            PutSubscribeBodyDTO: { subscribeID: { required: true, type: () => Number, description: "\u8BA2\u9605\u5236\u5546\u54C1ID" } },
+            getSubscribeUserStatusQueryDTO: { subscribeID: { required: true, type: () => Number, description: "\u8BA2\u9605\u5236\u5546\u54C1ID" } },
+          },
+        ],
       ],
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
@@ -52,6 +65,21 @@ export default async () => {
               createProduct: { summary: "\u521B\u5EFA\u5546\u54C1", type: Object },
               searchProduct: { summary: "\u641C\u7D22\u5546\u54C1" },
               deleteProduct: { summary: "\u5220\u9664\u5546\u54C1", type: Boolean },
+            },
+          },
+        ],
+        [
+          import("./modules/subscribe/controllers/subscribe.controller"),
+          {
+            SubscribeController: {
+              getSubscribeList: { summary: "\u83B7\u53D6\u8BA2\u9605\u5236\u5546\u54C1\u5217\u8868", type: Object },
+              getSubscribeSingle: { summary: "\u6839\u636E`subscribeID`\u83B7\u53D6\u5355\u4E2A\u8BA2\u9605\u5236\u5546\u54C1", type: Object },
+              createSubscribe: { summary: "\u521B\u5EFA\u4E00\u4E2A\u8BA2\u9605\u5236\u7684\u5546\u54C1", type: Object },
+              subscribe: { summary: "\u8BA2\u9605\u4E00\u4E2A\u8BA2\u9605\u5236\u7684\u5546\u54C1", type: Object },
+              getSubscribeStatus: {
+                summary: "\u83B7\u53D6\u5F53\u524D\u7528\u6237\u67D0\u4E2A\u8BA2\u9605\u5236\u5546\u54C1\u7684\u8BA2\u9605\u72B6\u6001",
+                type: Object,
+              },
             },
           },
         ],

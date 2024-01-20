@@ -45,7 +45,6 @@ export class CommonUpyunModule {
           provide: UpyunService,
           useFactory: (configService: ConfigService) => {
             const options: UpyunModuleOptions = configService.get<UpyunModuleOptions>("global.datasource.upyun");
-            console.log(options);
             const service = new Service(options.serviceName, options.operatorName, options.password);
             return new UpyunService(service, configService);
           },

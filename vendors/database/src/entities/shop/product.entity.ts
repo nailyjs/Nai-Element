@@ -38,7 +38,7 @@ export class ShopProduct {
   @Column({ comment: "商品状态", default: "up" })
   productStatus: "up" | "down";
 
-  @ManyToOne(() => User, (user) => user.userProduct)
+  @ManyToOne(() => User, (user) => user.userProducts)
   user: User;
 
   @ManyToMany(() => ShopProductTag, (productTag) => productTag.products)
