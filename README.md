@@ -1,5 +1,9 @@
 # Naily V5 复活版
 
+![Recommend Node.js 18+](https://img.shields.io/badge/Recommend%20Node.js-18+-green.svg)
+![Repo Size](https://img.shields.io/github/repo-size/nailyjs/Nai-Element)
+![Commit Activity](https://img.shields.io/github/commit-activity/m/nailyjs/Nai-Element)
+
 ## 技术
 
 - 🥣 `pnpm` + `changeset` + `link-staged` + `monorepo` 架构
