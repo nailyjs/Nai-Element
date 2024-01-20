@@ -11,7 +11,7 @@ import Shared, { ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
 import { UserModule } from "./modules/user/user.module";
 import { PayModule } from "./modules/pay/pay.module";
 import { CommonValidationPipe } from "cc.naily.element.validator";
-import { FileModule } from "./modules/file/file.module";
+import { UpyunFileModule } from "./modules/upyun/upyun.module";
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { FileModule } from "./modules/file/file.module";
     TransportModule.register(),
     UserModule.register(),
     PayModule.register(),
-    FileModule.register(),
+    UpyunFileModule.register(),
   ],
   controllers: [AppController],
   providers: [

@@ -1,8 +1,9 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { CommonLogger, UpyunService } from "cc.naily.element.shared";
-import { UploadService } from "../interfaces/upload.interface";
 import { User } from "cc.naily.element.database";
 import { join } from "path";
+import { UploadServiceListFileResDTO, UploadServiceListFileWrapperUpyunExtraDataResDTO } from "../dtos/upyun/file.res.dto";
+import { UploadService } from "../../../interfaces/file.interface";
 
 @Injectable()
 export class UpyunUploadService implements UploadService {
@@ -11,6 +12,26 @@ export class UpyunUploadService implements UploadService {
     private readonly commonLogger: CommonLogger,
   ) {
     commonLogger.setContext(UpyunUploadService.name);
+  }
+
+  public async listFiles(
+    path: string,
+    next: string,
+    user: Omit<User, "password">,
+  ): Promise<[UploadServiceListFileResDTO[], UploadServiceListFileWrapperUpyunExtraDataResDTO]> {
+    const list = await this.upyunService.listDir(join(user.userID.toString(), path), {
+      iter: next,
+    });
+    if (!list) return [[], null];
+    return [
+      list.files.map((item) => {
+        return {
+          type: item.type === "F" ? "folder" : "file",
+          name: item.name,
+        };
+      }),
+      { next: list.next, path },
+    ];
   }
 
   public async uploadImage(file: Express.Multer.File, user: Omit<User, "password">) {

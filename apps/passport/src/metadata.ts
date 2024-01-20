@@ -5,6 +5,7 @@ export default async () => {
       "./modules/login/dtos/login/username/password/login.post.res.dto"
     ),
     ["./modules/user/dtos/user/logging/logging.res.dto"]: await import("./modules/user/dtos/user/logging/logging.res.dto"),
+    ["./modules/upyun/dtos/upyun/file.res.dto"]: await import("./modules/upyun/dtos/upyun/file.res.dto"),
   };
   return {
     "@nestjs/swagger": {
@@ -143,8 +144,43 @@ export default async () => {
           },
         ],
         [
-          import("./modules/file/dtos/file/upload/image/image.dto"),
+          import("./modules/upyun/dtos/upyun/upload/image/image.dto"),
           { PostFileUploadImageDTO: { file: { required: true, type: () => Object, description: "\u591A\u5F20\u56FE\u7247" } } },
+        ],
+        [
+          import("./modules/upyun/dtos/upyun/file.res.dto"),
+          {
+            UploadServiceListFileWrapperResponseResDTO: {
+              statusCode: { required: true, type: () => Number, default: 200 },
+              code: { required: true, type: () => Number, default: 1000 },
+              message: { required: true, type: () => String, default: "\u6210\u529F" },
+              data: { required: true, type: () => t["./modules/upyun/dtos/upyun/file.res.dto"].UploadServiceListFileWrapperResDTO },
+            },
+            UploadServiceListFileWrapperUpyunExtraDataResDTO: {
+              next: { required: true, type: () => String },
+              path: { required: true, type: () => String },
+            },
+            UploadServiceListFileWrapperResDTO: {
+              list: { required: true, type: () => [t["./modules/upyun/dtos/upyun/file.res.dto"].UploadServiceListFileResDTO] },
+              extraData: {
+                required: true,
+                type: () => t["./modules/upyun/dtos/upyun/file.res.dto"].UploadServiceListFileWrapperUpyunExtraDataResDTO,
+              },
+            },
+            UploadServiceListFileResDTO: {
+              name: { required: true, type: () => String, description: "\u6587\u4EF6\u540D" },
+              type: { required: true, type: () => Object, description: "\u6587\u4EF6\u5939\u8FD8\u662F\u6587\u4EF6" },
+            },
+          },
+        ],
+        [
+          import("./modules/upyun/dtos/upyun/file.dto"),
+          {
+            GetFileQueryDTO: {
+              path: { required: true, type: () => String, description: "\u6587\u4EF6\u8DEF\u5F84" },
+              next: { required: false, type: () => String, description: "\u4E0B\u4E00\u9875" },
+            },
+          },
         ],
       ],
       controllers: [
@@ -198,8 +234,13 @@ export default async () => {
           },
         ],
         [
-          import("./modules/file/controllers/file.controller"),
-          { FileController: { uploadImage: { summary: "\u4E0A\u4F20\u56FE\u7247", type: Object } } },
+          import("./modules/upyun/controllers/upyun.controller"),
+          {
+            UpyunController: {
+              listFiles: { summary: "\u83B7\u53D6\u6587\u4EF6\u5217\u8868" },
+              uploadImage: { summary: "\u4E0A\u4F20\u56FE\u7247", type: Object },
+            },
+          },
         ],
       ],
     },

@@ -3,7 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import { File } from "buffer";
 import { join } from "path";
 import { Stream } from "stream";
-import { Client, Service, putFileOptions, putFilePictureResponse } from "upyun";
+import { Client, Service, listDirOptions, listDirResponse, putFileOptions, putFilePictureResponse } from "upyun";
 
 @Injectable()
 export class UpyunService extends Client {
@@ -15,6 +15,10 @@ export class UpyunService extends Client {
   ) {
     super(service);
     this.baseDir = this.configService.get<string>("global.datasource.upyun.baseDir") || "";
+  }
+
+  listDir(remotePath: string, options?: listDirOptions): Promise<false | listDirResponse> {
+    return super.listDir(join(this.baseDir, remotePath), options);
   }
 
   deleteFile(remotePath: string): Promise<boolean> {

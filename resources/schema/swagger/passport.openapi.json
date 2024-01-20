@@ -222,10 +222,48 @@
         "tags": ["充值"]
       }
     },
-    "/file/upload/image": {
+    "/upyun": {
+      "get": {
+        "operationId": "UpyunController_listFiles",
+        "summary": "获取文件列表",
+        "description": "和其他的分页不同,限制一次最多列出100条数据。如果要拿到100条之后的数据,将分页的`next`参数传入，则会拿到下一页；同时又会有下下一页的分页`next`；以此类推，就能拿到列表的所有数据了",
+        "parameters": [
+          {
+            "name": "path",
+            "required": true,
+            "in": "query",
+            "description": "文件路径",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "next",
+            "required": false,
+            "in": "query",
+            "description": "下一页",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadServiceListFileWrapperResponseResDTO"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["又拍文件"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/upyun/upload/image": {
       "post": {
-        "operationId": "FileController_uploadImage",
+        "operationId": "UpyunController_uploadImage",
         "summary": "上传图片",
+        "description": "每次只能上传1张`图片` 使用`multipart/form-data`上传 只能上传图片 上传其他文件类型会被拒绝",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -245,7 +283,7 @@
             }
           }
         },
-        "tags": ["文件"],
+        "tags": ["又拍文件"],
         "security": [{ "bearer": [] }]
       }
     }
@@ -459,6 +497,53 @@
           "amount": { "type": "number", "description": "金额", "minimum": 0.01 }
         },
         "required": ["openid", "amount"]
+      },
+      "UploadServiceListFileResDTO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "文件夹还是文件",
+            "enum": ["file", "folder"]
+          },
+          "name": { "type": "string", "description": "文件名" }
+        },
+        "required": ["type", "name"]
+      },
+      "UploadServiceListFileWrapperUpyunExtraDataResDTO": {
+        "type": "object",
+        "properties": {
+          "next": { "type": "string" },
+          "path": { "type": "string" }
+        },
+        "required": ["next", "path"]
+      },
+      "UploadServiceListFileWrapperResDTO": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UploadServiceListFileResDTO"
+            }
+          },
+          "extraData": {
+            "$ref": "#/components/schemas/UploadServiceListFileWrapperUpyunExtraDataResDTO"
+          }
+        },
+        "required": ["list", "extraData"]
+      },
+      "UploadServiceListFileWrapperResponseResDTO": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "number", "default": 200 },
+          "code": { "type": "number", "default": 1000 },
+          "message": { "type": "string", "default": "成功" },
+          "data": {
+            "$ref": "#/components/schemas/UploadServiceListFileWrapperResDTO"
+          }
+        },
+        "required": ["statusCode", "code", "message", "data"]
       },
       "PostFileUploadImageDTO": {
         "type": "object",
