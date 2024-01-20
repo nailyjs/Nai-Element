@@ -44,9 +44,9 @@ global:
   ####################### 邮箱配置 #######################
   email:
     # smtp地址，一行写完就行
-    transport: smtp://gczgroup@qq.com:uzmnmbdulihugjif@smtp.qq.com
+    transport: smtp://naily@qq.com:111111111@smtp.qq.com
     # 发件人
-    from: '"naily.cc" <gczgroup@qq.com>'
+    from: '"naily.cc" <naily@qq.com>'
   ####################### JWT配置 #######################
   jwt:
     # 保密，不要泄露
