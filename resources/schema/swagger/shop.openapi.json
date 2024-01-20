@@ -83,6 +83,27 @@
             "in": "query",
             "description": "过滤标签",
             "schema": { "type": "array", "items": { "type": "number" } }
+          },
+          {
+            "name": "filterUser",
+            "required": false,
+            "in": "query",
+            "description": "过滤用户",
+            "schema": { "type": "array", "items": { "type": "number" } }
+          },
+          {
+            "name": "take",
+            "required": false,
+            "in": "query",
+            "description": "取到数量",
+            "schema": { "default": 10, "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "跳过数量",
+            "schema": { "default": 0, "type": "number" }
           }
         ],
         "responses": {
@@ -124,6 +145,16 @@
         "operationId": "ProductController_deleteProduct",
         "summary": "删除商品",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeletedeleteProductDTO"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -204,6 +235,27 @@
             "schema": { "type": "array", "items": { "type": "number" } }
           },
           {
+            "name": "filterUser",
+            "required": false,
+            "in": "query",
+            "description": "过滤用户",
+            "schema": { "type": "array", "items": { "type": "number" } }
+          },
+          {
+            "name": "take",
+            "required": false,
+            "in": "query",
+            "description": "取到数量",
+            "schema": { "default": 10, "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "跳过数量",
+            "schema": { "default": 0, "type": "number" }
+          },
+          {
             "name": "keyword",
             "required": true,
             "in": "query",
@@ -269,6 +321,16 @@
           }
         },
         "required": ["productName", "productIntroduction", "productPrice", "productStock", "productTags", "productStatus"]
+      },
+      "DeletedeleteProductDTO": {
+        "type": "object",
+        "properties": {
+          "productID": {
+            "description": "商品id",
+            "anyOf": [{ "type": "number" }, { "type": "array", "items": { "type": "number" } }]
+          }
+        },
+        "required": ["productID"]
       }
     }
   }

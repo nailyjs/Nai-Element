@@ -26,7 +26,7 @@ import { CommonLogger, EnableSwagger } from "cc.naily.element.shared";
   const [openAPIObject, generate] = EnableSwagger(app, (builder) => {
     return builder.setTitle(name).setDescription(readFileSync("./DESC.md").toString("utf-8"));
   });
-  generate("passport.openapi.json", openAPIObject).then();
+  generate("shop.openapi.json", openAPIObject).then();
   await app.listen(port);
   return app;
 })().then(async (app) => {

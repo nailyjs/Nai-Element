@@ -1,16 +1,22 @@
-import { Body, Controller, Get, NotFoundException, Post, Query, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, NotFoundException, Post, Query, UseInterceptors } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { ShopProduct, ShopProductRepository, ShopProductTagRepository } from "cc.naily.element.database";
-import { GetProductDTO, PostCreateProductDTO } from "./dtos/product/product.dto";
+import { ShopProduct, ShopProductRepository, ShopProductTagRepository, User as UserEntity, UserRepository } from "cc.naily.element.database";
+import { DeletedeleteProductDTO, GetProductDTO, PostCreateProductDTO, PostSearchProductDTO } from "./dtos/product/product.dto";
 import { ResInterceptor } from "cc.naily.element.shared";
-import { Auth } from "cc.naily.element.auth";
+import { Auth, User } from "cc.naily.element.auth";
+import { CacheInterceptor, CacheTTL } from "@nestjs/cache-manager";
+import { ProductService } from "./providers/product.service";
 
 @ApiTags("产品")
 @Controller("product")
+@UseInterceptors(CacheInterceptor)
+@CacheTTL(1000 * 20 /* 20秒 缓存GET请求 */)
 export class ProductController {
   constructor(
     private readonly shopProductRepository: ShopProductRepository,
+    private readonly userRepository: UserRepository,
     private readonly shopProductTagRepository: ShopProductTagRepository,
+    private readonly productService: ProductService,
   ) {}
 
   /**
@@ -23,24 +29,7 @@ export class ProductController {
   @Get()
   @UseInterceptors(ResInterceptor)
   public listProduct(@Query() query: GetProductDTO): Promise<Array<unknown>> {
-    if (!Array.isArray(query.filterTags)) query.filterTags = [query.filterTags];
-    if (!query.orderTime) query.orderTime = "latest";
-    if (!query.orderHot) query.orderHot = "hottest";
-    return this.shopProductRepository.find({
-      cache: true,
-      order: {
-        updatedAt: query.orderTime === "oldest" ? "ASC" : "DESC",
-        productView: query.orderHot === "coldest" ? "ASC" : "DESC",
-      },
-      where: (query.filterTags || []).map((item) => {
-        return {
-          productStatus: "up",
-          productTags: {
-            productTagID: item,
-          },
-        };
-      }),
-    });
+    return this.productService.list(query);
   }
 
   /**
@@ -55,6 +44,7 @@ export class ProductController {
   @UseInterceptors(ResInterceptor)
   public async createProduct(
     @Body() { productName, productIntroduction, productPrice, productDiscountPrice, productStock, productTags, productStatus }: PostCreateProductDTO,
+    @User() user: Omit<UserEntity, "password">,
   ): Promise<unknown> {
     const product = new ShopProduct();
     product.productName = productName;
@@ -70,8 +60,54 @@ export class ProductController {
       }),
     );
     product.productStatus = productStatus ? "up" : "down";
+    product.user = await this.userRepository.findOneByControl(user.userID, true);
     return this.shopProductRepository.save(product, {
       transaction: true,
     });
+  }
+
+  /**
+   * 搜索商品
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/20
+   * @param {PostSearchProductDTO} query
+   * @memberof ProductController
+   */
+  @Get("search")
+  @UseInterceptors(ResInterceptor)
+  public async searchProduct(@Query() query: PostSearchProductDTO) {
+    const [list, count] = await this.productService.list(query, query.keyword);
+    return { count, list };
+  }
+
+  /**
+   * 删除商品
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/20
+   * @param {number} productID
+   * @memberof ProductController
+   */
+  @Delete()
+  @Auth()
+  @UseInterceptors(ResInterceptor)
+  public async deleteProduct(@Body() body: DeletedeleteProductDTO, @User() user: Omit<UserEntity, "password">) {
+    if (typeof body.productID === "number") {
+      const product = await this.shopProductRepository.findOneBy({ productID: body.productID, user: { userID: user.userID } });
+      if (!product) throw new NotFoundException(1027);
+      await this.shopProductRepository.remove(product, {
+        transaction: true,
+      });
+      return true;
+    } else {
+      for (const item of body.productID) {
+        const product = await this.shopProductRepository.findOneBy({ productID: item, user: { userID: user.userID } });
+        if (!product) throw new NotFoundException(1027);
+        await this.shopProductRepository.remove(product, {
+          transaction: true,
+        });
+      }
+    }
   }
 }

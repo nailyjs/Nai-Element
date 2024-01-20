@@ -106,4 +106,38 @@ export class UserRepository extends EntityRepository<User> {
     value.user = user;
     return this.dataSource.getRepository(UserValue).save(value);
   }
+
+  /**
+   * 根据用户的权限查找用户 并排除掉不公开的信息
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/20
+   * @param {User} user
+   * @return {Promise<User>}
+   * @memberof UserRepository
+   */
+  public async excludeControl(user: User, excludePassword: boolean = true): Promise<User> {
+    const control = (await this.dataSource.getRepository(UserControl).findOneBy({ user: { userID: user.userID } })) || ({} as UserControl);
+    if (!control) return user;
+    if (!control.publicEmail) user.email = undefined;
+    if (!control.publicPhone) user.phone = undefined;
+    if (excludePassword) user.password = undefined;
+    return user;
+  }
+
+  /**
+   * 根据用户的权限查找用户
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/20
+   * @param {number} userID 用户ID
+   * @param [excludePassword=true] 是否排除密码
+   * @return {Promise<User>}
+   * @memberof UserRepository
+   */
+  public async findOneByControl(userID: number, excludePassword: boolean = false): Promise<User> {
+    const user = await this.findOne({ where: { userID } });
+    if (excludePassword) user.password = undefined;
+    return this.excludeControl(user, excludePassword);
+  }
 }

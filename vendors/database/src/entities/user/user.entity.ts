@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, Prim
 import { UserValue } from "./userValue.entity";
 import { UserControl } from "./userControl.entity";
 import { UserOrder } from "./userOrder.entity";
+import { ShopProduct } from "../shop/product.entity";
 
 @Entity()
 export class User {
@@ -46,4 +47,7 @@ export class User {
   @OneToMany(() => UserOrder, (userOrder) => userOrder.user)
   @JoinColumn()
   userOrder: UserOrder[];
+
+  @OneToMany(() => ShopProduct, (product) => product.user)
+  userProduct: ShopProduct[];
 }

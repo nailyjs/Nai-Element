@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ShopProductTag } from "./tag.entity";
 import { ShopProductProperties } from "./productProperties.entity";
+import { User } from "../user/user.entity";
 
 @Entity()
 export class ShopProduct {
@@ -36,6 +37,9 @@ export class ShopProduct {
 
   @Column({ comment: "商品状态", default: "up" })
   productStatus: "up" | "down";
+
+  @ManyToOne(() => User, (user) => user.userProduct)
+  user: User;
 
   @ManyToMany(() => ShopProductTag, (productTag) => productTag.products)
   @JoinTable()

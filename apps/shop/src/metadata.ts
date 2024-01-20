@@ -10,7 +10,13 @@ export default async () => {
             GetProductDTO: {
               orderTime: { required: false, type: () => Object, description: "\u65F6\u95F4\u6392\u5E8F", default: "latest" },
               orderHot: { required: false, type: () => Object, description: "\u70ED\u5EA6\u6392\u5E8F", default: "hottest" },
+              orderPrice: { required: false, type: () => Object, description: "\u4EF7\u683C\u6392\u5E8F", default: "highest" },
+              orderSold: { required: false, type: () => Object, description: "\u9500\u91CF\u6392\u5E8F", default: "highest" },
+              orderStock: { required: false, type: () => Object, description: "\u5E93\u5B58\u6392\u5E8F", default: "highest" },
               filterTags: { required: false, type: () => [Number], description: "\u8FC7\u6EE4\u6807\u7B7E" },
+              filterUser: { required: false, type: () => [Number], description: "\u8FC7\u6EE4\u7528\u6237" },
+              take: { required: false, type: () => Number, description: "\u53D6\u5230\u6570\u91CF", default: 10 },
+              skip: { required: false, type: () => Number, description: "\u8DF3\u8FC7\u6570\u91CF", default: 0 },
             },
             PostCreateProductDTO: {
               productName: { required: true, type: () => String, description: "\u5546\u54C1\u540D\u79F0" },
@@ -31,6 +37,8 @@ export default async () => {
                 default: true,
               },
             },
+            PostSearchProductDTO: { keyword: { required: true, type: () => String, description: "\u641C\u7D22\u5173\u952E\u5B57" } },
+            DeletedeleteProductDTO: { productID: { required: true, type: () => Object, description: "\u5546\u54C1id" } },
           },
         ],
       ],
@@ -42,6 +50,8 @@ export default async () => {
             ProductController: {
               listProduct: { summary: "\u83B7\u53D6\u5546\u54C1\u5217\u8868", type: [Object] },
               createProduct: { summary: "\u521B\u5EFA\u5546\u54C1", type: Object },
+              searchProduct: { summary: "\u641C\u7D22\u5546\u54C1" },
+              deleteProduct: { summary: "\u5220\u9664\u5546\u54C1", type: Boolean },
             },
           },
         ],
