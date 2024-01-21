@@ -24,6 +24,9 @@ import {
   UserSubscribeOrderRepository,
   UserValueRepository,
 } from "cc.naily.element.database";
+import { LessThan } from "typeorm";
+import { ConfigService } from "@nestjs/config";
+import { CommonLogger } from "cc.naily.element.shared";
 
 @Injectable()
 export class SubscribeService {
@@ -31,14 +34,25 @@ export class SubscribeService {
     private readonly shopSubscribeRepository: ShopSubscribeRepository,
     private readonly userSubscribeOrderRepository: UserSubscribeOrderRepository,
     private readonly userValueRepository: UserValueRepository,
-  ) {}
-
-  public async getSubscribeList() {
-    return await this.shopSubscribeRepository.find();
+    private readonly configService: ConfigService,
+    private readonly commonLogger: CommonLogger,
+  ) {
+    commonLogger.setContext(SubscribeService.name);
+    const intervalCheckSubscribeStatus = this.configService.get<number | null>("shop.subscribe.intervalCheckSubscribeStatus");
+    if (intervalCheckSubscribeStatus && Number.isInteger(intervalCheckSubscribeStatus)) {
+      if (intervalCheckSubscribeStatus < 1000) throw new Error("shop.subscribe.intervalCheckSubscribeStatus must be greater than 1000");
+      setInterval(this.checkSubscribeStatus.bind(this), intervalCheckSubscribeStatus);
+    } else {
+      commonLogger.warn("shop.subscribe.intervalCheckSubscribeStatus没有设置，订阅状态例行检查功能将不会启用");
+    }
   }
 
-  public async getSubscribeSingle(subscribeID: number) {
-    return await this.shopSubscribeRepository.findOneBy({ subscribeID });
+  public getSubscribeList() {
+    return this.shopSubscribeRepository.find();
+  }
+
+  public getSubscribeSingle(subscribeID: number) {
+    return this.shopSubscribeRepository.findOneBy({ subscribeID });
   }
 
   public async subscribe(subscribeID: number, userID: number) {
@@ -73,6 +87,20 @@ export class SubscribeService {
     return await this.shopSubscribeRepository.save(shopSubscribe);
   }
 
+  public async renewSubscribe(subscribeID: number, userID: number) {
+    const subscribe = await this.userSubscribeOrderRepository.findOneBy({
+      shopSubscribe: { subscribeID },
+      user: { userID },
+    });
+    if (!subscribe) throw new BadRequestException(1033);
+    if (subscribe.expiredAt.getTime() > new Date().getTime()) {
+      subscribe.expiredAt = new Date(subscribe.expiredAt.getTime() + subscribe.shopSubscribe.duration * 24 * 60 * 60 * 1000);
+    } else {
+      subscribe.expiredAt = new Date(new Date().getTime() + subscribe.shopSubscribe.duration * 24 * 60 * 60 * 1000);
+    }
+    return await this.userSubscribeOrderRepository.save(subscribe);
+  }
+
   public async getSubscribeStatus(subscribeID: number, userID: number) {
     const subscribe = await this.userSubscribeOrderRepository.findOneBy({
       shopSubscribe: { subscribeID },
@@ -85,5 +113,28 @@ export class SubscribeService {
     }
 
     return subscribe;
+  }
+
+  /**
+   * 检查订阅状态
+   *
+   * @memberof SubscribeService
+   * @description 每10秒检查一次订阅状态，如果订阅已经过期，则将订阅状态设置为过期
+   * @returns {Promise<void>}
+   */
+  private async checkSubscribeStatus(): Promise<void> {
+    this.commonLogger.log(`订阅状态例行检查 ${this.configService.get<number | null>("shop.subscribe.intervalCheckSubscribeStatus")}ms`);
+    const subscribes = await this.userSubscribeOrderRepository.find({
+      where: {
+        status: "active",
+        expiredAt: LessThan(new Date()),
+      },
+    });
+    if (subscribes.length === 0) return this.commonLogger.log(`订阅状态例行检查完成 ${subscribes.length}条订阅已过期`);
+    for (const subscribe of subscribes) {
+      subscribe.status = "expired";
+      await this.userSubscribeOrderRepository.save(subscribe);
+    }
+    this.commonLogger.log(`订阅状态例行检查完成 ${subscribes.length}条订阅已过期`);
   }
 }

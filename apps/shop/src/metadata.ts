@@ -76,6 +76,7 @@ export default async () => {
               getSubscribeSingle: { summary: "\u6839\u636E`subscribeID`\u83B7\u53D6\u5355\u4E2A\u8BA2\u9605\u5236\u5546\u54C1", type: Object },
               createSubscribe: { summary: "\u521B\u5EFA\u4E00\u4E2A\u8BA2\u9605\u5236\u7684\u5546\u54C1", type: Object },
               subscribe: { summary: "\u8BA2\u9605\u4E00\u4E2A\u8BA2\u9605\u5236\u7684\u5546\u54C1", type: Object },
+              renewSubscribe: { summary: "\u7EED\u8D39\u4E00\u4E2A\u8BA2\u9605\u5236\u7684\u5546\u54C1", type: Object },
               getSubscribeStatus: {
                 summary: "\u83B7\u53D6\u5F53\u524D\u7528\u6237\u67D0\u4E2A\u8BA2\u9605\u5236\u5546\u54C1\u7684\u8BA2\u9605\u72B6\u6001",
                 type: Object,

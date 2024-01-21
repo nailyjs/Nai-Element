@@ -17,7 +17,7 @@
 
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
-import Shared, { ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
+import Shared, { CommonScheduleModule, ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
 import { CommonValidationPipe } from "cc.naily.element.validator";
 import { APP_GUARD, APP_PIPE } from "@nestjs/core";
 import { ProductModule } from "./modules/product/product.module";
@@ -38,6 +38,7 @@ import { SubscribeModule } from "./modules/subscribe/subscribe.module";
     Shared.CommonUpyunModule.forRoot(),
     CommonTypeOrmModule.forRoot(),
     CommonJwtModule.forRoot(),
+    CommonScheduleModule.forRoot(),
     ProductModule.register(),
     SubscribeModule.register(),
   ],

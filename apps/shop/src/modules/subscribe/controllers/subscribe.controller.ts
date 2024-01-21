@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Body, Controller, Get, Post, Put, Query, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Get, Patch, Post, Put, Query, UseInterceptors } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { SubscribeService } from "../providers/subscribe.service";
 import { Auth, User } from "cc.naily.element.auth";
 import { User as UserEntity } from "cc.naily.element.database";
 import { ResInterceptor } from "cc.naily.element.shared";
-import { PostSubscribeBodyDTO, PutSubscribeBodyDTO, getSubscribeUserStatusQueryDTO } from "../dtos/subscribe/subscribe.dto";
+import { getSubscribeUserStatusQueryDTO, PostSubscribeBodyDTO, PutSubscribeBodyDTO } from "../dtos/subscribe/subscribe.dto";
 import { CacheInterceptor } from "@nestjs/cache-manager";
 
 @ApiTags("订阅")
@@ -91,6 +91,22 @@ export class SubscribeController {
   @UseInterceptors(ResInterceptor)
   subscribe(@Body() { subscribeID }: PutSubscribeBodyDTO, @User() user: Omit<UserEntity, "password">): Promise<unknown> {
     return this.subscribeService.subscribe(subscribeID, user.userID);
+  }
+
+  /**
+   * 续费一个订阅制的商品
+   *
+   * @param {getSubscribeUserStatusQueryDTO} subscribeID 订阅制商品ID
+   * @param {Omit<UserEntity, "password">} user 当前登录用户
+   * @author Zero <gczgroup@qq.com>
+   * @memberof SubscribeController
+   * @date 2024/01/21
+   */
+  @Auth()
+  @Patch()
+  @UseInterceptors(ResInterceptor)
+  renewSubscribe(@Body() { subscribeID }: PutSubscribeBodyDTO, @User() user: Omit<UserEntity, "password">): Promise<unknown> {
+    return this.subscribeService.renewSubscribe(subscribeID, user.userID);
   }
 
   /**

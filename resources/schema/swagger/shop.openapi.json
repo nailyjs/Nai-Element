@@ -327,6 +327,29 @@
         },
         "tags": ["订阅"],
         "security": [{ "bearer": [] }]
+      },
+      "patch": {
+        "operationId": "SubscribeController_renewSubscribe",
+        "summary": "续费一个订阅制的商品",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutSubscribeBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"],
+        "security": [{ "bearer": [] }]
       }
     },
     "/subscribe/single": {

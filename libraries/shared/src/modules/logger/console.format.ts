@@ -33,7 +33,7 @@ export const consoleFormat = format.printf((info: TransformableInfo) => {
     return `${cyan(`[${label}] ${pid}  -`)} ${timestamp}    ${cyan(`${formattedLevel}  ${cyanBright(context ? `[${context}]` : "")} ${message}`)}`;
   } else if (level === "warn") {
     return `${yellow(`[${label}] ${pid}  -`)} ${timestamp}    ${yellow(
-      `${formattedLevel}  ${yellowBright(context ? `[${context}]` : "")} ${message}`,
+      `${formattedLevel} ${yellowBright(context ? `[${context}]` : "")} ${message}`,
     )}`;
   } else if (level === "verbose") {
     return `${magenta(`[${label}] ${pid}  -`)} ${timestamp} ${magenta(

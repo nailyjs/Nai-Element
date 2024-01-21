@@ -24,6 +24,7 @@ export * from "./modules/error";
 export * from "./modules/dev";
 export * from "./modules/logger";
 export * from "./modules/upyun";
+export * from "./modules/schedule";
 
 export * from "./interfaces";
 export * from "./errors";
@@ -39,6 +40,7 @@ import * as Error from "./modules/error";
 import * as Dev from "./modules/dev";
 import * as Logger from "./modules/logger";
 import * as Upyun from "./modules/upyun";
+import * as Schedule from "./modules/schedule";
 
 import * as Interfaces from "./interfaces";
 import * as Common from "./common";
@@ -55,6 +57,7 @@ export default {
   ...Dev,
   ...Logger,
   ...Upyun,
+  ...Schedule,
   ...Interfaces,
   ...Common,
   ...Errors,
