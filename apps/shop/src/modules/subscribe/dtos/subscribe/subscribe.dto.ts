@@ -15,8 +15,60 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { ApiProperty } from "@nestjs/swagger";
 import { IsIntString } from "cc.naily.element.validator";
-import { IsInt, IsNotEmpty, IsNumber } from "class-validator";
+import { IsIn, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+
+export class GetSubscribeListQueryDTO {
+  /**
+   * 时间排序方式
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/22
+   * @type {("latest" | "oldest")}
+   * @memberof GetSubscribeListQueryDTO
+   */
+  @ApiProperty({ description: "时间排序方式", enum: ["latest", "oldest"] })
+  @IsOptional()
+  @IsIn(["latest", "oldest"])
+  @IsString()
+  orderTime?: "latest" | "oldest";
+  /**
+   * 价格排序方式
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/22
+   * @type {("highest" | "lowest")}
+   * @memberof GetSubscribeListQueryDTO
+   */
+  @ApiProperty({ description: "价格排序方式", enum: ["highest", "lowest"] })
+  @IsOptional()
+  @IsIn(["highest", "lowest"])
+  @IsString()
+  orderPrice?: "highest" | "lowest";
+  /**
+   * 获取数量
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/22
+   * @type {number}
+   * @memberof GetSubscribeListQueryDTO
+   */
+  @IsIntString()
+  @IsOptional()
+  take?: number;
+  /**
+   * 跳过数量
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/22
+   * @type {number}
+   * @memberof GetSubscribeListQueryDTO
+   */
+  @IsIntString()
+  @IsOptional()
+  skip?: number;
+}
 
 export class PostSubscribeBodyDTO {
   /**

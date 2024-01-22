@@ -271,7 +271,36 @@
       "get": {
         "operationId": "SubscribeController_getSubscribeList",
         "summary": "获取订阅制商品列表",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "orderTime",
+            "required": false,
+            "in": "query",
+            "description": "时间排序方式",
+            "schema": { "enum": ["latest", "oldest"], "type": "string" }
+          },
+          {
+            "name": "orderPrice",
+            "required": false,
+            "in": "query",
+            "description": "价格排序方式",
+            "schema": { "enum": ["highest", "lowest"], "type": "string" }
+          },
+          {
+            "name": "take",
+            "required": false,
+            "in": "query",
+            "description": "获取数量",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "跳过数量",
+            "schema": { "type": "number" }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",

@@ -27,6 +27,7 @@ import {
 import { LessThan } from "typeorm";
 import { ConfigService } from "@nestjs/config";
 import { CommonLogger } from "cc.naily.element.shared";
+import { GetSubscribeListQueryDTO } from "../dtos/subscribe/subscribe.dto";
 
 @Injectable()
 export class SubscribeService {
@@ -47,8 +48,16 @@ export class SubscribeService {
     }
   }
 
-  public getSubscribeList() {
-    return this.shopSubscribeRepository.find();
+  public getSubscribeList(dto: GetSubscribeListQueryDTO) {
+    return this.shopSubscribeRepository.find({
+      order: {
+        updatedAt: dto.orderTime === "oldest" ? "ASC" : dto.orderTime === "latest" ? "DESC" : undefined,
+        price: dto.orderPrice === "highest" ? "DESC" : dto.orderPrice === "lowest" ? "ASC" : undefined,
+      },
+      cache: true,
+      take: dto.take,
+      skip: dto.skip,
+    });
   }
 
   public getSubscribeSingle(subscribeID: number) {

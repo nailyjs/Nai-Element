@@ -5,6 +5,7 @@
     "dev:shop": "pnpm -F cc.naily.element.shop start:dev",
     "build": "tsx scripts/buildDeps.ts",
     "build:passport": "pnpm -F cc.naily.element.passport build",
+    "build:shop": "pnpm -F cc.naily.element.shop build",
     "build:shared": "pnpm -F cc.naily.element.shared build",
     "build:database": "pnpm -F cc.naily.element.database build",
     "build:swagger": "pnpm -F cc.naily.element.swagger build",

@@ -44,6 +44,12 @@ export default async () => {
         [
           import("./modules/subscribe/dtos/subscribe/subscribe.dto"),
           {
+            GetSubscribeListQueryDTO: {
+              orderTime: { required: false, type: () => Object, description: "\u65F6\u95F4\u6392\u5E8F\u65B9\u5F0F" },
+              orderPrice: { required: false, type: () => Object, description: "\u4EF7\u683C\u6392\u5E8F\u65B9\u5F0F" },
+              take: { required: false, type: () => Number, description: "\u83B7\u53D6\u6570\u91CF" },
+              skip: { required: false, type: () => Number, description: "\u8DF3\u8FC7\u6570\u91CF" },
+            },
             PostSubscribeBodyDTO: {
               title: { required: true, type: () => String, description: "\u5546\u54C1\u6807\u9898" },
               introduction: { required: true, type: () => String, description: "\u5546\u54C1\u4ECB\u7ECD" },

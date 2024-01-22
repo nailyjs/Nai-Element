@@ -21,7 +21,7 @@ import { SubscribeService } from "../providers/subscribe.service";
 import { Auth, User } from "cc.naily.element.auth";
 import { User as UserEntity } from "cc.naily.element.database";
 import { ResInterceptor } from "cc.naily.element.shared";
-import { getSubscribeUserStatusQueryDTO, PostSubscribeBodyDTO, PutSubscribeBodyDTO } from "../dtos/subscribe/subscribe.dto";
+import { GetSubscribeListQueryDTO, getSubscribeUserStatusQueryDTO, PostSubscribeBodyDTO, PutSubscribeBodyDTO } from "../dtos/subscribe/subscribe.dto";
 import { CacheInterceptor } from "@nestjs/cache-manager";
 
 @ApiTags("订阅")
@@ -40,8 +40,10 @@ export class SubscribeController {
    */
   @Get()
   @UseInterceptors(ResInterceptor)
-  getSubscribeList(): Promise<unknown> {
-    return this.subscribeService.getSubscribeList();
+  getSubscribeList(@Query() query: GetSubscribeListQueryDTO): Promise<unknown> {
+    if (!query.take) query.take = 10;
+    if (!query.skip) query.skip = 0;
+    return this.subscribeService.getSubscribeList(query);
   }
 
   /**

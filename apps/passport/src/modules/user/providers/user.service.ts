@@ -36,7 +36,7 @@ export class UserService {
     const user = await this.userRepository.findOne({
       where: { userID },
       select: { password: false },
-      relations: { userControl: true, userValue: true },
+      relations: { userControls: true, userValues: true },
     });
     if (!user) throw new BadRequestException(1015);
     user.password = undefined;
