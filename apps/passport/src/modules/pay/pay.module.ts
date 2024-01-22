@@ -15,20 +15,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Module } from "@nestjs/common";
+import { Module, Provider } from "@nestjs/common";
 import { BusinessModule, CommonConfigModule } from "cc.naily.element.shared";
 import { XunhupayController } from "./controllers/xunhupay.controller";
 import { XunhupayService } from "./providers/xunhupay.service";
 import { HttpModule } from "@nestjs/axios";
 import { PayService } from "./providers/pay.service";
 import { UserOrderRepository } from "cc.naily.element.database";
-import { WeChatPayModule } from "nest-wechatpay-node-v3";
+import { WECHAT_PAY_MANAGER, WeChatPayModule } from "nest-wechatpay-node-v3";
 import { ConfigService } from "@nestjs/config";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { WechatService } from "./providers/wechat.service";
 import { WechatController } from "./controllers/wechat.controller";
 
+const configFile = CommonConfigModule.getYmlConfigDynamic() || {};
+const isEnableWechat =
+  configFile.global.pay &&
+  configFile.global.pay.enabled &&
+  Array.isArray(configFile.global.pay.enabled) &&
+  (configFile.global.pay.enabled as any[]).includes("wechat");
 @Module({
   imports: (() => {
     const imports = [
@@ -38,15 +44,7 @@ import { WechatController } from "./controllers/wechat.controller";
       }),
     ];
 
-    const configFile = CommonConfigModule.getYmlConfigDynamic() || {};
-    if (
-      configFile &&
-      configFile.global &&
-      configFile.global.pay &&
-      configFile.global.pay.enabled &&
-      Array.isArray(configFile.global.pay.enabled) &&
-      (configFile.global.pay.enabled as any[]).includes("wechat")
-    ) {
+    if (isEnableWechat) {
       imports.push(
         WeChatPayModule.registerAsync({
           inject: [ConfigService],
@@ -74,6 +72,16 @@ import { WechatController } from "./controllers/wechat.controller";
     return imports;
   })(),
   controllers: [XunhupayController, WechatController],
-  providers: [XunhupayService, WechatService, PayService, UserOrderRepository],
+  providers: (() => {
+    const providers: Provider[] = [XunhupayService, WechatService, PayService, UserOrderRepository];
+    if (!isEnableWechat) {
+      providers.push({
+        provide: WECHAT_PAY_MANAGER,
+        inject: [ConfigService],
+        useFactory: () => {},
+      });
+    }
+    return providers;
+  })(),
 })
 export class PayModule extends BusinessModule {}
