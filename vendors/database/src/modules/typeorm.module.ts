@@ -55,7 +55,7 @@ export class CommonTypeOrmModule {
             options: {
               host: configService.getOrThrow("global.datasource.redis.host"),
               port: configService.getOrThrow("global.datasource.redis.port"),
-              password: configService.getOrThrow("global.datasource.redis.password"),
+              password: configService.get("global.datasource.redis.password"),
               db: configService.get("global.datasource.redis.db"),
             },
           },
