@@ -23,6 +23,7 @@ import { AppModule } from "./app.module";
 import { ConfigService } from "@nestjs/config";
 import { SwaggerModule } from "@nestjs/swagger";
 import { CommonLogger, EnableSwagger } from "cc.naily.element.shared";
+import { join } from "path";
 
 (async function bootstrap() {
   console.clear();
@@ -41,7 +42,7 @@ import { CommonLogger, EnableSwagger } from "cc.naily.element.shared";
   // Swagger
   await SwaggerModule.loadPluginMetadata(metadata);
   const [openAPIObject, generate] = EnableSwagger(app, (builder) => {
-    return builder.setTitle(name).setDescription(readFileSync("./DESC.md").toString("utf-8"));
+    return builder.setTitle(name).setDescription(readFileSync(join(process.env.PROJECT_ROOT, "apps/shop/DESC.md")).toString("utf-8"));
   });
   generate("passport.openapi.json", openAPIObject).then();
   await app.listen(port);

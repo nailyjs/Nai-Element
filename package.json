@@ -12,6 +12,7 @@
     "build:auth": "pnpm -F cc.naily.element.auth build",
     "build:validator": "pnpm -F cc.naily.element.validator build",
     "start:passport": "pnpm -F cc.naily.element.passport start:prod",
+    "start:shop": "pnpm -F cc.naily.element.shop start:prod",
     "migration:generate": "pnpm -F cc.naily.element.database migration:generate",
     "migration:run": "pnpm -F cc.naily.element.database migration:run",
     "migration": "pnpm -F cc.naily.element.database migration:generate;pnpm -F cc.naily.element.database migration:run",
