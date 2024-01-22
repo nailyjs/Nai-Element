@@ -5,8 +5,7 @@ services:
       # 映射端口
       - "3000:4123"
       - "3001:4124"
-      - "3306:3306"
-      - "6379:6379"
+
     volumes:
       - /Users/guhuan/Documents/Personal/Docker/test:/naily_config
     environment:
