@@ -5,10 +5,25 @@ services:
     ports:
       # 映射端口
       - "3000:3000"
+      - "3306:3306"
+      - "6379:6379"
     volumes:
       - /Users/guhuan/Documents/Personal/Docker/test:/naily_config
     environment:
       # 在这里覆写您的配置文件名称，如`./naily_config/app.yml`
       # 您可以把./naily_config文件夹看作是上面的target文件夹路径，这里的app.yml就是您的配置文件名称
       - CONFIG_PATH=/naily_config/app.yml
-    build: .
+    build:
+      context: ./apps/passport
+
+  shop:
+    ports:
+      - "3001:3001"
+    volumes:
+      - /Users/guhuan/Documents/Personal/Docker/test:/naily_config
+    environment:
+      # 在这里覆写您的配置文件名称，如`./naily_config/app.yml`
+      # 您可以把./naily_config文件夹看作是上面的target文件夹路径，这里的app.yml就是您的配置文件名称
+      - CONFIG_PATH=/naily_config/app.yml
+    build:
+      context: ./apps/shop
