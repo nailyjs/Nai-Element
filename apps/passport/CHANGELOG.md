@@ -1,5 +1,11 @@
 # cc.naily.element.passport
 
+## 5.1.1
+
+### Patch Changes
+
+-   ebe28e0: feat: add subscribe entity
+
 ## 5.1.0
 
 ### Minor Changes
