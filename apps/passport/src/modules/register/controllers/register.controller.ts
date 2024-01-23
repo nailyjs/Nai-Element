@@ -32,17 +32,17 @@ export class RegisterController {
   ) {}
 
   /**
-   * 通过邮箱验证码和密码注册
+   * 通过邮箱验证码注册
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/06
    * @memberof RegisterController
    */
-  @Post("email/password")
+  @Post("email/code")
   @UseInterceptors(ResInterceptor)
   public async registerByEmailPassword(@Body() body: RegisterByEmailPasswordBodyDTO, @Ip() ip: string) {
     await this.emailService.checkCode(body.email, body.verifyCode);
-    const user = await this.registerService.registerByEmailPassword(body.email, body.username, body.password, ip);
+    const user = await this.registerService.registerByEmailPassword(body.email, body.username, ip);
     this.emailService.deleteCode(body.email).then();
     this.commonLogger.setContext(RegisterController.name);
     this.commonLogger.log(`用户注册成功 ${JSON.stringify(user)}`);

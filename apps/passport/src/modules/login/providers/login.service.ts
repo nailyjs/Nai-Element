@@ -15,22 +15,37 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { compareSync } from "bcrypt";
 import { UserRepository } from "cc.naily.element.database";
+import { EmailService } from "../../../providers/email.service";
 
 @Injectable()
 export class LoginService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly userRepository: UserRepository,
+    private readonly emailService: EmailService,
   ) {}
 
   public async loginByUsernamePassword(username: string, password: string) {
     const user = await this.userRepository.findOneBy({ username });
     if (!user) throw new NotFoundException(1007);
+    if (!user.password) throw new BadRequestException(1034);
     if (!compareSync(password, user.password)) throw new ForbiddenException(1008);
+    const access_token = this.jwtService.sign({ userID: user.userID });
+    user.password = undefined;
+    return {
+      user,
+      access_token,
+    };
+  }
+
+  public async loginByEmailCode(email: string, verifyCode: number) {
+    const user = await this.userRepository.findOneBy({ email });
+    if (!user) throw new NotFoundException(1007);
+    await this.emailService.checkCode(email, verifyCode);
     const access_token = this.jwtService.sign({ userID: user.userID });
     user.password = undefined;
     return {

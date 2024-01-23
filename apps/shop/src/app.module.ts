@@ -15,15 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Module } from "@nestjs/common";
+import helmet from "helmet";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { AppController } from "./app.controller";
-import Shared, { CommonScheduleModule, ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
+import Shared, { CommonScheduleModule, LoggerMiddleware, ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
 import { CommonValidationPipe } from "cc.naily.element.validator";
 import { APP_GUARD, APP_PIPE } from "@nestjs/core";
 import { ProductModule } from "./modules/product/product.module";
 import { CommonTypeOrmModule } from "cc.naily.element.database";
 import { CommonJwtModule } from "cc.naily.element.auth";
 import { SubscribeModule } from "./modules/subscribe/subscribe.module";
+import { EvaluateModule } from "./modules/evaluate/evaluate.module";
 
 @Module({
   imports: [
@@ -41,6 +43,7 @@ import { SubscribeModule } from "./modules/subscribe/subscribe.module";
     CommonScheduleModule.forRoot(),
     ProductModule.register(),
     SubscribeModule.register(),
+    EvaluateModule.register(),
   ],
   controllers: [AppController],
   providers: [
@@ -54,4 +57,8 @@ import { SubscribeModule } from "./modules/subscribe/subscribe.module";
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  public configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes("*").apply(helmet()).forRoutes("*");
+  }
+}

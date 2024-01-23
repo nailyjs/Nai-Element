@@ -67,8 +67,12 @@ export default async () => {
             RegisterByEmailPasswordBodyDTO: {
               email: { required: true, type: () => String, description: "\u90AE\u7BB1" },
               username: { required: true, type: () => String, description: "\u7528\u6237\u540D" },
-              password: { required: true, type: () => String, description: "\u5BC6\u7801", minLength: 6 },
-              verifyCode: { required: true, type: () => Number, description: "\u9A8C\u8BC1\u7801", maximum: 999999 },
+              verifyCode: {
+                required: true,
+                type: () => Number,
+                description: "\u5BC6\u7801\n\n\n\n\n\n\n\n\n\n\n  password: string;\n\u9A8C\u8BC1\u7801",
+                maximum: 999999,
+              },
             },
           },
         ],
@@ -182,6 +186,35 @@ export default async () => {
             },
           },
         ],
+        [
+          import("./modules/google/google.dto"),
+          { PostGoogleReCaptchaTokenBodyDTO: { token: { required: true, type: () => String, description: "ReCaptcha\u9A8C\u8BC1Token" } } },
+        ],
+        [
+          import("./modules/google/google.res.dto"),
+          {
+            ReCaptchaTokenCheckerResDTO: {
+              message: {
+                required: true,
+                type: () => Object,
+                description:
+                  "Human - \u662F\u4EBA\u7C7B\n\nRobot - \u53EF\u80FD\u662F\u673A\u5668\u4EBA\n\ntimeout-or-duplicate - Token\u8D85\u65F6\u6216\u4F7F\u7528\u8FC7",
+              },
+            },
+            ReCaptchaTokenGetterResDTO: {
+              message: { required: true, type: () => String, description: "\u5BC6\u94A5", example: "6LfNho0nAAAAAKlP1rqLg292VLAGKfAEVGqqBIYW" },
+            },
+          },
+        ],
+        [
+          import("./modules/login/dtos/login/email/code/email.post.dto"),
+          {
+            PostLoginEmailCodeBodyDTO: {
+              email: { required: true, type: () => String, description: "\u90AE\u7BB1" },
+              code: { required: true, type: () => Number, description: "\u9A8C\u8BC1\u7801", minimum: 100000, maximum: 999999 },
+            },
+          },
+        ],
       ],
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
@@ -193,14 +226,13 @@ export default async () => {
                 summary: "\u901A\u8FC7\u7528\u6237\u540D\u5BC6\u7801\u767B\u5F55",
                 type: t["./modules/login/dtos/login/username/password/login.post.res.dto"].LoginByUsernamePasswordDataOKResponseDTO,
               },
+              loginByEmailCode: { summary: "\u901A\u8FC7\u90AE\u7BB1\u9A8C\u8BC1\u7801\u767B\u5F55" },
             },
           },
         ],
         [
           import("./modules/register/controllers/register.controller"),
-          {
-            RegisterController: { registerByEmailPassword: { summary: "\u901A\u8FC7\u90AE\u7BB1\u9A8C\u8BC1\u7801\u548C\u5BC6\u7801\u6CE8\u518C" } },
-          },
+          { RegisterController: { registerByEmailPassword: { summary: "\u901A\u8FC7\u90AE\u7BB1\u9A8C\u8BC1\u7801\u6CE8\u518C" } } },
         ],
         [
           import("./modules/transport/controllers/email.controller"),
@@ -239,6 +271,15 @@ export default async () => {
             UpyunController: {
               listFiles: { summary: "\u83B7\u53D6\u6587\u4EF6\u5217\u8868" },
               uploadImage: { summary: "\u4E0A\u4F20\u56FE\u7247", type: Object },
+            },
+          },
+        ],
+        [
+          import("./modules/google/google.controller"),
+          {
+            GoogleController: {
+              getRecaptchaClientKey: { summary: "\u83B7\u53D6 Google Recaptcha \u5BA2\u6237\u7AEF\u5BC6\u94A5" },
+              recaptchaChecker: { summary: "\u6D4B\u8BD5\u4EBA\u673A\u9A8C\u8BC1\u662F\u5426\u901A\u8FC7", type: String },
             },
           },
         ],

@@ -22,6 +22,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { ResInterceptor } from "cc.naily.element.shared";
 import { LoginByUsernamePasswordDataOKResponseDTO, LoginByUsernamePasswordOKResponseDTO } from "../dtos/login/username/password/login.post.res.dto";
 import { SwaggerResponse } from "cc.naily.element.swagger";
+import { PostLoginEmailCodeBodyDTO } from "../dtos/login/email/code/email.post.dto";
 
 @ApiTags("登录")
 @Controller("login")
@@ -42,5 +43,18 @@ export class LoginController {
   @SwaggerResponse(LoginByUsernamePasswordOKResponseDTO)
   public loginByUsernamePassword(@Body() body: LoginByUsernamePasswordDTO): Promise<LoginByUsernamePasswordDataOKResponseDTO> {
     return this.loginService.loginByUsernamePassword(body.username, body.password);
+  }
+
+  /**
+   * 通过邮箱验证码登录
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/24
+   * @memberof LoginController
+   */
+  @Post("email/code")
+  @UseInterceptors(ResInterceptor)
+  public loginByEmailCode(@Body() body: PostLoginEmailCodeBodyDTO) {
+    return this.loginService.loginByEmailCode(body.email, body.code);
   }
 }

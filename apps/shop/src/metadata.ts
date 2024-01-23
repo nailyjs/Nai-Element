@@ -90,6 +90,7 @@ export default async () => {
             },
           },
         ],
+        [import("./modules/evaluate/controllers/evaluate.controller"), { EvaluateController: { get: { type: String } } }],
       ],
     },
   };

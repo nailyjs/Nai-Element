@@ -18,7 +18,6 @@
 import { DataSource } from "typeorm";
 import { EntityRepository, Repository } from "../../decorators";
 import { User, UserValue } from "../../entities";
-import { genSaltSync, hashSync } from "bcrypt";
 import { UserControl } from "../../entities/user/userControl.entity";
 
 @Repository
@@ -76,18 +75,16 @@ export class UserRepository extends EntityRepository<User> {
    *
    * @param {string} email 邮箱
    * @param {string} username 用户名
-   * @param {string} password 密码
    * @param {string} ip ip地址
    * @returns {Promise<Omit<User, "password">>} 用户
    * @memberof UserRepository
    * @author Zero <gczgroup@qq.com>
    * @since 2024
    */
-  public async registerByEmail(email: string, username: string, password: string, ip: string): Promise<Omit<User, "password">> {
+  public async registerByEmail(email: string, username: string, ip: string): Promise<Omit<User, "password">> {
     let user = new User();
     user.email = email;
     user.username = username;
-    user.password = hashSync(password, genSaltSync());
     user.ip = ip;
     user = await this.save(user);
     await this.registerValue(user);

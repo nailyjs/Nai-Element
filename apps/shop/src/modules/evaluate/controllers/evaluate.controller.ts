@@ -15,16 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ForbiddenException, Injectable } from "@nestjs/common";
-import { UserRepository } from "cc.naily.element.database";
+import { Controller, Get } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
-@Injectable()
-export class RegisterService {
-  constructor(private readonly userRepository: UserRepository) {}
-
-  public async registerByEmailPassword(email: string, username: string, ip: string) {
-    const user = await this.userRepository.checkEmailOrUsername(email, username);
-    if (user) throw new ForbiddenException(1009);
-    return await this.userRepository.registerByEmail(email, username, ip);
+@ApiTags("商品评论")
+@Controller("evaluate")
+export class EvaluateController {
+  @Get()
+  async get() {
+    return "Hello World!";
   }
 }

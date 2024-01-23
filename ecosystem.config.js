@@ -1,14 +1,14 @@
 module.exports = {
   apps: [
     {
-      name: "Passport",
+      name: "NailyPassport",
       script: "./resources/dist/apps/passport/main.js",
       env: {
         NODE_ENV: "development",
       },
     },
     {
-      name: "Shop",
+      name: "NailyShop",
       script: "./resources/dist/apps/shop/main.js",
       env: {
         NODE_ENV: "development",

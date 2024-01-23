@@ -24,11 +24,12 @@ import { LoginModule } from "./modules/login/login.module";
 import { RegisterModule } from "./modules/register/register.module";
 import { TransportModule } from "./modules/transport/transport.module";
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
-import Shared, { ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
+import Shared, { LoggerMiddleware, ThrottlerBehindProxyGuard } from "cc.naily.element.shared";
 import { UserModule } from "./modules/user/user.module";
 import { PayModule } from "./modules/pay/pay.module";
 import { CommonValidationPipe } from "cc.naily.element.validator";
 import { UpyunFileModule } from "./modules/upyun/upyun.module";
+import { GoogleModule } from "./modules/google/google.module";
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { UpyunFileModule } from "./modules/upyun/upyun.module";
     LoginModule.register(),
     RegisterModule.register(),
     TransportModule.register(),
+    GoogleModule.register(),
     UserModule.register(),
     PayModule.register(),
     UpyunFileModule.register(),
@@ -64,6 +66,6 @@ import { UpyunFileModule } from "./modules/upyun/upyun.module";
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(helmet()).forRoutes("*");
+    consumer.apply(LoggerMiddleware).forRoutes("*").apply(helmet()).forRoutes("*");
   }
 }

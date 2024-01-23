@@ -16,7 +16,7 @@
  */
 
 import { DTO, DTOStatus } from "cc.naily.element.swagger";
-import { IsEmail, IsNotEmpty, IsNumber, IsRegExp, IsString, Max, MinLength } from "cc.naily.element.validator";
+import { IsEmail, IsNotEmpty, IsNumber, IsString, Max } from "cc.naily.element.validator";
 
 @DTO()
 @DTOStatus(201)
@@ -51,12 +51,13 @@ export class RegisterByEmailPasswordBodyDTO {
    * @date 2024/01/06
    * @type {string}
    * @memberof RegisterByEmailPasswordBodyDTO
-   */
+   *
   @IsRegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,}$/)
   @MinLength(6)
   @IsString()
   @IsNotEmpty()
   password: string;
+  */
   /**
    * 验证码
    *

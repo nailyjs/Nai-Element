@@ -24,5 +24,6 @@ import { BusinessModule } from "cc.naily.element.shared";
 @Module({
   controllers: [EmailController],
   providers: [EmailService, UserRepository],
+  exports: [EmailService],
 })
 export class TransportModule extends BusinessModule {}

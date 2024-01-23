@@ -53,7 +53,7 @@ export class CommonConfigModule extends ConfigModule implements ConfigModule {
    * @memberof CommonConfigModule
    */
   public static get ymlConfigCache(): Record<string | symbol, any> {
-    if (!this._cache) this._cache = this.getYmlConfigDynamic();
+    if (!this._cache) this._cache = this.getYmlConfigDynamic() || {};
     return this._cache;
   }
 
