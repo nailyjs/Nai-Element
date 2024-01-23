@@ -15,12 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Tree,
+  TreeChildren,
+  TreeParent,
+  UpdateDateColumn,
+} from "typeorm";
 import { User } from "../user/user.entity";
 import { ShopProduct } from "./product.entity";
 import { ShopEvaluateLike } from "./evaluateLike.entity";
 
 @Entity()
+@Tree("closure-table")
 export class ShopEvaluate {
   @PrimaryGeneratedColumn({ comment: "评价ID" })
   evaluateID: number;
@@ -31,8 +43,17 @@ export class ShopEvaluate {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column({ comment: "评价内容" })
+  @Column({ comment: "评价内容", nullable: false, type: "longtext" })
   content: string;
+
+  @Column({ comment: "评论点赞数", default: 0 })
+  likeCount: number;
+
+  @TreeChildren()
+  children: ShopEvaluate[];
+
+  @TreeParent()
+  parent: ShopEvaluate;
 
   @ManyToOne(() => User, (user) => user.shopEvaluates)
   user: User;

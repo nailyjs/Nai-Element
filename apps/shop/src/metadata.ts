@@ -60,6 +60,32 @@ export default async () => {
             getSubscribeUserStatusQueryDTO: { subscribeID: { required: true, type: () => Number, description: "\u8BA2\u9605\u5236\u5546\u54C1ID" } },
           },
         ],
+        [
+          import("./modules/evaluate/dtos/evaluate/evaluate.get.dto"),
+          {
+            GetEvaluateQueryDTO: {
+              productID: { required: true, type: () => Number, description: "\u5546\u54C1ID" },
+              orderTime: { required: false, type: () => Object, description: "\u65F6\u95F4\u6392\u5E8F\u65B9\u5F0F", default: "latest" },
+              orderLike: { required: false, type: () => Object, description: "\u70B9\u8D5E\u6392\u5E8F\u65B9\u5F0F", default: "most" },
+              take: { required: false, type: () => Number, description: "\u83B7\u53D6\u5230\u7684\u603B\u6570", example: 10 },
+              skip: { required: false, type: () => Number, description: "\u8DF3\u8FC7\u7684\u6570\u91CF", example: 0 },
+            },
+            GetEvaluateChildrenQueryDTO: {
+              evaluateID: { required: true, type: () => Number, description: "\u7236\u8BC4\u8BBAID" },
+              depth: { required: false, type: () => Number, description: "\u83B7\u53D6\u5230\u7684\u6DF1\u5EA6", default: 3 },
+              take: { required: false, type: () => Number, description: "\u83B7\u53D6\u5230\u7684\u603B\u6570", example: 10 },
+              skip: { required: false, type: () => Number, description: "\u8DF3\u8FC7\u7684\u6570\u91CF", example: 0 },
+            },
+            PostCreateEvaluateBodyDTO: {
+              productID: { required: true, type: () => Number, description: "\u5546\u54C1ID" },
+              content: { required: true, type: () => String, description: "\u8BC4\u8BBA\u5185\u5BB9" },
+            },
+            PostReplyEvaluateBodyDTO: {
+              content: { required: true, type: () => String, description: "\u8BC4\u8BBA\u5185\u5BB9" },
+              evaluateID: { required: false, type: () => Number, description: "\u7236\u8BC4\u8BBAID", example: 1, default: 0 },
+            },
+          },
+        ],
       ],
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
@@ -90,7 +116,18 @@ export default async () => {
             },
           },
         ],
-        [import("./modules/evaluate/controllers/evaluate.controller"), { EvaluateController: { get: { type: String } } }],
+        [
+          import("./modules/evaluate/controllers/evaluate.controller"),
+          {
+            EvaluateController: {
+              listEvaluate: { summary: "\u6839\u636E\u5546\u54C1\u5217\u51FA\u8BC4\u8BBA", type: Object },
+              listEvaluateChildren: { summary: "\u6839\u636E\u5546\u54C1\u7236\u8BC4\u8BBA\u5217\u51FA\u5B50\u8BC4\u8BBA", type: Object },
+              createEvaluate: { summary: "\u521B\u5EFA\u5546\u54C1\u8BC4\u8BBA", type: Object },
+              replyEvaluate: { summary: "\u56DE\u590D\u5546\u54C1\u8BC4\u8BBA", type: Object },
+              deleteEvaluate: { summary: "\u5220\u9664\u5546\u54C1\u8BC4\u8BBA", type: Boolean },
+            },
+          },
+        ],
       ],
     },
   };

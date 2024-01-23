@@ -20,3 +20,4 @@ export * from "./productProperties.entity";
 export * from "./tag.entity";
 export * from "./subscribe.entity";
 export * from "./evaluate.entity";
+export * from "./evaluateLike.entity";
