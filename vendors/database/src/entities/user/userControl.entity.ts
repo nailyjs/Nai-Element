@@ -37,4 +37,7 @@ export class UserControl {
 
   @Column({ comment: "是否公开手机号" })
   publicPhone: boolean;
+
+  @Column({ comment: "是否公开商品评论点赞" })
+  publicEvaluateLike: boolean;
 }

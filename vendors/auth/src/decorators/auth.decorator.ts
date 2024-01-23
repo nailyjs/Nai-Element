@@ -17,7 +17,7 @@
 
 import { applyDecorators, createParamDecorator, ExecutionContext, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth } from "@nestjs/swagger";
-import { CommonAuthGuard } from "../guards/common.guard";
+import { CommonAuthGuard, CommonAuthGuardOptional } from "../guards/common.guard";
 import { Request } from "express";
 
 /**
@@ -30,8 +30,8 @@ import { Request } from "express";
  * @author Zero <gczgroup@qq.com>
  * @since 2024
  */
-export function Auth(): ClassDecorator & MethodDecorator {
-  return applyDecorators(ApiBearerAuth(), UseGuards(CommonAuthGuard));
+export function Auth(isOpotional: boolean = false): ClassDecorator & MethodDecorator {
+  return applyDecorators(ApiBearerAuth(), UseGuards(isOpotional ? CommonAuthGuardOptional : CommonAuthGuard));
 }
 
 /**

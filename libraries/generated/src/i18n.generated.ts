@@ -43,6 +43,7 @@ export type I18nTranslations = {
             "1034": string;
             "1035": string;
             "1036": string;
+            "1037": string;
             "40001005": string;
         };
     };

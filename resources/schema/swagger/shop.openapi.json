@@ -605,6 +605,98 @@
         "tags": ["商品评论"],
         "security": [{ "bearer": [] }]
       }
+    },
+    "/evaluate/like": {
+      "get": {
+        "operationId": "EvaluateLikeController_getUserLike",
+        "summary": "获取用户评论点赞列表",
+        "parameters": [
+          {
+            "name": "orderTime",
+            "required": false,
+            "in": "query",
+            "description": "时间排序方式",
+            "schema": { "enum": ["latest", "oldest"], "type": "string" }
+          },
+          {
+            "name": "userID",
+            "required": true,
+            "in": "query",
+            "description": "用户ID",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "take",
+            "required": false,
+            "in": "query",
+            "description": "获取数量",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "跳过数量",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "如果用户本人已登录 正常返回点赞列表" },
+          "403": { "description": "如果访客访问但是用户没有开权限 则返回403" }
+        },
+        "tags": ["商品评论"],
+        "security": [{ "bearer": [] }]
+      },
+      "post": {
+        "operationId": "EvaluateLikeController_createLike",
+        "summary": "评论点赞",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCreateEvaluateLikeBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["商品评论"],
+        "security": [{ "bearer": [] }]
+      },
+      "delete": {
+        "operationId": "EvaluateLikeController_deleteLike",
+        "summary": "评论取消点赞",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCreateEvaluateLikeBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["商品评论"],
+        "security": [{ "bearer": [] }]
+      }
     }
   },
   "info": {
@@ -708,6 +800,13 @@
           }
         },
         "required": ["content"]
+      },
+      "PostCreateEvaluateLikeBodyDTO": {
+        "type": "object",
+        "properties": {
+          "evaluateID": { "type": "number", "description": "商品评论ID" }
+        },
+        "required": ["evaluateID"]
       }
     }
   }

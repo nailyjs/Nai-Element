@@ -18,11 +18,27 @@
 import { Module } from "@nestjs/common";
 import { BusinessModule } from "cc.naily.element.shared";
 import { EvaluateController } from "./controllers/evaluate.controller";
-import { ShopEvaluateRepository, ShopProductRepository, UserRepository } from "cc.naily.element.database";
+import {
+  ShopEvaluateLikeRepository,
+  ShopEvaluateRepository,
+  ShopProductRepository,
+  UserControlRepository,
+  UserRepository,
+} from "cc.naily.element.database";
 import { EvaluateService } from "./providers/evaluate.service";
+import { EvaluateLikeController } from "./controllers/like.controller";
+import { EvaluateLikeService } from "./providers/like.service";
 
 @Module({
-  controllers: [EvaluateController],
-  providers: [EvaluateService, ShopEvaluateRepository, UserRepository, ShopProductRepository],
+  controllers: [EvaluateController, EvaluateLikeController],
+  providers: [
+    EvaluateService,
+    EvaluateLikeService,
+    ShopEvaluateRepository,
+    ShopEvaluateLikeRepository,
+    UserRepository,
+    UserControlRepository,
+    ShopProductRepository,
+  ],
 })
 export class EvaluateModule extends BusinessModule {}

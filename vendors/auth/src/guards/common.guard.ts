@@ -16,19 +16,22 @@
  */
 
 import "rxjs";
-import { ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 
 @Injectable()
 export class CommonAuthGuard extends AuthGuard("jwt") {
-  canActivate(context: ExecutionContext) {
-    return super.canActivate(context);
-  }
-
   handleRequest<TUser>(err: any, user: TUser): TUser {
-    if (err || !user) {
-      throw err || new UnauthorizedException(1016);
-    }
+    if (err) throw err;
+    if (!user) throw new UnauthorizedException(1016);
+    return user;
+  }
+}
+
+@Injectable()
+export class CommonAuthGuardOptional extends AuthGuard("jwt") {
+  handleRequest<TUser>(err: any, user: TUser): TUser {
+    if (err) throw err;
     return user;
   }
 }

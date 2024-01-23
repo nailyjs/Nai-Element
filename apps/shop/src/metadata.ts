@@ -86,6 +86,21 @@ export default async () => {
             },
           },
         ],
+        [
+          import("./modules/evaluate/dtos/evaluate/like/like.post.dto"),
+          { PostCreateEvaluateLikeBodyDTO: { evaluateID: { required: true, type: () => Number, description: "\u5546\u54C1\u8BC4\u8BBAID" } } },
+        ],
+        [
+          import("./modules/evaluate/dtos/evaluate/like/like.get.dto"),
+          {
+            GetEvaluateLikeQueryDTO: {
+              orderTime: { required: false, type: () => Object, description: "\u65F6\u95F4\u6392\u5E8F\u65B9\u5F0F" },
+              userID: { required: true, type: () => Number, description: "\u7528\u6237ID" },
+              take: { required: false, type: () => Number, description: "\u83B7\u53D6\u6570\u91CF" },
+              skip: { required: false, type: () => Number, description: "\u8DF3\u8FC7\u6570\u91CF" },
+            },
+          },
+        ],
       ],
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
@@ -125,6 +140,16 @@ export default async () => {
               createEvaluate: { summary: "\u521B\u5EFA\u5546\u54C1\u8BC4\u8BBA", type: Object },
               replyEvaluate: { summary: "\u56DE\u590D\u5546\u54C1\u8BC4\u8BBA", type: Object },
               deleteEvaluate: { summary: "\u5220\u9664\u5546\u54C1\u8BC4\u8BBA", type: Boolean },
+            },
+          },
+        ],
+        [
+          import("./modules/evaluate/controllers/like.controller"),
+          {
+            EvaluateLikeController: {
+              getUserLike: { summary: "\u83B7\u53D6\u7528\u6237\u8BC4\u8BBA\u70B9\u8D5E\u5217\u8868", type: Object },
+              createLike: { summary: "\u8BC4\u8BBA\u70B9\u8D5E", type: Object },
+              deleteLike: { summary: "\u8BC4\u8BBA\u53D6\u6D88\u70B9\u8D5E", type: Object },
             },
           },
         ],
