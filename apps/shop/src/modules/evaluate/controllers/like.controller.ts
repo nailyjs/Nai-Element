@@ -36,7 +36,10 @@ export class EvaluateLikeController {
     if (!query.take) query.take = 10;
     if (!query.skip) query.skip = 0;
     if (!query.orderTime) query.orderTime = "latest";
-    const queryUser = await this.userRepository.findOneBy({ userID: query.userID });
+    const queryUser = await this.userRepository.findOne({
+      cache: true,
+      where: { userID: query.userID },
+    });
     if (user.userID != query.userID && !queryUser) {
       throw new BadRequestException(1015);
     }

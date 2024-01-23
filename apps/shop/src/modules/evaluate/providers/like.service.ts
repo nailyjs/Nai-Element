@@ -10,13 +10,17 @@ export class EvaluateLikeService {
 
   public async list(orderTime: "latest" | "oldest", loggingUserID: number, userID: number, take: number, skip: number) {
     if (loggingUserID != userID) {
-      const userControl = await this.userControlRepository.findOneBy({ user: { userID } });
+      const userControl = await this.userControlRepository.findOne({
+        where: { user: { userID } },
+        cache: true,
+      });
       if (!userControl.publicEvaluateLike) throw new ForbiddenException(1037);
     }
     const list = await this.shopEvaluateLikeRepository.find({
       take: take || 10,
       skip: skip || 0,
       where: userID ? { user: { userID } } : {},
+      cache: true,
       order: {
         updatedAt: orderTime === "oldest" ? "ASC" : "DESC",
       },
