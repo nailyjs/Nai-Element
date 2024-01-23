@@ -7,7 +7,7 @@ import { PostCreateEvaluateLikeBodyDTO } from "../dtos/evaluate/like/like.post.d
 import { EvaluateLikeService } from "../providers/like.service";
 import { GetEvaluateLikeQueryDTO } from "../dtos/evaluate/like/like.get.dto";
 
-@ApiTags("商品评论")
+@ApiTags("产品评论")
 @Controller("evaluate/like")
 export class EvaluateLikeController {
   constructor(
