@@ -15,8 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export * from "./product.entity";
-export * from "./productProperties.entity";
-export * from "./tag.entity";
-export * from "./subscribe.entity";
-export * from "./evaluate.entity";
+import { CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from "../user/user.entity";
+import { ShopEvaluate } from "./evaluate.entity";
+
+@Entity()
+export class ShopEvaluateLike {
+  @PrimaryGeneratedColumn()
+  evaluateLikeID: number;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @ManyToOne(() => ShopEvaluate, (evaluate) => evaluate.shopEvaluateLikes)
+  shopEvaluate: ShopEvaluate;
+
+  @ManyToOne(() => User, (user) => user.shopEvaluateLikes)
+  user: User;
+}

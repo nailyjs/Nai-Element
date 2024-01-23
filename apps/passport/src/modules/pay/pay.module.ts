@@ -15,73 +15,85 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Module, Provider } from "@nestjs/common";
+import { DynamicModule, Module, Provider, Type } from "@nestjs/common";
 import { BusinessModule, CommonConfigModule } from "cc.naily.element.shared";
 import { XunhupayController } from "./controllers/xunhupay.controller";
 import { XunhupayService } from "./providers/xunhupay.service";
 import { HttpModule } from "@nestjs/axios";
 import { PayService } from "./providers/pay.service";
 import { UserOrderRepository } from "cc.naily.element.database";
-import { WECHAT_PAY_MANAGER, WeChatPayModule } from "nest-wechatpay-node-v3";
+import { WeChatPayModule } from "nest-wechatpay-node-v3";
 import { ConfigService } from "@nestjs/config";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { WechatService } from "./providers/wechat.service";
 import { WechatController } from "./controllers/wechat.controller";
 
-const configFile = CommonConfigModule.getYmlConfigDynamic() || {};
-const isEnableWechat =
-  configFile.global.pay &&
-  configFile.global.pay.enabled &&
-  Array.isArray(configFile.global.pay.enabled) &&
-  (configFile.global.pay.enabled as any[]).includes("wechat");
-@Module({
-  imports: (() => {
-    const imports = [
-      HttpModule.register({
-        timeout: 5000,
-        method: "POST",
-      }),
-    ];
+@Module({})
+export class PayModule extends BusinessModule {
+  private static configuration = CommonConfigModule.getYmlConfigDynamic() || {};
+  private static isEnableWechat =
+    PayModule.configuration.global.pay &&
+    PayModule.configuration.global.pay.enabled &&
+    Array.isArray(PayModule.configuration.global.pay.enabled) &&
+    (PayModule.configuration.global.pay.enabled as any[]).includes("wechat");
+  private static isEnableXunhupay =
+    PayModule.configuration.global.pay &&
+    PayModule.configuration.global.pay.enabled &&
+    Array.isArray(PayModule.configuration.global.pay.enabled) &&
+    ((PayModule.configuration.global.pay.enabled as any[]).includes("xunhupayWechat") ||
+      (PayModule.configuration.global.pay.enabled as any[]).includes("xunhupayAlipay"));
 
-    if (isEnableWechat) {
-      imports.push(
-        WeChatPayModule.registerAsync({
-          inject: [ConfigService],
-          async useFactory(configService: ConfigService) {
-            const wechatConfig = configService.get("global.pay.wechat") || {};
-            const enabled: string[] = configService.get("global.pay.enabled") || [];
-            if (typeof wechatConfig !== "object") throw new TypeError("YAMCONFIG ERROR: global.pay.wechat config must be an object");
-            if (enabled.includes("wechat") && (!wechatConfig.appid || !wechatConfig.mchid || !wechatConfig.notify_url || !wechatConfig.name)) {
-              throw new Error("YAMCONFIG ERROR: global.pay.wechat config must have `appid` and `mchid` and `notify_url` and `name`");
-            }
+  public static register(): DynamicModule {
+    return {
+      module: PayModule,
+      imports: (() => {
+        const imports = [
+          HttpModule.register({
+            timeout: 5000,
+            method: "POST",
+          }),
+        ];
 
-            return {
-              appid: wechatConfig.appid ? wechatConfig.appid : "",
-              mchid: wechatConfig.mchid ? wechatConfig.mchid : "",
-              key: wechatConfig.key ? wechatConfig.key : "",
-              serial_no: wechatConfig.serial_no ? wechatConfig.serial_no : "",
-              publicKey: readFileSync(join(process.env.PUBLIC_ROOT, process.env.NODE_ENV ? process.env.NODE_ENV : "", "wechat_public.pem")),
-              privateKey: readFileSync(join(process.env.PUBLIC_ROOT, process.env.NODE_ENV ? process.env.NODE_ENV : "", "wechat_private.pem")),
-            };
-          },
-        }),
-      );
-    }
+        if (this.isEnableWechat) {
+          imports.push(
+            WeChatPayModule.registerAsync({
+              inject: [ConfigService],
+              async useFactory(configService: ConfigService) {
+                const wechatConfig = configService.get("global.pay.wechat") || {};
+                const enabled: string[] = configService.get("global.pay.enabled") || [];
+                if (typeof wechatConfig !== "object") throw new TypeError("YAMCONFIG ERROR: global.pay.wechat config must be an object");
+                if (enabled.includes("wechat") && (!wechatConfig.appid || !wechatConfig.mchid || !wechatConfig.notify_url || !wechatConfig.name)) {
+                  throw new Error("YAMCONFIG ERROR: global.pay.wechat config must have `appid` and `mchid` and `notify_url` and `name`");
+                }
 
-    return imports;
-  })(),
-  controllers: [XunhupayController, WechatController],
-  providers: (() => {
-    const providers: Provider[] = [XunhupayService, WechatService, PayService, UserOrderRepository];
-    if (!isEnableWechat) {
-      providers.push({
-        provide: WECHAT_PAY_MANAGER,
-        inject: [ConfigService],
-        useFactory: () => {},
-      });
-    }
-    return providers;
-  })(),
-})
-export class PayModule extends BusinessModule {}
+                return {
+                  appid: wechatConfig.appid ? wechatConfig.appid : "",
+                  mchid: wechatConfig.mchid ? wechatConfig.mchid : "",
+                  key: wechatConfig.key ? wechatConfig.key : "",
+                  serial_no: wechatConfig.serial_no ? wechatConfig.serial_no : "",
+                  publicKey: readFileSync(join(process.env.PUBLIC_ROOT, process.env.NODE_ENV ? process.env.NODE_ENV : "", "wechat_public.pem")),
+                  privateKey: readFileSync(join(process.env.PUBLIC_ROOT, process.env.NODE_ENV ? process.env.NODE_ENV : "", "wechat_private.pem")),
+                };
+              },
+            }),
+          );
+        }
+
+        return imports;
+      })(),
+      controllers: (() => {
+        const controllers: Type[] = [];
+        if (this.isEnableWechat) controllers.push(WechatController);
+        if (this.isEnableXunhupay) controllers.push(XunhupayController);
+        return controllers;
+      })(),
+      providers: (() => {
+        const providers: Provider[] = [PayService, UserOrderRepository];
+        if (this.isEnableWechat) providers.push(WechatService);
+        if (this.isEnableXunhupay) providers.push(XunhupayService);
+        return providers;
+      })(),
+    };
+  }
+}

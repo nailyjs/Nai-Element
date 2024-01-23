@@ -22,6 +22,8 @@ import { UserOrder } from "./userOrder.entity";
 import { ShopProduct } from "../shop/product.entity";
 import { UserSubscribeOrder } from "./userSubscribeOrder.entity";
 import { ShopSubscribe } from "../shop/subscribe.entity";
+import { ShopEvaluate } from "../shop/evaluate.entity";
+import { ShopEvaluateLike } from "../shop/evaluateLike.entity";
 
 @Entity()
 export class User {
@@ -37,7 +39,7 @@ export class User {
   @Column({ unique: true, comment: "用户名", nullable: false })
   username: string;
 
-  @Column({ comment: "密码", nullable: false })
+  @Column({ comment: "密码", nullable: true })
   password: string;
 
   @Column({ comment: "IP", nullable: true })
@@ -74,6 +76,14 @@ export class User {
   @OneToMany(() => ShopSubscribe, (subscribe) => subscribe.author)
   @JoinColumn()
   userSubscribes: ShopSubscribe[];
+
+  @OneToMany(() => ShopEvaluate, (evaluate) => evaluate.user)
+  @JoinColumn()
+  shopEvaluates: ShopEvaluate[];
+
+  @OneToMany(() => ShopEvaluateLike, (evaluateLike) => evaluateLike.user)
+  @JoinColumn()
+  shopEvaluateLikes: ShopEvaluateLike[];
 
   @OneToMany(() => UserSubscribeOrder, (userSubscribeOrder) => userSubscribeOrder.user)
   @JoinColumn()

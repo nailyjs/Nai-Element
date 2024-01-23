@@ -19,6 +19,7 @@ import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, One
 import { ShopProductTag } from "./tag.entity";
 import { ShopProductProperties } from "./productProperties.entity";
 import { User } from "../user/user.entity";
+import { ShopEvaluate } from "./evaluate.entity";
 
 @Entity()
 export class ShopProduct {
@@ -64,4 +65,7 @@ export class ShopProduct {
 
   @OneToMany(() => ShopProductProperties, (productProperties) => productProperties.product)
   productProperties: ShopProductProperties[];
+
+  @OneToMany(() => ShopEvaluate, (evaluate) => evaluate.product)
+  shopEvaluates: ShopEvaluate[];
 }

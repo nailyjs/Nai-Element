@@ -188,40 +188,6 @@
         "tags": ["充值"]
       }
     },
-    "/pay/wechat": {
-      "post": {
-        "operationId": "WechatController_pay",
-        "summary": "官方微信支付",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/PostPayWechatBodyDTO" }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": { "schema": { "type": "object" } }
-            }
-          }
-        },
-        "tags": ["充值"],
-        "security": [{ "bearer": [] }]
-      }
-    },
-    "/pay/wechat/notify": {
-      "post": {
-        "operationId": "WechatController_notify",
-        "summary": "官方微信支付通知接口 请勿手动调用",
-        "parameters": [],
-        "responses": { "201": { "description": "" } },
-        "tags": ["充值"]
-      }
-    },
     "/upyun": {
       "get": {
         "operationId": "UpyunController_listFiles",
@@ -489,14 +455,6 @@
           }
         },
         "required": ["amount", "type"]
-      },
-      "PostPayWechatBodyDTO": {
-        "type": "object",
-        "properties": {
-          "openid": { "type": "string", "description": "用户的openid" },
-          "amount": { "type": "number", "description": "金额", "minimum": 0.01 }
-        },
-        "required": ["openid", "amount"]
       },
       "UploadServiceListFileResDTO": {
         "type": "object",

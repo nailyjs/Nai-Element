@@ -19,26 +19,26 @@
 
 ## Buff
 
-- 🥣 `pnpm` （只能使用pnpm,其他没法装齐依赖） + `changeset` + `link-staged` + `monorepo`
-- 🍕 `husky` + `commitlint`
-- 🪣 `nest.js` + `express` 全家桶
-- 🧁 `typeorm` + `mysql` + `redis` 数据库
-- 🍩 `swagger` + `openapi` 接口文档
-- 🍿 `vitest` 单元测试
-- 🍭 `docker` 部署 (developing)
-- 🍬 `upyun` 对接静态资源
-- 🍪 `JWT` 登录授权
-- 🍫 `throttler` 全局节流阀
-- 🍿 `i18n` 多语言
-- 🍭 `swc` 加速TypeScript编译
-- 🍩 `微信官方支付`/`虎皮椒支付`对接
+-   🥣 `pnpm` （只能使用pnpm,其他没法装齐依赖） + `changeset` + `link-staged` + `monorepo`
+-   🍕 `husky` + `commitlint`
+-   🪣 `nest.js` + `express` 全家桶
+-   🧁 `typeorm` + `mysql` + `redis` 数据库
+-   🍩 `swagger` + `openapi` 接口文档
+-   🍿 `vitest` 单元测试
+-   🍭 `docker` 部署 (developing)
+-   🍬 `upyun` 对接静态资源
+-   🍪 `JWT` 登录授权
+-   🍫 `throttler` 全局节流阀
+-   🍿 `i18n` 多语言
+-   🍭 `swc` 加速TypeScript编译
+-   🍩 `微信官方支付`/`虎皮椒支付`对接
 
 ## 提示
 
 配置文件在[resources/application.yml](resources/application.yml)，支持类似springboot一样的区分生产/开发环境配置：
 
-- `application.yml` 默认配置用这个
-- `application-development.yml` 开发环境配置
-- `application-production.yml` 生产环境配置
+-   `application.yml` 默认配置用这个
+-   `application-development.yml` 开发环境配置
+-   `application-production.yml` 生产环境配置
 
 `pnpm dev:xxx`采用development配置，`pnpm start:xxx`采用production配置。

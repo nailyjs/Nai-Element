@@ -4,9 +4,9 @@
 
 本仓库除了`application.yml`和`application-*.yml`文件外，其他的文件不允许包含任何敏感信息，包括但不限于：
 
-- 任何数据库连接信息
-- 任何第三方服务的连接信息
-- 任何第三方服务的`token`或者`secret`等信息
+-   任何数据库连接信息
+-   任何第三方服务的连接信息
+-   任何第三方服务的`token`或者`secret`等信息
 
 如果有需要，请在`application.yml`或者`application-*.yml`文件中进行配置，然后在代码中使用`配置服务注入`再使用。
 
@@ -14,11 +14,11 @@
 
 本仓库使用各种工具进行代码规范检查，包括但不限于：
 
-- `eslint`代码检查
-- `prettier`代码格式化
-- `commitlint`提交规范检查
-- `husky`git钩子
-- `lint-staged`针对暂存区的代码检查
-- `changeset`生成`changelog`和`release`版本
+-   `eslint`代码检查
+-   `prettier`代码格式化
+-   `commitlint`提交规范检查
+-   `husky`git钩子
+-   `lint-staged`针对暂存区的代码检查
+-   `changeset`生成`changelog`和`release`版本
 
 等全套工具链。如果没有按照要求，请不要提交到本仓库。
