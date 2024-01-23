@@ -7,9 +7,12 @@
   "types": "./src/index.ts",
   "scripts": {
     "build": "rollup -c rollup.config.mjs",
-    "typeorm": "cross-env NODE_ENV=development typeorm-ts-node-commonjs -d ./src/db.config.ts",
-    "migration:generate": "pnpm run typeorm migration:generate ./src/migrations/lighting",
-    "migration:run": "pnpm run typeorm migration:run"
+    "typeorm:dev": "cross-env NODE_ENV=development typeorm-ts-node-commonjs -d ./src/db.config.ts",
+    "typeorm:prod": "cross-env NODE_ENV=production typeorm-ts-node-commonjs -d ./src/db.config.ts",
+    "migration:generate": "pnpm run typeorm:dev migration:generate ./src/migrations/lighting",
+    "migration:generate:prod": "pnpm run typeorm:prod migration:generate ./src/migrations/lighting",
+    "migration:run": "pnpm run typeorm:dev migration:run",
+    "migration:run:prod": "pnpm run typeorm:prod migration:run"
   },
   "dependencies": {
     "js-yaml": "^4.1.0"
