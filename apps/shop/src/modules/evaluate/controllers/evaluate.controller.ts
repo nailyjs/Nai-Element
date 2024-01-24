@@ -28,7 +28,7 @@ import { ResInterceptor } from "cc.naily.element.shared";
 import { Auth, User } from "cc.naily.element.auth";
 import { EvaluateService } from "../providers/evaluate.service";
 
-@ApiTags("商品评论")
+@ApiTags("产品评论")
 @Controller("evaluate")
 export class EvaluateController {
   constructor(
