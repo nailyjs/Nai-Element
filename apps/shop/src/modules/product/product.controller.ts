@@ -17,7 +17,7 @@
 
 import { Body, Controller, Delete, Get, NotFoundException, Post, Query, UseInterceptors } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { ShopProduct, ShopProductRepository, ShopProductTagRepository, User as UserEntity, UserRepository } from "cc.naily.element.database";
+import { ShopProduct, ShopProductRepository, TagRepository, User as UserEntity, UserRepository } from "cc.naily.element.database";
 import { DeletedeleteProductDTO, GetProductDTO, PostCreateProductDTO, PostSearchProductDTO } from "./dtos/product/product.dto";
 import { ResInterceptor } from "cc.naily.element.shared";
 import { Auth, User } from "cc.naily.element.auth";
@@ -32,7 +32,7 @@ export class ProductController {
   constructor(
     private readonly shopProductRepository: ShopProductRepository,
     private readonly userRepository: UserRepository,
-    private readonly shopProductTagRepository: ShopProductTagRepository,
+    private readonly tagRepository: TagRepository,
     private readonly productService: ProductService,
   ) {}
 
@@ -70,8 +70,8 @@ export class ProductController {
     product.productStock = productStock;
     product.productIntroduction = productIntroduction;
     product.productTags = await Promise.all(
-      productTags.map(async (item) => {
-        const tag = await this.shopProductTagRepository.findOneBy({ productTagID: item });
+      productTags.map(async (tagID) => {
+        const tag = await this.tagRepository.findOneBy({ tagID });
         if (!tag) throw new NotFoundException(1025);
         return tag;
       }),

@@ -24,7 +24,7 @@ import {
   UserSubscribeOrderRepository,
   UserValueRepository,
 } from "cc.naily.element.database";
-import { LessThan } from "typeorm";
+import { FindOptionsWhere, LessThan } from "typeorm";
 import { ConfigService } from "@nestjs/config";
 import { CommonLogger } from "cc.naily.element.shared";
 import { GetSubscribeListQueryDTO } from "../dtos/subscribe/subscribe.dto";
@@ -54,6 +54,14 @@ export class SubscribeService {
         updatedAt: dto.orderTime === "oldest" ? "ASC" : dto.orderTime === "latest" ? "DESC" : undefined,
         price: dto.orderPrice === "highest" ? "DESC" : dto.orderPrice === "lowest" ? "ASC" : undefined,
       },
+      where: (() => {
+        const where: FindOptionsWhere<ShopSubscribe>[] = [];
+        const users = dto.filterUser as number[];
+        for (const userID of users) {
+          where.push({ author: { userID } });
+        }
+        return where;
+      })(),
       cache: true,
       take: dto.take,
       skip: dto.skip,

@@ -16,7 +16,7 @@
  */
 
 import { ApiProperty } from "@nestjs/swagger";
-import { IsIntString } from "cc.naily.element.validator";
+import { IsIntString, IsNumberOrNumberArray } from "cc.naily.element.validator";
 import { IsIn, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class GetSubscribeListQueryDTO {
@@ -46,6 +46,18 @@ export class GetSubscribeListQueryDTO {
   @IsIn(["highest", "lowest"])
   @IsString()
   orderPrice?: "highest" | "lowest";
+  /**
+   * 过滤用户
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/24
+   * @type {number[]}
+   * @memberof GetSubscribeListQueryDTO
+   */
+  @IsOptional()
+  @IsNumberOrNumberArray()
+  @ApiProperty({ description: "过滤用户", isArray: true, type: "number" })
+  filterUser?: number | number[];
   /**
    * 获取数量
    *

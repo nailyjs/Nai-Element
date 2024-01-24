@@ -16,7 +16,7 @@
  */
 
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { ShopProductTag } from "./tag.entity";
+import { Tag } from "../tag.entity";
 import { ShopProductProperties } from "./productProperties.entity";
 import { User } from "../user/user.entity";
 import { ShopEvaluate } from "./evaluate.entity";
@@ -59,9 +59,9 @@ export class ShopProduct {
   @ManyToOne(() => User, (user) => user.userProducts)
   user: User;
 
-  @ManyToMany(() => ShopProductTag, (productTag) => productTag.products)
+  @ManyToMany(() => Tag, (productTag) => productTag.products)
   @JoinTable()
-  productTags: ShopProductTag[];
+  productTags: Tag[];
 
   @OneToMany(() => ShopProductProperties, (productProperties) => productProperties.product)
   productProperties: ShopProductProperties[];

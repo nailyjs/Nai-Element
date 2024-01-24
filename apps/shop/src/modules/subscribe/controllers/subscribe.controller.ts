@@ -43,6 +43,8 @@ export class SubscribeController {
   getSubscribeList(@Query() query: GetSubscribeListQueryDTO): Promise<unknown> {
     if (!query.take) query.take = 10;
     if (!query.skip) query.skip = 0;
+    if (!query.filterUser) query.filterUser = [];
+    if (!Array.isArray(query.filterUser)) query.filterUser = [query.filterUser];
     return this.subscribeService.getSubscribeList(query);
   }
 

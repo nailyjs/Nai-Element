@@ -16,7 +16,6 @@
  */
 
 export * from "./product.repository";
-export * from "./tag.repository";
 export * from "./subscribe.repository";
 export * from "./evaluate.repository";
 export * from "./evaluateLike.repository";

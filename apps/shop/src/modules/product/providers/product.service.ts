@@ -87,7 +87,7 @@ export class ProductService {
               productName: keyword ? Like(`%${keyword}%`) : undefined,
               productIntroduction: keyword ? Like(`%${keyword}%`) : undefined,
               user: { userID },
-              productTags: { productTagID: tagID },
+              productTags: { tagID },
             });
           }
         }

@@ -15,9 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "../user/user.entity";
 import { UserSubscribeOrder } from "../user/userSubscribeOrder.entity";
+import { Tag } from "../tag.entity";
 
 @Entity()
 export class ShopSubscribe {
@@ -47,4 +48,7 @@ export class ShopSubscribe {
 
   @ManyToOne(() => UserSubscribeOrder, (userSubscribeOrder) => userSubscribeOrder.shopSubscribe)
   userSubscribeOrders: UserSubscribeOrder[];
+
+  @ManyToMany(() => Tag, (tag) => tag.subscribes)
+  subscribeTags: Tag[];
 }

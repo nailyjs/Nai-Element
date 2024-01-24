@@ -287,6 +287,13 @@
             "schema": { "enum": ["highest", "lowest"], "type": "string" }
           },
           {
+            "name": "filterUser",
+            "required": false,
+            "in": "query",
+            "description": "过滤用户",
+            "schema": { "type": "array", "items": { "type": "number" } }
+          },
+          {
             "name": "take",
             "required": false,
             "in": "query",

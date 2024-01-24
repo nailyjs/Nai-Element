@@ -47,6 +47,7 @@ export default async () => {
             GetSubscribeListQueryDTO: {
               orderTime: { required: false, type: () => Object, description: "\u65F6\u95F4\u6392\u5E8F\u65B9\u5F0F" },
               orderPrice: { required: false, type: () => Object, description: "\u4EF7\u683C\u6392\u5E8F\u65B9\u5F0F" },
+              filterUser: { required: false, type: () => Object, description: "\u8FC7\u6EE4\u7528\u6237" },
               take: { required: false, type: () => Number, description: "\u83B7\u53D6\u6570\u91CF" },
               skip: { required: false, type: () => Number, description: "\u8DF3\u8FC7\u6570\u91CF" },
             },

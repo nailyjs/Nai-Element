@@ -16,12 +16,13 @@
  */
 
 import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { ShopProduct } from "./product.entity";
+import { ShopProduct } from "./shop/product.entity";
+import { ShopSubscribe } from "./shop/subscribe.entity";
 
 @Entity()
-export class ShopProductTag {
+export class Tag {
   @PrimaryGeneratedColumn()
-  productTagID: number;
+  tagID: number;
 
   @CreateDateColumn({ comment: "创建时间" })
   createdAt: Date;
@@ -32,9 +33,12 @@ export class ShopProductTag {
   @ManyToMany(() => ShopProduct, (product) => product.productTags)
   products: ShopProduct[];
 
+  @ManyToMany(() => ShopSubscribe, (subscribe) => subscribe.subscribeTags)
+  subscribes: ShopSubscribe[];
+
   @Column({ comment: "标签名称" })
-  productTagName: string;
+  tagName: string;
 
   @Column({ comment: "标签描述" })
-  productTagIntroduction: string;
+  tagIntroduction: string;
 }

@@ -16,12 +16,12 @@
  */
 
 import { DataSource } from "typeorm";
-import { EntityRepository, Repository } from "../../decorators";
-import { ShopProductTag } from "../../entities";
+import { EntityRepository, Repository } from "../decorators";
+import { Tag } from "../entities";
 
 @Repository
-export class ShopProductTagRepository extends EntityRepository<ShopProductTag> {
+export class TagRepository extends EntityRepository<Tag> {
   constructor(dataSource: DataSource) {
-    super(ShopProductTag, dataSource.createEntityManager(), dataSource.createQueryRunner());
+    super(Tag, dataSource.createEntityManager(), dataSource.createQueryRunner());
   }
 }

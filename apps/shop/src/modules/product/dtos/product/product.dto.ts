@@ -91,7 +91,7 @@ export class GetProductDTO {
    */
   @IsIntStringOrIntStringArray()
   @IsOptional()
-  filterTags?: number[] = [];
+  filterTags?: number[];
   /**
    * 过滤用户
    *
@@ -102,7 +102,7 @@ export class GetProductDTO {
    */
   @IsIntStringOrIntStringArray()
   @IsOptional()
-  filterUser?: number[] = [];
+  filterUser?: number[];
   /**
    * 取到数量
    *
@@ -194,7 +194,7 @@ export class PostCreateProductDTO {
    * @memberof PostCreateProductDTO
    */
   @IsIntArray()
-  productTags: number[] = [];
+  productTags: number[];
   /**
    * 商品状态 立即上架请填true，暂不上架请填false
    *
