@@ -125,43 +125,6 @@
         "tags": ["注册"]
       }
     },
-    "/tansport/google/recaptcha": {
-      "get": {
-        "operationId": "GoogleController_getRecaptchaClientKey",
-        "summary": "获取 Google Recaptcha 客户端密钥",
-        "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "tags": ["Google recaptcha"]
-      },
-      "post": {
-        "operationId": "GoogleController_recaptchaChecker",
-        "summary": "测试人机验证是否通过",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PostGoogleReCaptchaTokenBodyDTO"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "请求成功",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ReCaptchaTokenCheckerResDTO"
-                }
-              }
-            }
-          }
-        },
-        "tags": ["Google recaptcha"]
-      }
-    },
     "/user/logging": {
       "get": {
         "operationId": "UserController_getLoggingUser",
@@ -206,6 +169,40 @@
         },
         "tags": ["用户"],
         "security": [{ "bearer": [] }]
+      }
+    },
+    "/pay/wechat": {
+      "post": {
+        "operationId": "WechatController_pay",
+        "summary": "官方微信支付",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PostPayWechatBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["充值"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/pay/wechat/notify": {
+      "post": {
+        "operationId": "WechatController_notify",
+        "summary": "官方微信支付通知接口 请勿手动调用",
+        "parameters": [],
+        "responses": { "201": { "description": "" } },
+        "tags": ["充值"]
       }
     },
     "/pay/xunhupay": {
@@ -462,24 +459,6 @@
         },
         "required": ["email", "username", "verifyCode"]
       },
-      "PostGoogleReCaptchaTokenBodyDTO": {
-        "type": "object",
-        "properties": {
-          "token": { "type": "string", "description": "ReCaptcha验证Token" }
-        },
-        "required": ["token"]
-      },
-      "ReCaptchaTokenCheckerResDTO": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Human - 是人类\n\nRobot - 可能是机器人\n\ntimeout-or-duplicate - Token超时或使用过",
-            "enum": ["Human", "Robot", "timeout-or-duplicate"]
-          }
-        },
-        "required": ["message"]
-      },
       "GetLoggingUser200ResDTODataUserDTO": {
         "type": "object",
         "properties": {
@@ -521,6 +500,14 @@
           "url": { "type": "string", "description": "头像地址" }
         },
         "required": ["url"]
+      },
+      "PostPayWechatBodyDTO": {
+        "type": "object",
+        "properties": {
+          "openid": { "type": "string", "description": "用户的openid" },
+          "amount": { "type": "number", "description": "金额", "minimum": 0.01 }
+        },
+        "required": ["openid", "amount"]
       },
       "PayControllerXunhupayBodyDTO": {
         "type": "object",

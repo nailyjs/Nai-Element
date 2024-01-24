@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity";
 
 @Entity()
@@ -30,7 +30,7 @@ export class UserControl {
   updatedAt: Date;
 
   @OneToOne(() => User, (user) => user.userControls)
-  user: User;
+  user: Relation<User>;
 
   @Column({ comment: "是否公开邮箱" })
   publicEmail: boolean;

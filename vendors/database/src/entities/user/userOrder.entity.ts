@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity";
 
 @Entity()
@@ -33,7 +33,7 @@ export class UserOrder {
   updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.userOrders)
-  user: User;
+  user: Relation<User>;
 
   @Column({ nullable: false, comment: "金额" })
   amount: number;

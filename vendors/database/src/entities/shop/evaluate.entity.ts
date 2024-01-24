@@ -26,6 +26,7 @@ import {
   TreeChildren,
   TreeParent,
   UpdateDateColumn,
+  Relation,
 } from "typeorm";
 import { User } from "../user/user.entity";
 import { ShopProduct } from "./product.entity";
@@ -56,11 +57,11 @@ export class ShopEvaluate {
   parent: ShopEvaluate;
 
   @ManyToOne(() => User, (user) => user.shopEvaluates)
-  user: User;
+  user: Relation<User>;
 
   @ManyToOne(() => ShopProduct, (product) => product.shopEvaluates)
-  product: ShopProduct;
+  product: Relation<ShopProduct>;
 
   @OneToMany(() => ShopEvaluateLike, (evaluateLike) => evaluateLike.shopEvaluate)
-  shopEvaluateLikes: ShopEvaluateLike[];
+  shopEvaluateLikes: Relation<ShopEvaluateLike[]>;
 }

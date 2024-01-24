@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
 import { ShopProduct } from "./shop/product.entity";
 import { ShopSubscribe } from "./shop/subscribe.entity";
 
@@ -31,10 +31,10 @@ export class Tag {
   updatedAt: Date;
 
   @ManyToMany(() => ShopProduct, (product) => product.productTags)
-  products: ShopProduct[];
+  products: Relation<ShopProduct[]>;
 
   @ManyToMany(() => ShopSubscribe, (subscribe) => subscribe.subscribeTags)
-  subscribes: ShopSubscribe[];
+  subscribes: Relation<ShopSubscribe[]>;
 
   @Column({ comment: "标签名称" })
   tagName: string;

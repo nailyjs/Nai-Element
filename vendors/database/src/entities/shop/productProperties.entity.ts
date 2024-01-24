@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
 import { ShopProduct } from "./product.entity";
 
 @Entity()
@@ -30,7 +30,7 @@ export class ShopProductProperties {
   updatedAt: Date;
 
   @ManyToOne(() => ShopProduct, (product) => product.productProperties)
-  product: ShopProduct;
+  product: Relation<ShopProduct>;
 
   @Column({ comment: "商品属性名称", nullable: false })
   productPropertiesName: string;

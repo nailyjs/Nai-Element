@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Relation, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserValue } from "./userValue.entity";
 import { UserControl } from "./userControl.entity";
 import { UserOrder } from "./userOrder.entity";
@@ -59,33 +59,33 @@ export class User {
 
   @OneToOne(() => UserValue, (userValue) => userValue.user)
   @JoinColumn()
-  userValues: UserValue;
+  userValues: Relation<UserValue>;
 
   @OneToOne(() => UserControl, (userControl) => userControl.user)
   @JoinColumn()
-  userControls: UserControl;
+  userControls: Relation<UserControl>;
 
   @OneToMany(() => UserOrder, (userOrder) => userOrder.user)
   @JoinColumn()
-  userOrders: UserOrder[];
+  userOrders: Relation<UserOrder[]>;
 
   @OneToMany(() => ShopProduct, (product) => product.user)
   @JoinColumn()
-  userProducts: ShopProduct[];
+  userProducts: Relation<ShopProduct[]>;
 
   @OneToMany(() => ShopSubscribe, (subscribe) => subscribe.author)
   @JoinColumn()
-  userSubscribes: ShopSubscribe[];
+  userSubscribes: Relation<ShopSubscribe[]>;
 
   @OneToMany(() => ShopEvaluate, (evaluate) => evaluate.user)
   @JoinColumn()
-  shopEvaluates: ShopEvaluate[];
+  shopEvaluates: Relation<ShopEvaluate[]>;
 
   @OneToMany(() => ShopEvaluateLike, (evaluateLike) => evaluateLike.user)
   @JoinColumn()
-  shopEvaluateLikes: ShopEvaluateLike[];
+  shopEvaluateLikes: Relation<ShopEvaluateLike[]>;
 
   @OneToMany(() => UserSubscribeOrder, (userSubscribeOrder) => userSubscribeOrder.user)
   @JoinColumn()
-  userSubscribeOrders: UserSubscribeOrder[];
+  userSubscribeOrders: Relation<UserSubscribeOrder[]>;
 }

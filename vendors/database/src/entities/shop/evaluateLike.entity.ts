@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
 import { User } from "../user/user.entity";
 import { ShopEvaluate } from "./evaluate.entity";
 
@@ -31,8 +31,8 @@ export class ShopEvaluateLike {
   updatedAt: Date;
 
   @ManyToOne(() => ShopEvaluate, (evaluate) => evaluate.shopEvaluateLikes)
-  shopEvaluate: ShopEvaluate;
+  shopEvaluate: Relation<ShopEvaluate>;
 
   @ManyToOne(() => User, (user) => user.shopEvaluateLikes)
-  user: User;
+  user: Relation<User>;
 }

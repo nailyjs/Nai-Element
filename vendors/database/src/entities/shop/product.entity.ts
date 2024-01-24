@@ -15,7 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Relation,
+  UpdateDateColumn,
+} from "typeorm";
 import { Tag } from "../tag.entity";
 import { ShopProductProperties } from "./productProperties.entity";
 import { User } from "../user/user.entity";
@@ -57,15 +68,15 @@ export class ShopProduct {
   productStatus: "up" | "down";
 
   @ManyToOne(() => User, (user) => user.userProducts)
-  user: User;
+  user: Relation<User>;
 
   @ManyToMany(() => Tag, (productTag) => productTag.products)
   @JoinTable()
-  productTags: Tag[];
+  productTags: Relation<Tag[]>;
 
   @OneToMany(() => ShopProductProperties, (productProperties) => productProperties.product)
-  productProperties: ShopProductProperties[];
+  productProperties: Relation<ShopProductProperties[]>;
 
   @OneToMany(() => ShopEvaluate, (evaluate) => evaluate.product)
-  shopEvaluates: ShopEvaluate[];
+  shopEvaluates: Relation<ShopEvaluate[]>;
 }
