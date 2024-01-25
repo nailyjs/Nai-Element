@@ -25,6 +25,7 @@ export * from "./modules/dev";
 export * from "./modules/logger";
 export * from "./modules/upyun";
 export * from "./modules/schedule";
+export * from "./modules/tencent-cloud";
 
 export * from "./module.module";
 export * from "./errors";
@@ -41,6 +42,7 @@ import * as Dev from "./modules/dev";
 import * as Logger from "./modules/logger";
 import * as Upyun from "./modules/upyun";
 import * as Schedule from "./modules/schedule";
+import * as TencentCloud from "./modules/tencent-cloud";
 
 import * as Common from "./common";
 import * as Errors from "./errors";
@@ -58,6 +60,7 @@ export default {
   ...Logger,
   ...Upyun,
   ...Schedule,
+  ...TencentCloud,
   NailyContext,
   ...Common,
   ...Errors,

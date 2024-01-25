@@ -42,6 +42,7 @@ import { GoogleModule } from "./modules/google/google.module";
     Shared.CommonDevModule.forRoot(),
     Shared.CommonLoggerModule.forRoot(),
     Shared.CommonUpyunModule.forRoot(),
+    Shared.CommonTencentCloudModule.forRoot(),
     CommonJwtModule.forRoot(),
     CommonTypeOrmModule.forRoot(),
     LoginModule.register(),

@@ -116,6 +116,10 @@ export default async () => {
           },
         ],
         [
+          import("./modules/transport/dtos/transport/sms/sms.dto"),
+          { PostTransportSmsBodyDTO: { phone: { required: true, type: () => String, description: "\u4E2D\u56FD\u624B\u673A\u53F7\u7801" } } },
+        ],
+        [
           import("./modules/register/dtos/register/email/password/register.dto"),
           {
             RegisterByEmailPasswordBodyDTO: {
@@ -259,6 +263,10 @@ export default async () => {
         [
           import("./modules/transport/controllers/email.controller"),
           { EmailController: { sendEmailVerifyCode: { summary: "\u53D1\u9001\u90AE\u7BB1\u9A8C\u8BC1\u7801", type: Number } } },
+        ],
+        [
+          import("./modules/transport/controllers/tencent.sms.controller"),
+          { TencentSmsController: { send: { summary: "\u53D1\u9001\u77ED\u4FE1", type: Object } } },
         ],
         [
           import("./modules/register/controllers/register.controller"),

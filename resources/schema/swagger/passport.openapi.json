@@ -106,6 +106,32 @@
         "tags": ["传输"]
       }
     },
+    "/transport/sms": {
+      "post": {
+        "operationId": "TencentSmsController_send",
+        "summary": "发送短信",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostTransportSmsBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["短信"]
+      }
+    },
     "/register/email/code": {
       "post": {
         "operationId": "RegisterController_registerByEmailPassword",
@@ -474,6 +500,13 @@
           "message": { "type": "object", "default": "请求过于频繁，请稍后再试" }
         },
         "required": ["statusCode", "code", "message"]
+      },
+      "PostTransportSmsBodyDTO": {
+        "type": "object",
+        "properties": {
+          "phone": { "type": "string", "description": "中国手机号码" }
+        },
+        "required": ["phone"]
       },
       "RegisterByEmailPasswordBodyDTO": {
         "type": "object",
