@@ -16,7 +16,7 @@
  */
 
 import { DynamicModule, Module, Provider, Type } from "@nestjs/common";
-import { BusinessModule, CommonConfigModule } from "cc.naily.element.shared";
+import { NailyContext } from "cc.naily.element.shared";
 import { XunhupayController } from "./controllers/xunhupay.controller";
 import { XunhupayService } from "./providers/xunhupay.service";
 import { HttpModule } from "@nestjs/axios";
@@ -30,8 +30,8 @@ import { WechatService } from "./providers/wechat.service";
 import { WechatController } from "./controllers/wechat.controller";
 
 @Module({})
-export class PayModule extends BusinessModule {
-  private static configuration = CommonConfigModule.getYmlConfigDynamic() || {};
+export class PayModule extends NailyContext {
+  private static configuration = PayModule.ymlConfigCache || {};
   private static isEnableWechat =
     PayModule.configuration.global.pay &&
     PayModule.configuration.global.pay.enabled &&

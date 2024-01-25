@@ -34,6 +34,8 @@ import { join } from "path";
       origin: "*",
     },
   });
+  app.setViewEngine("ejs");
+  app.setBaseViewsDir(join(process.env.PROJECT_ROOT, "apps/passport/src/views"));
   app.useLogger(await app.resolve(CommonLogger));
   const configService = app.get(ConfigService);
   const port = configService.getOrThrow("passport.port");
@@ -41,7 +43,7 @@ import { join } from "path";
 
   // Swagger
   await SwaggerModule.loadPluginMetadata(metadata);
-  const [openAPIObject, generate] = EnableSwagger(app, (builder) => {
+  const [openAPIObject, generate] = EnableSwagger(app, "passport", (builder) => {
     return builder.setTitle(name).setDescription(readFileSync(join(process.env.PROJECT_ROOT, "apps/shop/DESC.md")).toString("utf-8"));
   });
   generate("passport.openapi.json", openAPIObject).then();

@@ -16,4 +16,5 @@
  */
 
 export * from "./modules/jwt";
+export * from "./modules/identifier";
 export * from "./decorators";

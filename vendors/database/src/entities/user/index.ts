@@ -20,3 +20,4 @@ export * from "./userValue.entity";
 export * from "./userControl.entity";
 export * from "./userOrder.entity";
 export * from "./userSubscribeOrder.entity";
+export * from "./userIdentifier.entity";

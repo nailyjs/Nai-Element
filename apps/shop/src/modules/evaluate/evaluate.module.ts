@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Module } from "@nestjs/common";
-import { BusinessModule } from "cc.naily.element.shared";
+import { DynamicModule, Module } from "@nestjs/common";
+import { NailyContext } from "cc.naily.element.shared";
 import { EvaluateController } from "./controllers/evaluate.controller";
 import {
   ShopEvaluateLikeRepository,
@@ -29,16 +29,21 @@ import { EvaluateService } from "./providers/evaluate.service";
 import { EvaluateLikeController } from "./controllers/like.controller";
 import { EvaluateLikeService } from "./providers/like.service";
 
-@Module({
-  controllers: [EvaluateController, EvaluateLikeController],
-  providers: [
-    EvaluateService,
-    EvaluateLikeService,
-    ShopEvaluateRepository,
-    ShopEvaluateLikeRepository,
-    UserRepository,
-    UserControlRepository,
-    ShopProductRepository,
-  ],
-})
-export class EvaluateModule extends BusinessModule {}
+@Module({})
+export class EvaluateModule extends NailyContext {
+  public static register(): DynamicModule {
+    return {
+      module: EvaluateModule,
+      controllers: [EvaluateController, EvaluateLikeController],
+      providers: [
+        EvaluateService,
+        EvaluateLikeService,
+        ShopEvaluateRepository,
+        ShopEvaluateLikeRepository,
+        UserRepository,
+        UserControlRepository,
+        ShopProductRepository,
+      ],
+    };
+  }
+}

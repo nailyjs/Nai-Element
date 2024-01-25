@@ -15,14 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Module } from "@nestjs/common";
-import { BusinessModule } from "cc.naily.element.shared";
+import { DynamicModule, Module } from "@nestjs/common";
+import { NailyContext } from "cc.naily.element.shared";
 import { ProductController } from "./product.controller";
 import { ShopProductRepository, TagRepository, UserRepository } from "cc.naily.element.database";
 import { ProductService } from "./providers/product.service";
 
-@Module({
-  controllers: [ProductController],
-  providers: [ProductService, ShopProductRepository, UserRepository, TagRepository],
-})
-export class ProductModule extends BusinessModule {}
+@Module({})
+export class ProductModule extends NailyContext {
+  public static register(): DynamicModule {
+    return {
+      module: ProductModule,
+      controllers: [ProductController],
+      providers: [ProductService, ShopProductRepository, UserRepository, TagRepository],
+    };
+  }
+}

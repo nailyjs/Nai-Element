@@ -16,13 +16,13 @@
  */
 
 import { DynamicModule, Module } from "@nestjs/common";
-import { BusinessModule, CommonConfigModule } from "cc.naily.element.shared";
+import { NailyContext } from "cc.naily.element.shared";
 import { GoogleController } from "./google.controller";
 import { TransportGoogleService } from "./google.service";
 
 @Module({})
-export class GoogleModule extends BusinessModule {
-  private static configuration = CommonConfigModule.ymlConfigCache;
+export class GoogleModule extends NailyContext {
+  private static configuration = GoogleModule.ymlConfigCache;
   private static checkEnableGoogle: boolean =
     GoogleModule.configuration &&
     GoogleModule.configuration.global &&

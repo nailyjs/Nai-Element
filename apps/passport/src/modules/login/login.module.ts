@@ -18,16 +18,13 @@
 import { DynamicModule, Module } from "@nestjs/common";
 import { LoginController } from "./controllers/login.controller";
 import { LoginService } from "./providers/login.service";
-import { UserRepository } from "cc.naily.element.database";
-import { BusinessModule } from "cc.naily.element.shared";
+import { UserIdentifierRepository, UserRepository } from "cc.naily.element.database";
+import { NailyContext } from "cc.naily.element.shared";
 import { TransportModule } from "../transport/transport.module";
+import { IdentifierModule } from "cc.naily.element.auth";
 
-@Module({
-  imports: [TransportModule],
-  controllers: [LoginController],
-  providers: [LoginService, UserRepository],
-})
-export class LoginModule extends BusinessModule {
+@Module({})
+export class LoginModule extends NailyContext {
   /**
    * 注册登陆模块
    *
@@ -38,6 +35,11 @@ export class LoginModule extends BusinessModule {
    * @memberof LoginModule
    */
   public static register(): DynamicModule {
-    return super.register();
+    return {
+      module: LoginModule,
+      imports: [TransportModule, IdentifierModule],
+      controllers: [LoginController],
+      providers: [LoginService, UserRepository, UserIdentifierRepository],
+    };
   }
 }

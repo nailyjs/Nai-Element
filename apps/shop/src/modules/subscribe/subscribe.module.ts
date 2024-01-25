@@ -17,12 +17,14 @@
 
 import { Module } from "@nestjs/common";
 import { ShopSubscribeRepository, UserSubscribeOrderRepository, UserValueRepository } from "cc.naily.element.database";
-import { BusinessModule } from "cc.naily.element.shared";
+import { NailyContext } from "cc.naily.element.shared";
 import { SubscribeController } from "./controllers/subscribe.controller";
 import { SubscribeService } from "./providers/subscribe.service";
+import { AppleController } from "./controllers/apple.controller";
+import { AppleService } from "./providers/apple.service";
 
 @Module({
-  controllers: [SubscribeController],
-  providers: [SubscribeService, UserValueRepository, ShopSubscribeRepository, UserSubscribeOrderRepository],
+  controllers: [SubscribeController, AppleController],
+  providers: [SubscribeService, AppleService, ShopSubscribeRepository, UserSubscribeOrderRepository, UserValueRepository],
 })
-export class SubscribeModule extends BusinessModule {}
+export class SubscribeModule extends NailyContext {}

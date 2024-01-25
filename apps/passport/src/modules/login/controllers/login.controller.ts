@@ -23,11 +23,15 @@ import { ResInterceptor } from "cc.naily.element.shared";
 import { LoginByUsernamePasswordDataOKResponseDTO, LoginByUsernamePasswordOKResponseDTO } from "../dtos/login/username/password/login.post.res.dto";
 import { SwaggerResponse } from "cc.naily.element.swagger";
 import { PostLoginEmailCodeBodyDTO } from "../dtos/login/email/code/email.post.dto";
+import { IdentifierService } from "cc.naily.element.auth";
 
 @ApiTags("登录")
 @Controller("login")
 export class LoginController {
-  constructor(private readonly loginService: LoginService) {}
+  constructor(
+    private readonly loginService: LoginService,
+    private readonly identifierService: IdentifierService,
+  ) {}
 
   /**
    * 通过用户名密码登录
@@ -41,8 +45,8 @@ export class LoginController {
   @Post("username/password")
   @UseInterceptors(ResInterceptor)
   @SwaggerResponse(LoginByUsernamePasswordOKResponseDTO)
-  public loginByUsernamePassword(@Body() body: LoginByUsernamePasswordDTO): Promise<LoginByUsernamePasswordDataOKResponseDTO> {
-    return this.loginService.loginByUsernamePassword(body.username, body.password);
+  public async loginByUsernamePassword(@Body() body: LoginByUsernamePasswordDTO): Promise<LoginByUsernamePasswordDataOKResponseDTO> {
+    return this.loginService.loginByUsernamePassword(body.username, body.password, body.loginType, body.loginClient, body.identifier);
   }
 
   /**
@@ -55,6 +59,6 @@ export class LoginController {
   @Post("email/code")
   @UseInterceptors(ResInterceptor)
   public loginByEmailCode(@Body() body: PostLoginEmailCodeBodyDTO) {
-    return this.loginService.loginByEmailCode(body.email, body.code);
+    return this.loginService.loginByEmailCode(body.email, body.code, body.loginType, body.loginClient, body.identifier);
   }
 }

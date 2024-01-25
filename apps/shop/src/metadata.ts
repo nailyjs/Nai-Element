@@ -62,6 +62,10 @@ export default async () => {
           },
         ],
         [
+          import("./modules/subscribe/dtos/subscribe/apple/user/status/status.dto"),
+          { GetSubscribeAppleUserStatusDTO: { transactionId: { required: true, type: () => String, description: "\u82F9\u679CtransactionId" } } },
+        ],
+        [
           import("./modules/evaluate/dtos/evaluate/evaluate.get.dto"),
           {
             GetEvaluateQueryDTO: {
@@ -131,6 +135,10 @@ export default async () => {
               },
             },
           },
+        ],
+        [
+          import("./modules/subscribe/controllers/apple.controller"),
+          { AppleController: { getUserStatus: { summary: "\u83B7\u53D6\u7528\u6237 \u82F9\u679C \u8BA2\u9605\u72B6\u6001" } } },
         ],
         [
           import("./modules/evaluate/controllers/evaluate.controller"),

@@ -16,6 +16,19 @@ export default async () => {
             LoginByUsernamePasswordDTO: {
               username: { required: true, type: () => String, description: "\u7528\u6237\u540D" },
               password: { required: true, type: () => String, description: "\u5BC6\u7801" },
+              loginType: { required: true, type: () => Object, description: "\u767B\u5F55\u7C7B\u578B" },
+              loginClient: {
+                required: false,
+                type: () => String,
+                description:
+                  "\u767B\u5F55\u7684\u5BA2\u6237\u7AEF \u7528\u4E8E\u8BB0\u5F55\u8BBE\u5907/\u6D4F\u89C8\u5668\n\nWeb\u7AEF\u767B\u5F55\u65F6\uFF0C\u8BE5\u5B57\u6BB5\u53EF\u4EE5\u4E3A\u7A7A",
+              },
+              identifier: {
+                required: false,
+                type: () => String,
+                description:
+                  "\u767B\u5F55\u6807\u8BC6\u7B26 \u6574\u4E2A\u7CFB\u7EDF\u8BE5\u767B\u5F55\u7C7B\u578B\u7684\u552F\u4E00\u6807\u8BC6\u7B26\n\n\u5176\u4E2D\uFF0C`Web`\u7AEF\u4E3A\u7A7A\u5219\u4E0D\u8BB0\u5F55\u8BBE\u5907",
+              },
             },
           },
         ],
@@ -62,16 +75,23 @@ export default async () => {
           },
         ],
         [
-          import("./modules/register/dtos/register/email/password/register.dto"),
+          import("./modules/login/dtos/login/email/code/email.post.dto"),
           {
-            RegisterByEmailPasswordBodyDTO: {
+            PostLoginEmailCodeBodyDTO: {
               email: { required: true, type: () => String, description: "\u90AE\u7BB1" },
-              username: { required: true, type: () => String, description: "\u7528\u6237\u540D" },
-              verifyCode: {
-                required: true,
-                type: () => Number,
-                description: "\u5BC6\u7801\n\n\n\n\n\n\n\n\n\n\n  password: string;\n\u9A8C\u8BC1\u7801",
-                maximum: 999999,
+              code: { required: true, type: () => Number, description: "\u9A8C\u8BC1\u7801", minimum: 100000, maximum: 999999 },
+              loginType: { required: true, type: () => Object, description: "\u767B\u5F55\u8BBE\u5907\u7C7B\u578B" },
+              loginClient: {
+                required: false,
+                type: () => String,
+                description:
+                  "\u767B\u5F55\u7684\u5BA2\u6237\u7AEF \u7528\u4E8E\u8BB0\u5F55\u8BBE\u5907/\u6D4F\u89C8\u5668\n\nWeb\u7AEF\u767B\u5F55\u65F6\uFF0C\u8BE5\u5B57\u6BB5\u53EF\u4EE5\u4E3A\u7A7A",
+              },
+              identifier: {
+                required: false,
+                type: () => String,
+                description:
+                  "\u8BBE\u5907\u552F\u4E00\u6807\u8BC6\u7B26\n\nWeb\u7AEF\u767B\u5F55\u65F6\uFF0C\u8BE5\u5B57\u6BB5\u53EF\u4EE5\u4E3A\u7A7A",
               },
             },
           },
@@ -92,6 +112,21 @@ export default async () => {
               statusCode: { required: true, type: () => Object, default: 201 },
               code: { required: true, type: () => Object, default: 1012 },
               message: { required: true, type: () => Object, default: "\u53D1\u9001\u6210\u529F" },
+            },
+          },
+        ],
+        [
+          import("./modules/register/dtos/register/email/password/register.dto"),
+          {
+            RegisterByEmailPasswordBodyDTO: {
+              email: { required: true, type: () => String, description: "\u90AE\u7BB1" },
+              username: { required: true, type: () => String, description: "\u7528\u6237\u540D" },
+              verifyCode: {
+                required: true,
+                type: () => Number,
+                description: "\u5BC6\u7801\n\n\n\n\n\n\n\n\n\n\n  password: string;\n\u9A8C\u8BC1\u7801",
+                maximum: 999999,
+              },
             },
           },
         ],
@@ -206,15 +241,6 @@ export default async () => {
             },
           },
         ],
-        [
-          import("./modules/login/dtos/login/email/code/email.post.dto"),
-          {
-            PostLoginEmailCodeBodyDTO: {
-              email: { required: true, type: () => String, description: "\u90AE\u7BB1" },
-              code: { required: true, type: () => Number, description: "\u9A8C\u8BC1\u7801", minimum: 100000, maximum: 999999 },
-            },
-          },
-        ],
       ],
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
@@ -231,12 +257,12 @@ export default async () => {
           },
         ],
         [
-          import("./modules/register/controllers/register.controller"),
-          { RegisterController: { registerByEmailPassword: { summary: "\u901A\u8FC7\u90AE\u7BB1\u9A8C\u8BC1\u7801\u6CE8\u518C" } } },
-        ],
-        [
           import("./modules/transport/controllers/email.controller"),
           { EmailController: { sendEmailVerifyCode: { summary: "\u53D1\u9001\u90AE\u7BB1\u9A8C\u8BC1\u7801", type: Number } } },
+        ],
+        [
+          import("./modules/register/controllers/register.controller"),
+          { RegisterController: { registerByEmailPassword: { summary: "\u901A\u8FC7\u90AE\u7BB1\u9A8C\u8BC1\u7801\u6CE8\u518C" } } },
         ],
         [
           import("./modules/user/controllers/user.controller"),

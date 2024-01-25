@@ -437,6 +437,24 @@
         "security": [{ "bearer": [] }]
       }
     },
+    "/subscribe/apple/user/status": {
+      "get": {
+        "operationId": "AppleController_getUserStatus",
+        "summary": "获取用户 苹果 订阅状态",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "required": true,
+            "in": "query",
+            "description": "苹果transactionId",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["苹果订阅"],
+        "security": [{ "bearer": [] }]
+      }
+    },
     "/evaluate": {
       "get": {
         "operationId": "EvaluateController_listEvaluate",

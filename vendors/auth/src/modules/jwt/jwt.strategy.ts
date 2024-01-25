@@ -20,12 +20,15 @@ import { PassportStrategy } from "@nestjs/passport";
 import { ForbiddenException, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { UserRepository } from "cc.naily.element.database";
+import { JwtLoginPayload } from "./jwt.type";
+import { IdentifierService } from "../identifier";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     configService: ConfigService,
     private readonly userRepository: UserRepository,
+    private readonly identifierService: IdentifierService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -34,9 +37,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     } as StrategyOptions);
   }
 
-  async validate(payload: { userID: number }) {
+  async validate(payload: JwtLoginPayload) {
     if (!payload) throw new ForbiddenException(1006);
     if (!payload.userID) throw new ForbiddenException(1006);
-    return await this.userRepository.findOneBy({ userID: payload.userID });
+    if (!payload.loginType) throw new ForbiddenException(1006);
+    const user = await this.userRepository.findOneBy({ userID: payload.userID });
+    const status = await this.identifierService.checkIdentifier(user, payload.loginType, payload.loginClient, payload.identifier);
+    if (status === "ERROR") throw new ForbiddenException(1038);
+    return user;
   }
 }

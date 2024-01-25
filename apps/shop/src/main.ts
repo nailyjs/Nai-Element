@@ -41,7 +41,7 @@ import { join } from "path";
 
   // Swagger
   await SwaggerModule.loadPluginMetadata(metadata);
-  const [openAPIObject, generate] = EnableSwagger(app, (builder) => {
+  const [openAPIObject, generate] = EnableSwagger(app, "shop", (builder) => {
     return builder.setTitle(name).setDescription(readFileSync(join(process.env.PROJECT_ROOT, "apps/shop/DESC.md")).toString("utf-8"));
   });
   generate("shop.openapi.json", openAPIObject).then();

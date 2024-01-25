@@ -17,7 +17,7 @@
 
 import { Module } from "@nestjs/common";
 import { UserController } from "./controllers/user.controller";
-import { BusinessModule } from "cc.naily.element.shared";
+import { NailyContext } from "cc.naily.element.shared";
 import { UserService } from "./providers/user.service";
 import { UserControlRepository, UserRepository } from "cc.naily.element.database";
 
@@ -33,4 +33,4 @@ import { UserControlRepository, UserRepository } from "cc.naily.element.database
   controllers: [UserController],
   providers: [UserService, UserRepository, UserControlRepository],
 })
-export class UserModule extends BusinessModule {}
+export class UserModule extends NailyContext {}

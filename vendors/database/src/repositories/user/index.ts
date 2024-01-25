@@ -20,3 +20,4 @@ export * from "./userControl.repository";
 export * from "./userValue.repository";
 export * from "./userOrder.repository";
 export * from "./userSubscribeOrder.repository";
+export * from "./userIdentifier.repository";

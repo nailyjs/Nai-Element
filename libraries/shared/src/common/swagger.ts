@@ -35,10 +35,16 @@ export type SwaggerBuilderCallback = (builder: DocumentBuilder) => void;
  */
 export function EnableSwagger<App extends INestApplication>(
   app: App,
+  name: string,
   callback?: SwaggerBuilderCallback,
 ): [OpenAPIObject | undefined, (path: string, openapi: OpenAPIObject) => Promise<void>] {
   const configService = app.get(ConfigService);
-  const isEnable = configService.get("global.enableSwagger");
+  const isEnable: boolean = (() => {
+    const appEnabled = configService.get<boolean>(`${name}.enableSwagger`);
+    if (typeof appEnabled === "boolean") return appEnabled;
+    const globalEnabled = configService.get<boolean>(`global.enableSwagger`);
+    if (typeof globalEnabled === "boolean") return globalEnabled;
+  })();
 
   if (isEnable) {
     const defaultBuilder = new DocumentBuilder()
@@ -67,5 +73,7 @@ export function EnableSwagger<App extends INestApplication>(
         );
       },
     ];
+  } else {
+    return [undefined, async () => {}];
   }
 }

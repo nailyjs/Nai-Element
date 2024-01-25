@@ -15,7 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { IsNotEmpty, IsString } from "cc.naily.element.validator";
+import { ApiProperty } from "@nestjs/swagger";
+import { LoginType, LoginTypeArray } from "cc.naily.element.auth";
+import { IsIn, IsNotEmpty, IsOptional, IsString } from "cc.naily.element.validator";
 
 export class LoginByUsernamePasswordDTO {
   /**
@@ -41,4 +43,43 @@ export class LoginByUsernamePasswordDTO {
   @IsString()
   @IsNotEmpty()
   readonly password: string;
+  /**
+   * 登录类型
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/24
+   * @type {("watchOS" | "Android" | "Web")}
+   * @memberof LoginByUsernamePasswordDTO
+   */
+  @IsIn(LoginTypeArray)
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({ enum: LoginTypeArray })
+  readonly loginType: LoginType;
+  /**
+   * 登录的客户端 用于记录设备/浏览器
+   *
+   * Web端登录时，该字段可以为空
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/24
+   * @type {string}
+   * @memberof LoginByUsernamePasswordDTO
+   */
+  @IsOptional()
+  @IsString()
+  readonly loginClient?: string;
+  /**
+   * 登录标识符 整个系统该登录类型的唯一标识符
+   *
+   * 其中，`Web`端为空则不记录设备
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/24
+   * @type {string}
+   * @memberof LoginByUsernamePasswordDTO
+   */
+  @IsOptional()
+  @IsString()
+  readonly identifier?: string;
 }
