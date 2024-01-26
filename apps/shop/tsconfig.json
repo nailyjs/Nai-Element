@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "esnext",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2021",
+    "target": "esnext",
+    "moduleResolution": "bundler",
     "sourceMap": true,
     "outDir": "../../resources/dist/apps/shop",
     "baseUrl": "./",
@@ -16,6 +17,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "types": ["bun-types"]
   }
 }

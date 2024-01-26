@@ -38,6 +38,7 @@ import { EvaluateModule } from "./modules/evaluate/evaluate.module";
     Shared.CommonDevModule.forRoot(),
     Shared.CommonLoggerModule.forRoot(),
     Shared.CommonUpyunModule.forRoot(),
+    Shared.CommonAppStoreModule.forRoot(),
     CommonTypeOrmModule.forRoot(),
     CommonJwtModule.forRoot(),
     CommonScheduleModule.forRoot(),

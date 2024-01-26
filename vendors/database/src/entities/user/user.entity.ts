@@ -55,7 +55,7 @@ export class User {
   @Column({ comment: "电子邮件地址", nullable: true })
   email: string;
 
-  @Column({ comment: "手机号码", nullable: true })
+  @Column({ comment: "手机号", nullable: true })
   phone: string;
 
   @OneToOne(() => UserValue, (userValue) => userValue.user)

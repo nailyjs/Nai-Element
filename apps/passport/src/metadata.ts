@@ -257,6 +257,7 @@ export default async () => {
                 type: t["./modules/login/dtos/login/username/password/login.post.res.dto"].LoginByUsernamePasswordDataOKResponseDTO,
               },
               loginByEmailCode: { summary: "\u901A\u8FC7\u90AE\u7BB1\u9A8C\u8BC1\u7801\u767B\u5F55" },
+              loginByPhoneCode: { summary: "\u901A\u8FC7\u624B\u673A\u53F7\u9A8C\u8BC1\u7801\u767B\u5F55" },
             },
           },
         ],

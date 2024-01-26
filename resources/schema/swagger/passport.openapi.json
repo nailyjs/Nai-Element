@@ -66,6 +66,25 @@
         "tags": ["登录"]
       }
     },
+    "/login/phone/code": {
+      "post": {
+        "operationId": "LoginController_loginByPhoneCode",
+        "summary": "通过手机号验证码登录",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostLoginEmailCodeBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["登录"]
+      }
+    },
     "/transport/email": {
       "post": {
         "operationId": "EmailController_sendEmailVerifyCode",

@@ -59,4 +59,18 @@ export class LoginService {
       access_token,
     };
   }
+
+  public async loginByPhoneCode(phone: string, verifyCode: number, loginType: LoginType, loginClient?: string, identifier?: string) {
+    const user = await this.userRepository.findOneBy({ phone });
+    if (!user) throw new NotFoundException(1007);
+    await this.emailService.checkCode(phone, verifyCode);
+    const access_token = this.jwtService.sign({ userID: user.userID, loginType, loginClient, identifier });
+    const isSuccess = await this.identifierService.renewIdentifier(user, loginType, loginClient, identifier);
+    if (isSuccess === "ERROR") throw new BadRequestException(1039);
+    user.password = undefined;
+    return {
+      user,
+      access_token,
+    };
+  }
 }

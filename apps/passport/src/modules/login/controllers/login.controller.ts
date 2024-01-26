@@ -61,4 +61,19 @@ export class LoginController {
   public loginByEmailCode(@Body() body: PostLoginEmailCodeBodyDTO) {
     return this.loginService.loginByEmailCode(body.email, body.code, body.loginType, body.loginClient, body.identifier);
   }
+
+  /**
+   * 通过手机号验证码登录
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/26
+   * @param {PostLoginEmailCodeBodyDTO} body
+   * @return {*}
+   * @memberof LoginController
+   */
+  @Post("phone/code")
+  @UseInterceptors(ResInterceptor)
+  public loginByPhoneCode(@Body() body: PostLoginEmailCodeBodyDTO) {
+    return this.loginService.loginByPhoneCode(body.email, body.code, body.loginType, body.loginClient, body.identifier);
+  }
 }
