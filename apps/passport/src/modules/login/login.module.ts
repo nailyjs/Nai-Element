@@ -22,6 +22,7 @@ import { UserIdentifierRepository, UserRepository } from "cc.naily.element.datab
 import { NailyContext } from "cc.naily.element.shared";
 import { TransportModule } from "../transport/transport.module";
 import { IdentifierModule } from "cc.naily.element.auth";
+import { PhoneService } from "../../providers/phone.service";
 
 @Module({})
 export class LoginModule extends NailyContext {
@@ -39,7 +40,7 @@ export class LoginModule extends NailyContext {
       module: LoginModule,
       imports: [TransportModule, IdentifierModule],
       controllers: [LoginController],
-      providers: [LoginService, UserRepository, UserIdentifierRepository],
+      providers: [LoginService, PhoneService, UserRepository, UserIdentifierRepository],
     };
   }
 }

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Body, Controller, Post, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Ip, Post, UseInterceptors } from "@nestjs/common";
 import { LoginService } from "../providers/login.service";
 import { LoginByUsernamePasswordDTO } from "../dtos/login/username/password/login.post.dto";
 import { ApiTags } from "@nestjs/swagger";
@@ -23,15 +23,12 @@ import { ResInterceptor } from "cc.naily.element.shared";
 import { LoginByUsernamePasswordDataOKResponseDTO, LoginByUsernamePasswordOKResponseDTO } from "../dtos/login/username/password/login.post.res.dto";
 import { SwaggerResponse } from "cc.naily.element.swagger";
 import { PostLoginEmailCodeBodyDTO } from "../dtos/login/email/code/email.post.dto";
-import { IdentifierService } from "cc.naily.element.auth";
+import { PostLoginPhoneCodeBodyDTO } from "../dtos/login/phone/code/login.post.dto";
 
 @ApiTags("登录")
 @Controller("login")
 export class LoginController {
-  constructor(
-    private readonly loginService: LoginService,
-    private readonly identifierService: IdentifierService,
-  ) {}
+  constructor(private readonly loginService: LoginService) {}
 
   /**
    * 通过用户名密码登录
@@ -45,8 +42,17 @@ export class LoginController {
   @Post("username/password")
   @UseInterceptors(ResInterceptor)
   @SwaggerResponse(LoginByUsernamePasswordOKResponseDTO)
-  public async loginByUsernamePassword(@Body() body: LoginByUsernamePasswordDTO): Promise<LoginByUsernamePasswordDataOKResponseDTO> {
-    return this.loginService.loginByUsernamePassword(body.username, body.password, body.loginType, body.loginClient, body.identifier);
+  public async loginByUsernamePassword(
+    @Body() body: LoginByUsernamePasswordDTO,
+    @Ip() ip: string,
+  ): Promise<LoginByUsernamePasswordDataOKResponseDTO> {
+    return this.loginService.loginByUsernamePassword(body.username, body.password, {
+      identifier: body.identifier,
+      loginClient: body.loginClient,
+      loginType: body.loginType,
+      loginMethod: "UsernamePassword",
+      loginIP: ip,
+    });
   }
 
   /**
@@ -58,8 +64,14 @@ export class LoginController {
    */
   @Post("email/code")
   @UseInterceptors(ResInterceptor)
-  public loginByEmailCode(@Body() body: PostLoginEmailCodeBodyDTO) {
-    return this.loginService.loginByEmailCode(body.email, body.code, body.loginType, body.loginClient, body.identifier);
+  public loginByEmailCode(@Body() body: PostLoginEmailCodeBodyDTO, @Ip() ip: string) {
+    return this.loginService.loginByEmailCode(body.email, body.code, {
+      identifier: body.identifier,
+      loginClient: body.loginClient,
+      loginType: body.loginType,
+      loginMethod: "EmailCode",
+      loginIP: ip,
+    });
   }
 
   /**
@@ -67,13 +79,19 @@ export class LoginController {
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/26
-   * @param {PostLoginEmailCodeBodyDTO} body
+   * @param {PostLoginPhoneCodeBodyDTO} body
    * @return {*}
    * @memberof LoginController
    */
   @Post("phone/code")
   @UseInterceptors(ResInterceptor)
-  public loginByPhoneCode(@Body() body: PostLoginEmailCodeBodyDTO) {
-    return this.loginService.loginByPhoneCode(body.email, body.code, body.loginType, body.loginClient, body.identifier);
+  public loginByPhoneCode(@Body() body: PostLoginPhoneCodeBodyDTO, @Ip() ip: string) {
+    return this.loginService.loginByPhoneCode(body.phone, body.code, {
+      identifier: body.identifier,
+      loginClient: body.loginClient,
+      loginType: body.loginType,
+      loginMethod: "PhoneCode",
+      loginIP: ip,
+    });
   }
 }

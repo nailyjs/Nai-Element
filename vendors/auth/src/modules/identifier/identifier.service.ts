@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { User, UserIdentifier, UserIdentifierRepository } from "cc.naily.element.database";
 import { LoginType } from "../jwt";
+import { ILoginPayload } from ".";
 
 @Injectable()
 export class IdentifierService {
@@ -73,40 +74,42 @@ export class IdentifierService {
    * 登录时 更新登录标识符
    *
    * @author Zero <gczgroup@qq.com>
-   * @date 2024/01/24
+   * @date 2024/01/27
    * @param {User} user
-   * @param {LoginType} loginType
-   * @param {string} [identifier]
+   * @param {ILoginPayload} loginPayload
+   * @return {Promise<UserIdentifier | "ERROR">}
    * @memberof IdentifierService
    */
-  public async renewIdentifier(user: User, loginType: LoginType, loginClient?: string, identifier?: string) {
+  public async renewIdentifier(user: User, loginPayload: ILoginPayload): Promise<UserIdentifier | "ERROR"> {
+    const { loginType, loginClient, identifier, loginMethod, loginIP } = loginPayload;
     // Web端登录时，identifier和loginClient可以为空
     // 其他端登录时，identifier不能为空
-    if (loginType !== "Web" && (!identifier || !loginClient)) return "ERROR";
+    if (loginType !== "Web" && (!identifier || !loginClient || !loginMethod)) return "ERROR";
     // 找到所有登录标识符
     const identifiers = await this.userIdentifierRepository.find({
-      where: { user: { userID: user.userID }, loginClient, loginType },
+      where: { user: { userID: user.userID }, loginClient, loginType, loginMethod },
       cache: false,
     });
     // 找到当前登录标识符
     const singleIdentifier = identifiers.find(
-      (item) => item.identifier === identifier && item.loginType === loginType && item.loginClient === loginClient,
+      (item) =>
+        item.identifier === identifier && item.loginType === loginType && item.loginClient === loginClient && item.loginMethod === loginMethod,
     );
-    // 如果当前登录标识符不存在，则创建新的登录标识符
-    if (!singleIdentifier) {
-      // 标识符最大数量 从配置文件中获取
-      const maxCount = this.getMaxIdentifierCount(loginType);
-      // 如果登录标识符数量超过最大数量，则删除最早的登录标识符
-      // 删除最早的登录标识符 保留最新的maxCount - 1个登录标识符
-      const willRemoveIdentifiers: UserIdentifier[] = identifiers.slice(0, identifiers.length - maxCount + 1);
-      await this.userIdentifierRepository.remove(willRemoveIdentifiers);
-      const newIdentifier = new UserIdentifier();
-      newIdentifier.identifier = identifier;
-      newIdentifier.loginType = loginType;
-      newIdentifier.loginClient = loginClient;
-      newIdentifier.user = user;
-      await this.userIdentifierRepository.save(newIdentifier);
-    }
-    return "OK";
+    // 如果当前登录标识符存在，则不需要创建新的登录标识符 直接返回给上层
+    if (singleIdentifier) return singleIdentifier;
+    // 标识符最大数量 从配置文件中获取
+    const maxCount = this.getMaxIdentifierCount(loginType);
+    // 如果登录标识符数量超过最大数量，则删除最早的登录标识符
+    // 删除最早的登录标识符 保留最新的maxCount - 1个登录标识符
+    const willRemoveIdentifiers: UserIdentifier[] = identifiers.slice(0, identifiers.length - maxCount + 1);
+    await this.userIdentifierRepository.remove(willRemoveIdentifiers);
+    const newIdentifier = new UserIdentifier();
+    newIdentifier.identifier = identifier;
+    newIdentifier.loginType = loginType;
+    newIdentifier.loginClient = loginClient;
+    newIdentifier.loginMethod = loginMethod;
+    newIdentifier.loginIP = loginIP;
+    newIdentifier.user = user;
+    return await this.userIdentifierRepository.save(newIdentifier);
   }
 }

@@ -15,9 +15,49 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Injectable } from "@nestjs/common";
+import { ClientRepository } from "@nailyjs.nest.modules/tencentcloud";
+import { CACHE_MANAGER } from "@nestjs/cache-manager";
+import { BadRequestException, Inject, Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { Cache } from "cache-manager";
+import { sms } from "tencentcloud-sdk-nodejs";
 
 @Injectable()
 export class PhoneService {
-  constructor() {}
+  constructor(
+    @Inject(sms.v20210111.Client)
+    private readonly smsClient: ClientRepository<typeof sms.v20210111.Client>,
+    @Inject(CACHE_MANAGER)
+    private readonly cacheManager: Cache,
+    private readonly configService: ConfigService,
+  ) {}
+
+  private getCode() {
+    return Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
+  }
+
+  private getRedisKey(phone: string) {
+    return `passport:phone:${phone}`;
+  }
+
+  public async saveCode(phone: string) {
+    const key = this.getRedisKey(phone);
+    const code = this.getCode();
+    await this.cacheManager.store.set(key, code, 1000 * 60 * 5);
+    return this.smsClient.SendSms({
+      SmsSdkAppId: this.configService.get("global.tencent.cloud.sms.SmsSdkAppId"),
+      SignName: this.configService.get("global.tencent.cloud.sms.SignName"),
+      PhoneNumberSet: [`${phone}`],
+      TemplateId: this.configService.get("global.tencent.cloud.sms.TemplateId"),
+      TemplateParamSet: [`${code}`, "5"],
+    });
+  }
+
+  public async checkCode(phone: string, code: number) {
+    const key = this.getRedisKey(phone);
+    const redisCode = (await this.cacheManager.store.get(key)) || "";
+    if (redisCode.toString() !== code.toString()) {
+      throw new BadRequestException(1040);
+    }
+  }
 }

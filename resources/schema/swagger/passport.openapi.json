@@ -76,7 +76,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PostLoginEmailCodeBodyDTO"
+                "$ref": "#/components/schemas/PostLoginPhoneCodeBodyDTO"
               }
             }
           }
@@ -476,7 +476,7 @@
         "properties": {
           "loginType": {
             "type": "string",
-            "description": "登录设备类型",
+            "description": "登录设备类型 `请看schema的enum正确传值`",
             "enum": ["WatchOS", "HarmonyOS_Wearable", "Android", "Web"]
           },
           "email": { "type": "string", "description": "邮箱" },
@@ -496,6 +496,32 @@
           }
         },
         "required": ["loginType", "email", "code"]
+      },
+      "PostLoginPhoneCodeBodyDTO": {
+        "type": "object",
+        "properties": {
+          "loginType": {
+            "type": "string",
+            "description": "登录设备类型 `请看schema的enum正确传值`",
+            "enum": ["WatchOS", "HarmonyOS_Wearable", "Android", "Web"]
+          },
+          "phone": { "type": "string", "description": "邮箱" },
+          "code": {
+            "type": "number",
+            "description": "验证码",
+            "minimum": 100000,
+            "maximum": 999999
+          },
+          "loginClient": {
+            "type": "string",
+            "description": "登录的客户端 用于记录设备/浏览器\n\nWeb端登录时，该字段可以为空"
+          },
+          "identifier": {
+            "type": "string",
+            "description": "设备唯一标识符\n\nWeb端登录时，该字段可以为空"
+          }
+        },
+        "required": ["loginType", "phone", "code"]
       },
       "SendEmailVerifyCodeBodyDTO": {
         "type": "object",

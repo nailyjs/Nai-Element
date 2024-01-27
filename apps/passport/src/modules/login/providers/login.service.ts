@@ -20,7 +20,9 @@ import { JwtService } from "@nestjs/jwt";
 import { compareSync } from "bcrypt";
 import { UserRepository } from "cc.naily.element.database";
 import { EmailService } from "../../../providers/email.service";
-import { IdentifierService, LoginType } from "cc.naily.element.auth";
+import { IdentifierService, JwtLoginPayload } from "cc.naily.element.auth";
+import { ILoginPayload } from "cc.naily.element.auth";
+import { PhoneService } from "../../../providers/phone.service";
 
 @Injectable()
 export class LoginService {
@@ -29,47 +31,61 @@ export class LoginService {
     private readonly userRepository: UserRepository,
     private readonly emailService: EmailService,
     private readonly identifierService: IdentifierService,
+    private readonly phoneService: PhoneService,
   ) {}
 
-  public async loginByUsernamePassword(username: string, password: string, loginType: LoginType, loginClient?: string, identifier?: string) {
+  private getJwtToken(userID: number, loginPayload: ILoginPayload) {
+    return this.jwtService.sign({
+      userID,
+      loginType: loginPayload.loginType,
+      loginMethod: loginPayload.loginMethod,
+      loginClient: loginPayload.loginClient,
+      identifier: loginPayload.identifier,
+    } satisfies JwtLoginPayload);
+  }
+
+  public async loginByUsernamePassword(username: string, password: string, loginPayload: ILoginPayload) {
     const user = await this.userRepository.findOneBy({ username });
     if (!user) throw new NotFoundException(1007);
     if (!user.password) throw new BadRequestException(1034);
     if (!compareSync(password, user.password)) throw new ForbiddenException(1008);
-    const access_token = this.jwtService.sign({ userID: user.userID, loginType, loginClient, identifier });
-    const isSuccess = await this.identifierService.renewIdentifier(user, loginType, loginClient, identifier);
-    if (isSuccess === "ERROR") throw new BadRequestException(1039);
+    const access_token = this.getJwtToken(user.userID, loginPayload);
+    const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
+    if (identifier === "ERROR") throw new BadRequestException(1039);
     user.password = undefined;
     return {
       user,
+      identifier,
       access_token,
     };
   }
 
-  public async loginByEmailCode(email: string, verifyCode: number, loginType: LoginType, loginClient?: string, identifier?: string) {
+  public async loginByEmailCode(email: string, verifyCode: number, loginPayload: ILoginPayload) {
     const user = await this.userRepository.findOneBy({ email });
     if (!user) throw new NotFoundException(1007);
     await this.emailService.checkCode(email, verifyCode);
-    const access_token = this.jwtService.sign({ userID: user.userID, loginType, loginClient, identifier });
-    const isSuccess = await this.identifierService.renewIdentifier(user, loginType, loginClient, identifier);
-    if (isSuccess === "ERROR") throw new BadRequestException(1039);
+    const access_token = this.getJwtToken(user.userID, loginPayload);
+    const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
+    if (identifier === "ERROR") throw new BadRequestException(1039);
     user.password = undefined;
     return {
       user,
+      identifier,
       access_token,
     };
   }
 
-  public async loginByPhoneCode(phone: string, verifyCode: number, loginType: LoginType, loginClient?: string, identifier?: string) {
+  public async loginByPhoneCode(phone: string, verifyCode: number, loginPayload: ILoginPayload) {
     const user = await this.userRepository.findOneBy({ phone });
     if (!user) throw new NotFoundException(1007);
-    await this.emailService.checkCode(phone, verifyCode);
-    const access_token = this.jwtService.sign({ userID: user.userID, loginType, loginClient, identifier });
-    const isSuccess = await this.identifierService.renewIdentifier(user, loginType, loginClient, identifier);
-    if (isSuccess === "ERROR") throw new BadRequestException(1039);
+    await this.phoneService.checkCode(phone, verifyCode);
+    const access_token = this.getJwtToken(user.userID, loginPayload);
+    const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
+    if (identifier === "ERROR") throw new BadRequestException(1039);
     user.password = undefined;
     return {
       user,
+      identifier,
       access_token,
     };
   }

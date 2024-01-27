@@ -1,25 +1,8 @@
-/*
- * Copyright (C) 2024 Zero naily.cc
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 import { ApiProperty } from "@nestjs/swagger";
 import { LoginType, LoginTypeArray } from "cc.naily.element.auth";
-import { IsEmail, IsIn, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from "class-validator";
+import { IsIn, IsInt, IsMobilePhone, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from "class-validator";
 
-export class PostLoginEmailCodeBodyDTO {
+export class PostLoginPhoneCodeBodyDTO {
   /**
    * 邮箱
    *
@@ -28,10 +11,10 @@ export class PostLoginEmailCodeBodyDTO {
    * @type {string}
    * @memberof PostLoginEmailCodeBodyDTO
    */
-  @IsEmail()
+  @IsMobilePhone("zh-CN")
   @IsString()
   @IsNotEmpty()
-  email: string;
+  phone: string;
 
   /**
    * 验证码

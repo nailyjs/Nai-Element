@@ -80,7 +80,37 @@ export default async () => {
             PostLoginEmailCodeBodyDTO: {
               email: { required: true, type: () => String, description: "\u90AE\u7BB1" },
               code: { required: true, type: () => Number, description: "\u9A8C\u8BC1\u7801", minimum: 100000, maximum: 999999 },
-              loginType: { required: true, type: () => Object, description: "\u767B\u5F55\u8BBE\u5907\u7C7B\u578B" },
+              loginType: {
+                required: true,
+                type: () => Object,
+                description: "\u767B\u5F55\u8BBE\u5907\u7C7B\u578B `\u8BF7\u770Bschema\u7684enum\u6B63\u786E\u4F20\u503C`",
+              },
+              loginClient: {
+                required: false,
+                type: () => String,
+                description:
+                  "\u767B\u5F55\u7684\u5BA2\u6237\u7AEF \u7528\u4E8E\u8BB0\u5F55\u8BBE\u5907/\u6D4F\u89C8\u5668\n\nWeb\u7AEF\u767B\u5F55\u65F6\uFF0C\u8BE5\u5B57\u6BB5\u53EF\u4EE5\u4E3A\u7A7A",
+              },
+              identifier: {
+                required: false,
+                type: () => String,
+                description:
+                  "\u8BBE\u5907\u552F\u4E00\u6807\u8BC6\u7B26\n\nWeb\u7AEF\u767B\u5F55\u65F6\uFF0C\u8BE5\u5B57\u6BB5\u53EF\u4EE5\u4E3A\u7A7A",
+              },
+            },
+          },
+        ],
+        [
+          import("./modules/login/dtos/login/phone/code/login.post.dto"),
+          {
+            PostLoginPhoneCodeBodyDTO: {
+              phone: { required: true, type: () => String, description: "\u90AE\u7BB1" },
+              code: { required: true, type: () => Number, description: "\u9A8C\u8BC1\u7801", minimum: 100000, maximum: 999999 },
+              loginType: {
+                required: true,
+                type: () => Object,
+                description: "\u767B\u5F55\u8BBE\u5907\u7C7B\u578B `\u8BF7\u770Bschema\u7684enum\u6B63\u786E\u4F20\u503C`",
+              },
               loginClient: {
                 required: false,
                 type: () => String,
