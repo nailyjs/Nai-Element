@@ -25,6 +25,7 @@ import { ShopSubscribe } from "../shop/subscribe.entity";
 import { ShopEvaluate } from "../shop/evaluate.entity";
 import { ShopEvaluateLike } from "../shop/evaluateLike.entity";
 import { UserIdentifier } from "./userIdentifier.entity";
+import { UserData } from "./userData.entity";
 
 @Entity()
 export class User {
@@ -93,4 +94,8 @@ export class User {
   @OneToMany(() => UserIdentifier, (userIdentifier) => userIdentifier.user)
   @JoinColumn()
   userIdentifiers: Relation<UserIdentifier[]>;
+
+  @OneToMany(() => UserData, (userIdentifier) => userIdentifier.user)
+  @JoinColumn()
+  userDatas: Relation<UserData[]>;
 }

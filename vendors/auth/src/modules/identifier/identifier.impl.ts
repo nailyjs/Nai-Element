@@ -6,5 +6,6 @@ export interface ILoginPayload {
   loginMethod: ILoginMethod;
   loginIP: string;
   loginClient?: string;
+  loginDeviceName: string;
   identifier?: string;
 }

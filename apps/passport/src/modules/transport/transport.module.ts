@@ -22,10 +22,12 @@ import { UserRepository } from "cc.naily.element.database";
 import { NailyContext } from "cc.naily.element.shared";
 import { TencentSmsController } from "./controllers/tencent.sms.controller";
 import { PhoneService } from "../../providers/phone.service";
+import { QrCodeController } from "./controllers/qrcode.controller";
+import { QrCodeService } from "../../providers/qrcode.service";
 
 @Module({
-  controllers: [EmailController, TencentSmsController],
-  providers: [EmailService, PhoneService, UserRepository],
+  controllers: [EmailController, QrCodeController, TencentSmsController],
+  providers: [EmailService, PhoneService, QrCodeService, UserRepository],
   exports: [EmailService],
 })
 export class TransportModule extends NailyContext {}

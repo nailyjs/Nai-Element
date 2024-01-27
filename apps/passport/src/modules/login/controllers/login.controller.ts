@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Body, Controller, Ip, Post, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Ip, Post, UseInterceptors } from "@nestjs/common";
 import { LoginService } from "../providers/login.service";
 import { LoginByUsernamePasswordDTO } from "../dtos/login/username/password/login.post.dto";
 import { ApiTags } from "@nestjs/swagger";
@@ -24,11 +24,19 @@ import { LoginByUsernamePasswordDataOKResponseDTO, LoginByUsernamePasswordOKResp
 import { SwaggerResponse } from "cc.naily.element.swagger";
 import { PostLoginEmailCodeBodyDTO } from "../dtos/login/email/code/email.post.dto";
 import { PostLoginPhoneCodeBodyDTO } from "../dtos/login/phone/code/login.post.dto";
+import { QrCodeService } from "../../../providers/qrcode.service";
+import { Auth, User } from "cc.naily.element.auth";
+import { PostLoginQrcodeBodyDTO, PostLoginQrcodeConfirmBodyDTO } from "../dtos/login/qrcode/qrcode.post.dto";
+import { User as UserEntity, UserRepository } from "cc.naily.element.database";
 
 @ApiTags("登录")
 @Controller("login")
 export class LoginController {
-  constructor(private readonly loginService: LoginService) {}
+  constructor(
+    private readonly loginService: LoginService,
+    private readonly qrcodeService: QrCodeService,
+    private readonly userRepository: UserRepository,
+  ) {}
 
   /**
    * 通过用户名密码登录
@@ -51,6 +59,7 @@ export class LoginController {
       loginClient: body.loginClient,
       loginType: body.loginType,
       loginMethod: "UsernamePassword",
+      loginDeviceName: body.loginDeviceName,
       loginIP: ip,
     });
   }
@@ -70,6 +79,7 @@ export class LoginController {
       loginClient: body.loginClient,
       loginType: body.loginType,
       loginMethod: "EmailCode",
+      loginDeviceName: body.loginDeviceName,
       loginIP: ip,
     });
   }
@@ -80,7 +90,6 @@ export class LoginController {
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/26
    * @param {PostLoginPhoneCodeBodyDTO} body
-   * @return {*}
    * @memberof LoginController
    */
   @Post("phone/code")
@@ -91,6 +100,48 @@ export class LoginController {
       loginClient: body.loginClient,
       loginType: body.loginType,
       loginMethod: "PhoneCode",
+      loginDeviceName: body.loginDeviceName,
+      loginIP: ip,
+    });
+  }
+
+  /**
+   * 二维码登录：确认登录
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/27
+   * @param {PostLoginQrcodeBodyDTO} body
+   * @param {Request} req
+   * @param {string} ip
+   * @memberof LoginController
+   */
+  @Auth()
+  @Post("qrcode/confirm")
+  @UseInterceptors(ResInterceptor)
+  public async confirmQrCode(@Body() body: PostLoginQrcodeConfirmBodyDTO, @User() user: UserEntity) {
+    await this.qrcodeService.setQrCode(`${body.key}`, user.userID);
+    return 1000;
+  }
+
+  /**
+   * 二维码登录：检查二维码状态并登录
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/27
+   * @memberof LoginController
+   */
+  @Post("qrcode/refresh")
+  @UseInterceptors(ResInterceptor)
+  public async refreshQrCode(@Body() body: PostLoginQrcodeBodyDTO, @Ip() ip: string) {
+    const checkStatus = await this.qrcodeService.getQrCode(`${body.key}`);
+    if (!checkStatus) throw new BadRequestException(1041);
+    if (checkStatus === "pending") throw new BadRequestException(1042);
+    return this.loginService.loginByQrCode(await this.userRepository.findOneBy({ userID: checkStatus }), {
+      identifier: body.identifier,
+      loginClient: body.loginClient,
+      loginType: body.loginType,
+      loginMethod: "QrCode",
+      loginDeviceName: body.loginDeviceName,
       loginIP: ip,
     });
   }

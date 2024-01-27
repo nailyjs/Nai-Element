@@ -24,6 +24,7 @@ import { GetLoggingUser200ResDTO } from "../dtos/user/logging/logging.res.dto";
 import { Auth, User } from "cc.naily.element.auth";
 import { User as UserEntity } from "cc.naily.element.database";
 import { PutUserAvatarBodyDTO } from "../dtos/user/avatar/avatar.dto";
+import { PutUserUsernameBodyDTO } from "../dtos/user/username/username.put.dto";
 
 @ApiTags("用户")
 @Controller("user")
@@ -56,7 +57,23 @@ export class UserController {
   @Auth()
   @Put("avatar")
   @UseInterceptors(ResInterceptor)
-  public updateAvatar(@Body() { url }: PutUserAvatarBodyDTO, @User() user: UserEntity): Promise<any> {
+  public updateAvatar(@Body() { url }: PutUserAvatarBodyDTO, @User() user: UserEntity): Promise<unknown> {
     return this.userService.updateAvatar(url, user.userID);
+  }
+
+  /**
+   * 更新用户名
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/28
+   * @param {PutUserUsernameBodyDTO} { username }
+   * @param {UserEntity} user
+   * @memberof UserController
+   */
+  @Auth()
+  @Put("username")
+  @UseInterceptors(ResInterceptor)
+  public updateUsername(@Body() { username }: PutUserUsernameBodyDTO, @User() user: UserEntity): Promise<unknown> {
+    return this.userService.updateUsername(username, user.userID);
   }
 }

@@ -18,7 +18,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { compareSync } from "bcrypt";
-import { UserRepository } from "cc.naily.element.database";
+import { User, UserRepository } from "cc.naily.element.database";
 import { EmailService } from "../../../providers/email.service";
 import { IdentifierService, JwtLoginPayload } from "cc.naily.element.auth";
 import { ILoginPayload } from "cc.naily.element.auth";
@@ -79,6 +79,19 @@ export class LoginService {
     const user = await this.userRepository.findOneBy({ phone });
     if (!user) throw new NotFoundException(1007);
     await this.phoneService.checkCode(phone, verifyCode);
+    const access_token = this.getJwtToken(user.userID, loginPayload);
+    const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
+    if (identifier === "ERROR") throw new BadRequestException(1039);
+    user.password = undefined;
+    return {
+      user,
+      identifier,
+      access_token,
+    };
+  }
+
+  public async loginByQrCode(user: User, loginPayload: ILoginPayload) {
+    if (!user) throw new NotFoundException(1007);
     const access_token = this.getJwtToken(user.userID, loginPayload);
     const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
     if (identifier === "ERROR") throw new BadRequestException(1039);

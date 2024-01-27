@@ -33,7 +33,7 @@ export class CommonValidationPipe implements PipeTransform {
     if (!metatype || !this.toValidate(metatype)) {
       return value;
     }
-    const object = plainToClass(metatype, value);
+    const object = plainToClass(metatype, value) || {};
     const errors = await validate(object);
     if (errors.length > 0) {
       const firstError = this.getFirstError(errors);

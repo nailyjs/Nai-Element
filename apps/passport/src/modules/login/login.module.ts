@@ -23,6 +23,8 @@ import { NailyContext } from "cc.naily.element.shared";
 import { TransportModule } from "../transport/transport.module";
 import { IdentifierModule } from "cc.naily.element.auth";
 import { PhoneService } from "../../providers/phone.service";
+import { QrCodeService } from "../../providers/qrcode.service";
+import { LogoutController } from "./controllers/logout.controller";
 
 @Module({})
 export class LoginModule extends NailyContext {
@@ -39,8 +41,8 @@ export class LoginModule extends NailyContext {
     return {
       module: LoginModule,
       imports: [TransportModule, IdentifierModule],
-      controllers: [LoginController],
-      providers: [LoginService, PhoneService, UserRepository, UserIdentifierRepository],
+      controllers: [LoginController, LogoutController],
+      providers: [LoginService, PhoneService, QrCodeService, UserRepository, UserIdentifierRepository],
     };
   }
 }

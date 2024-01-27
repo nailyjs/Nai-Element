@@ -84,4 +84,11 @@ export class UserService {
     user.avatar = url;
     return await this.userRepository.save(user);
   }
+
+  public async updateUsername(username: string, userID: number): Promise<User> {
+    const user = await this.userRepository.findOneBy({ userID });
+    if (!user) throw new BadRequestException(1015);
+    user.username = username;
+    return await this.userRepository.save(user);
+  }
 }

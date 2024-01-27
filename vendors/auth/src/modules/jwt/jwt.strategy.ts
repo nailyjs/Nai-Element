@@ -41,7 +41,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!payload) throw new ForbiddenException(1006);
     if (!payload.userID) throw new ForbiddenException(1006);
     if (!payload.loginType) throw new ForbiddenException(1006);
-    const user = await this.userRepository.findOneBy({ userID: payload.userID });
+    const user = await this.userRepository.findOne({
+      where: { userID: payload.userID },
+    });
     const status = await this.identifierService.checkIdentifier(user, payload.loginType, payload.loginClient, payload.identifier);
     if (status === "ERROR") throw new ForbiddenException(1038);
     return user;

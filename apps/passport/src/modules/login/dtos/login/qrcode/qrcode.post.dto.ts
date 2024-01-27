@@ -1,42 +1,40 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { LoginType, LoginTypeArray } from "cc.naily.element.auth";
-import { IsIn, IsInt, IsMobilePhone, IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from "class-validator";
+import { IsIn, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
-export class PostLoginPhoneCodeBodyDTO {
+export class PostLoginQrcodeConfirmBodyDTO {
   /**
-   * 邮箱
+   * 二维码key
    *
    * @author Zero <gczgroup@qq.com>
-   * @date 2024/01/24
+   * @date 2024/01/27
    * @type {string}
-   * @memberof PostLoginEmailCodeBodyDTO
+   * @memberof PostLoginQrcodeConfirmBodyDTO
    */
-  @IsMobilePhone("zh-CN")
   @IsString()
   @IsNotEmpty()
-  phone: string;
+  key: string;
+}
 
+export class PostLoginQrcodeBodyDTO {
   /**
-   * 验证码
+   * 二维码key
    *
    * @author Zero <gczgroup@qq.com>
-   * @date 2024/01/24
+   * @date 2024/01/27
    * @type {string}
-   * @memberof PostLoginEmailCodeBodyDTO
+   * @memberof PostLoginQrcodeBodyDTO
    */
-  @Max(999999)
-  @Min(100000)
-  @IsInt()
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  code: number;
+  key: string;
   /**
    * 登录设备类型 `请看schema的enum正确传值`
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/24
    * @type {LoginType}
-   * @memberof PostLoginEmailCodeBodyDTO
+   * @memberof PostLoginQrcodeBodyDTO
    */
   @IsIn(LoginTypeArray)
   @IsString()
@@ -51,7 +49,7 @@ export class PostLoginPhoneCodeBodyDTO {
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/24
    * @type {string}
-   * @memberof PostLoginEmailCodeBodyDTO
+   * @memberof PostLoginQrcodeBodyDTO
    */
   @IsOptional()
   @IsString()
@@ -64,7 +62,7 @@ export class PostLoginPhoneCodeBodyDTO {
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/28
    * @type {string}
-   * @memberof PostLoginPhoneCodeBodyDTO
+   * @memberof PostLoginQrcodeBodyDTO
    */
   @IsOptional()
   @IsString()
@@ -77,7 +75,7 @@ export class PostLoginPhoneCodeBodyDTO {
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/24
    * @type {string}
-   * @memberof PostLoginEmailCodeBodyDTO
+   * @memberof PostLoginQrcodeBodyDTO
    */
   @IsOptional()
   @IsString()

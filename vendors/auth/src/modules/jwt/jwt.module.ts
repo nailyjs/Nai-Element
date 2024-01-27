@@ -19,7 +19,7 @@ import { DynamicModule, Global, Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
 import { JwtStrategy } from "./jwt.strategy";
-import { UserRepository } from "cc.naily.element.database";
+import { UserIdentifierRepository, UserRepository } from "cc.naily.element.database";
 import { IdentifierModule } from "../identifier";
 
 @Global()
@@ -55,7 +55,8 @@ export class CommonJwtModule {
         IdentifierModule,
       ],
       module: CommonJwtModule,
-      providers: [JwtStrategy, UserRepository],
+      providers: [JwtStrategy, UserRepository, UserIdentifierRepository],
+      exports: [UserIdentifierRepository],
       global: true,
     };
   }

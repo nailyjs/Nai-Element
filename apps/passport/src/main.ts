@@ -35,7 +35,7 @@ import { join } from "path";
     },
   });
   app.setViewEngine("ejs");
-  app.setBaseViewsDir(join(process.env.PROJECT_ROOT, "apps/passport/src/views"));
+  app.setBaseViewsDir(join(process.env.PROJECT_ROOT, "apps/passport/views"));
   app.useLogger(await app.resolve(CommonLogger));
   const configService = app.get(ConfigService);
   const port = configService.getOrThrow("passport.port");

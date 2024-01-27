@@ -36,8 +36,11 @@ export class UserIdentifier {
   @Column({ comment: "登录设备类型", nullable: false, type: "varchar" })
   loginType: LoginType;
 
-  @Column({ comment: "登录的客户端", nullable: true, type: "varchar" })
+  @Column({ comment: "登录的客户端 是哪个APP", nullable: true, type: "varchar" })
   loginClient: string;
+
+  @Column({ comment: "登录的设备名", nullable: true, type: "varchar" })
+  loginDeviceName: string;
 
   @Column({ comment: "登录的IP", nullable: true, type: "varchar" })
   loginIP: string;

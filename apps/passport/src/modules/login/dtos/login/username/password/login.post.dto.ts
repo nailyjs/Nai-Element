@@ -70,6 +70,19 @@ export class LoginByUsernamePasswordDTO {
   @IsString()
   readonly loginClient?: string;
   /**
+   * 登录的设备名
+   *
+   * Web端登录时，该字段可以为空
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/28
+   * @type {string}
+   * @memberof LoginByUsernamePasswordDTO
+   */
+  @IsOptional()
+  @IsString()
+  readonly loginDeviceName?: string;
+  /**
    * 登录标识符 整个系统该登录类型的唯一标识符
    *
    * 其中，`Web`端为空则不记录设备
