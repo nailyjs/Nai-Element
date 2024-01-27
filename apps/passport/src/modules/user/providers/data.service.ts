@@ -15,11 +15,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export * from "./user.repository";
-export * from "./userControl.repository";
-export * from "./userValue.repository";
-export * from "./userOrder.repository";
-export * from "./userSubscribeOrder.repository";
-export * from "./userData.repository";
-export * from "./userIdentifier.repository";
-export * from "./userAppStoreSubscribe.repository";
+import { Injectable } from "@nestjs/common";
+import { User, UserDataRepository } from "cc.naily.element.database";
+
+@Injectable()
+export class UserDataService {
+  constructor(private readonly userDataRepository: UserDataRepository) {}
+
+  getUserData(user: User, namespace: string, key: string) {
+    return this.userDataRepository.findOneBy({ user, namespace, key });
+  }
+
+  setUserData(user: User, namespace: string, key: string, value: string) {
+    return this.userDataRepository.save({ user, namespace, key, value });
+  }
+
+  deleteUserData(user: User, namespace: string, key: string) {
+    return this.userDataRepository.delete({ user, namespace, key });
+  }
+}

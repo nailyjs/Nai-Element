@@ -1,19 +1,27 @@
+import { Status } from "@apple/app-store-server-library";
 import { Injectable } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
+import { User, UserAppStoreSubscribe, UserAppStoreSubscribeRepository } from "cc.naily.element.database";
 import { CommonAppStoreService } from "cc.naily.element.shared";
 
 @Injectable()
 export class AppleService {
   constructor(
-    private readonly jwtService: JwtService,
     private readonly commonAppStoreService: CommonAppStoreService,
-  ) {
-    this.checkPay();
+    private readonly userAppStoreSubscribeRepository: UserAppStoreSubscribeRepository,
+  ) {}
+
+  public linkTransactionID(user: User, transactionId: string) {
+    const userAppStoreSubscribe = new UserAppStoreSubscribe();
+    userAppStoreSubscribe.originalTransactionID = transactionId;
+    userAppStoreSubscribe.user = user;
+    return this.userAppStoreSubscribeRepository.save(userAppStoreSubscribe);
   }
 
-  public async checkPay() {
-    const client = this.commonAppStoreService.createClient("");
-    const status = await client.getAllSubscriptionStatuses("");
-    console.log(status);
+  public async checkTransactionID(bundleId: string, transactionId: string) {
+    const statuses = await this.commonAppStoreService
+      .createClient(bundleId)
+      .getAllSubscriptionStatuses(transactionId, [Status.ACTIVE, Status.BILLING_GRACE_PERIOD]);
+    console.log(statuses);
+    return statuses;
   }
 }

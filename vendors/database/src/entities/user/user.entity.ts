@@ -26,6 +26,7 @@ import { ShopEvaluate } from "../shop/evaluate.entity";
 import { ShopEvaluateLike } from "../shop/evaluateLike.entity";
 import { UserIdentifier } from "./userIdentifier.entity";
 import { UserData } from "./userData.entity";
+import { UserAppStoreSubscribe } from "./userAppStoreSubscribe.entity";
 
 @Entity()
 export class User {
@@ -98,4 +99,8 @@ export class User {
   @OneToMany(() => UserData, (userIdentifier) => userIdentifier.user)
   @JoinColumn()
   userDatas: Relation<UserData[]>;
+
+  @OneToMany(() => UserAppStoreSubscribe, (userAppStoreSubscribes) => userAppStoreSubscribes.user)
+  @JoinColumn()
+  userAppStoreSubscribes: Relation<UserAppStoreSubscribe[]>;
 }

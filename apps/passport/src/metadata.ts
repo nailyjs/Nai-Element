@@ -243,6 +243,17 @@ export default async () => {
           { PutUserUsernameBodyDTO: { username: { required: true, type: () => String, description: "\u7528\u6237\u540D" } } },
         ],
         [
+          import("./modules/user/dtos/user/data/data.get.dto"),
+          {
+            GetUserDataBodyDTO: { namespace: { required: true, type: () => String }, key: { required: true, type: () => String } },
+            SetUserDataBodyDTO: {
+              namespace: { required: true, type: () => String },
+              key: { required: true, type: () => String },
+              value: { required: true, type: () => String },
+            },
+          },
+        ],
+        [
           import("./modules/pay/dtos/pay/xunhupay/xunhupay.dto"),
           {
             PayControllerXunhupayBodyDTO: {
@@ -367,7 +378,16 @@ export default async () => {
               getLoggingUser: { summary: "\u83B7\u53D6\u5DF2\u767B\u5F55\u7528\u6237\u4FE1\u606F" },
               updateAvatar: { summary: "\u66F4\u65B0\u5934\u50CF", type: Object },
               updateUsername: { summary: "\u66F4\u65B0\u7528\u6237\u540D", type: Object },
-              updatePassword: {},
+            },
+          },
+        ],
+        [
+          import("./modules/user/controllers/data.controller"),
+          {
+            UserDataController: {
+              getUserData: { summary: "\u83B7\u53D6\u7528\u6237\u6570\u636E", type: Object },
+              setUserData: { summary: "\u8BBE\u7F6E\u7528\u6237\u6570\u636E", type: Object },
+              deleteUserData: { summary: "\u5220\u9664\u7528\u6237\u6570\u636E", type: Object },
             },
           },
         ],

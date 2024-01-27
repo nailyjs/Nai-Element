@@ -15,11 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export * from "./user.repository";
-export * from "./userControl.repository";
-export * from "./userValue.repository";
-export * from "./userOrder.repository";
-export * from "./userSubscribeOrder.repository";
-export * from "./userData.repository";
-export * from "./userIdentifier.repository";
-export * from "./userAppStoreSubscribe.repository";
+import { DataSource } from "typeorm";
+import { EntityRepository, Repository } from "../../decorators";
+import { UserData } from "../../entities";
+
+@Repository
+export class UserDataRepository extends EntityRepository<UserData> {
+  constructor(private readonly dataSource: DataSource) {
+    super(UserData, dataSource.createEntityManager(), dataSource.createQueryRunner());
+  }
+}

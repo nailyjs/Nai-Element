@@ -19,7 +19,9 @@ import { Module } from "@nestjs/common";
 import { UserController } from "./controllers/user.controller";
 import { NailyContext } from "cc.naily.element.shared";
 import { UserService } from "./providers/user.service";
-import { UserControlRepository, UserRepository } from "cc.naily.element.database";
+import { UserControlRepository, UserDataRepository, UserRepository } from "cc.naily.element.database";
+import { UserDataController } from "./controllers/data.controller";
+import { UserDataService } from "./providers/data.service";
 
 /**
  * 用户模块
@@ -30,7 +32,7 @@ import { UserControlRepository, UserRepository } from "cc.naily.element.database
  * @author Zero <gczgroup@qq.com>
  */
 @Module({
-  controllers: [UserController],
-  providers: [UserService, UserRepository, UserControlRepository],
+  controllers: [UserController, UserDataController],
+  providers: [UserService, UserDataService, UserRepository, UserControlRepository, UserDataRepository],
 })
 export class UserModule extends NailyContext {}

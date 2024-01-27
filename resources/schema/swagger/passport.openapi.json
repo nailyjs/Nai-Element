@@ -352,6 +352,74 @@
         "security": [{ "bearer": [] }]
       }
     },
+    "/user/data": {
+      "get": {
+        "operationId": "UserDataController_getUserData",
+        "summary": "获取用户数据",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/GetUserDataBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }]
+      },
+      "post": {
+        "operationId": "UserDataController_setUserData",
+        "summary": "设置用户数据",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SetUserDataBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }]
+      },
+      "delete": {
+        "operationId": "UserDataController_deleteUserData",
+        "summary": "删除用户数据",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SetUserDataBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }]
+      }
+    },
     "/pay/xunhupay": {
       "post": {
         "operationId": "XunhupayController_pay",
@@ -774,6 +842,23 @@
           "username": { "type": "string", "description": "用户名" }
         },
         "required": ["username"]
+      },
+      "GetUserDataBodyDTO": {
+        "type": "object",
+        "properties": {
+          "namespace": { "type": "string" },
+          "key": { "type": "string" }
+        },
+        "required": ["namespace", "key"]
+      },
+      "SetUserDataBodyDTO": {
+        "type": "object",
+        "properties": {
+          "namespace": { "type": "string" },
+          "key": { "type": "string" },
+          "value": { "type": "string" }
+        },
+        "required": ["namespace", "key", "value"]
       },
       "PayControllerXunhupayBodyDTO": {
         "type": "object",

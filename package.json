@@ -5,6 +5,7 @@
     "dev:shop": "pnpm -F cc.naily.element.shop start:dev",
     "dev:gpt": "pnpm -F cc.naily.element.gpt start:dev",
     "dev:health": "pnpm -F cc.naily.element.health start:dev",
+    "dev:light": "pnpm -F cc.naily.element.lightning start:dev",
     "build": "tsx scripts/buildDeps.ts",
     "build:passport": "pnpm -F cc.naily.element.passport build",
     "build:shop": "pnpm -F cc.naily.element.shop build",

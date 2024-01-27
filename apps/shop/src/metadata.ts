@@ -66,6 +66,15 @@ export default async () => {
           { GetSubscribeAppleUserStatusDTO: { transactionId: { required: true, type: () => String, description: "\u82F9\u679CtransactionId" } } },
         ],
         [
+          import("./modules/subscribe/dtos/subscribe/apple/check/check.dto"),
+          {
+            GetSubscribeAppleCheckBodyDTO: {
+              bundleId: { required: true, type: () => String, description: "\u82F9\u679C\u5E94\u7528\u7684bundleId" },
+              transactionId: { required: true, type: () => String, description: "\u82F9\u679C\u5E94\u7528\u7684transactionId" },
+            },
+          },
+        ],
+        [
           import("./modules/evaluate/dtos/evaluate/evaluate.get.dto"),
           {
             GetEvaluateQueryDTO: {
@@ -138,7 +147,12 @@ export default async () => {
         ],
         [
           import("./modules/subscribe/controllers/apple.controller"),
-          { AppleController: { getUserStatus: { summary: "\u83B7\u53D6\u7528\u6237 \u82F9\u679C \u8BA2\u9605\u72B6\u6001" } } },
+          {
+            AppleController: {
+              checkPay: { summary: "\u68C0\u67E5\u82F9\u679C\u8BA2\u9605\u72B6\u6001", type: Object },
+              linkTransactionID: { summary: "\u94FE\u63A5TransactionID\u5230\u82F9\u679C\u8BA2\u9605", type: Object },
+            },
+          },
         ],
         [
           import("./modules/evaluate/controllers/evaluate.controller"),
