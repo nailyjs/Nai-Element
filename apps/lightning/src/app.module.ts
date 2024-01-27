@@ -23,6 +23,7 @@ import { CommonValidationPipe } from "cc.naily.element.validator";
 import { APP_GUARD, APP_PIPE } from "@nestjs/core";
 import { CommonTypeOrmModule } from "cc.naily.element.database";
 import { CommonJwtModule } from "cc.naily.element.auth";
+import { browserTrackModule } from "./modules/broswer/browser.module";
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { CommonJwtModule } from "cc.naily.element.auth";
     CommonTypeOrmModule.forRoot(),
     CommonJwtModule.forRoot(),
     CommonScheduleModule.forRoot(),
+    browserTrackModule.register(),
   ],
   controllers: [AppController],
   providers: [

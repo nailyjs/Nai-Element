@@ -4,22 +4,116 @@
     "/": {
       "get": {
         "operationId": "AppController_getHello",
+        "summary": "主页",
         "parameters": [],
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": { "schema": { "type": "string" } }
+              "application/json": { "schema": { "type": "number" } }
             }
           }
         },
         "tags": ["主页"]
       }
+    },
+    "/broswer/browserTrack": {
+      "get": {
+        "operationId": "BrowserTrackController_getList",
+        "summary": "获取历史记录",
+        "parameters": [
+          {
+            "name": "take",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["浏览"],
+        "security": [{ "bearer": [] }]
+      },
+      "post": {
+        "operationId": "BrowserTrackController_create",
+        "summary": "创建历史记录",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostBrowserTrackBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["浏览"],
+        "security": [{ "bearer": [] }]
+      },
+      "delete": {
+        "operationId": "BrowserTrackController_delete",
+        "summary": "删除历史记录",
+        "parameters": [
+          {
+            "name": "browserTrackID",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "number" } }
+            }
+          }
+        },
+        "tags": ["浏览"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/broswer/browserTrack/all": {
+      "delete": {
+        "operationId": "BrowserTrackController_deleteAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "number" } }
+            }
+          }
+        },
+        "tags": ["浏览"],
+        "security": [{ "bearer": [] }]
+      }
     }
   },
   "info": {
     "title": "Lightning",
-    "description": "#### 一些可以公开的情报\n\n- 本项目所有接口均限流，每个接口每分钟最多只能调用 300 次，超过限制会返回 429 Too Many Requests 错误；\n- 本项目需要鉴权的接口均需要携带 `Authorization` 头，其值为 `Bearer <access_token>`，其中 `<access_token>` 为通过登录接口获取的JWT令牌；\n- 本项目的 JWT 令牌有效期为 30 天，过期后需要重新登录；\n- 本页面支持直接测试已登录接口，点击下面的`Authorize`按钮，输入您的JWT令牌即可直接测试接口（不需要携带`Bearer `）。\n",
+    "description": "#### 一些可以公开的情报\n\n-   本项目所有接口均限流，每个接口每分钟最多只能调用 300 次，超过限制会返回 429 Too Many Requests 错误；\n-   本项目需要鉴权的接口均需要携带 `Authorization` 头，其值为 `Bearer <access_token>`，其中 `<access_token>` 为通过登录接口获取的JWT令牌；\n-   本项目的 JWT 令牌有效期为 30 天，过期后需要重新登录；\n-   本页面支持直接测试已登录接口，点击下面的`Authorize`按钮，输入您的JWT令牌即可直接测试接口（不需要携带`Bearer `）。\n",
     "version": "0.0.0",
     "contact": {
       "name": "Zero",
@@ -34,6 +128,16 @@
     "securitySchemes": {
       "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" }
     },
-    "schemas": {}
+    "schemas": {
+      "PostBrowserTrackBodyDTO": {
+        "type": "object",
+        "properties": {
+          "updatedAt": { "format": "date-time", "type": "string" },
+          "webPageTitle": { "type": "string" },
+          "webPageLink": { "type": "string" }
+        },
+        "required": ["webPageTitle", "webPageLink"]
+      }
+    }
   }
 }

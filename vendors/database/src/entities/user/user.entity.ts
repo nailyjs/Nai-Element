@@ -27,6 +27,8 @@ import { ShopEvaluateLike } from "../shop/evaluateLike.entity";
 import { UserIdentifier } from "./userIdentifier.entity";
 import { UserData } from "./userData.entity";
 import { UserAppStoreSubscribe } from "./userAppStoreSubscribe.entity";
+import { BrowserTrack } from "../broswer/browserTrack.entity";
+import { BrowserBookMark } from "../broswer/bookMark.entity";
 
 @Entity()
 export class User {
@@ -103,4 +105,12 @@ export class User {
   @OneToMany(() => UserAppStoreSubscribe, (userAppStoreSubscribes) => userAppStoreSubscribes.user)
   @JoinColumn()
   userAppStoreSubscribes: Relation<UserAppStoreSubscribe[]>;
+
+  @OneToMany(() => BrowserTrack, (browserTrack) => browserTrack.user)
+  @JoinColumn()
+  browserTracks: Relation<BrowserTrack[]>;
+
+  @OneToMany(() => BrowserBookMark, (browserTrack) => browserTrack.user)
+  @JoinColumn()
+  browserBookMarks: Relation<BrowserTrack[]>;
 }

@@ -17,6 +17,7 @@
     "register": "admin",
     "transport": "mail",
     "pay": "controller",
-    "file": "images"
+    "file": "images",
+    "broswer": "client"
   }
 }

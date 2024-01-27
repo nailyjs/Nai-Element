@@ -18,3 +18,4 @@
 export * from "./user";
 export * from "./shop";
 export * from "./tag.entity";
+export * from "./broswer";
