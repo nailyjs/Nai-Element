@@ -33,15 +33,43 @@ export class CommonValidationPipe implements PipeTransform {
     return Object.keys(errors[0].constraints)[0];
   }
 
-  async transform(value: any, { metatype }: ArgumentMetadata) {
-    if (!metatype || !this.toValidate(metatype)) {
-      return value;
+  private getFirstErrorProperty(errors: ValidationError[]): string {
+    return errors[0].property;
+  }
+
+  private transformFirstError(errors: ValidationError[], firstError: string, firstConstraint: string, firstErrorProperty: string): string {
+    const hasI18n = this.i18nService.t(`validator.validatorErrorCode.${firstConstraint}` as I18nPath).toString();
+    if (hasI18n && !hasI18n.startsWith("validator.validatorErrorCode.")) {
+      firstError = hasI18n.replace("{property}", firstErrorProperty);
+      if (firstConstraint === "isIn") {
+        firstError = firstError.replace("{values}", errors[0].constraints[firstConstraint].split(":")[1]);
+      }
+      if (firstConstraint === "max") {
+        firstError = firstError.replace("{max}", errors[0].constraints[firstConstraint].split("must not be greater than ")[1]);
+      }
+      if (firstConstraint === "min") {
+        firstError = firstError.replace("{min}", errors[0].constraints[firstConstraint].split("must not be less than ")[1]);
+      }
+      if (firstConstraint === "maxPoint") {
+        firstError = firstError.replace(
+          "{maxPoint}",
+          errors[0].constraints[firstConstraint].split("must be less than ")[1].split(" decimal places")[0],
+        );
+      }
     }
+    return firstError;
+  }
+
+  async transform(value: any, { metatype }: ArgumentMetadata) {
+    if (!metatype || !this.toValidate(metatype)) return value;
     const object = plainToClass(metatype, value) || {};
     const errors = await validate(object);
     if (errors.length === 0) return value;
-    const firstError = this.getFirstError(errors);
     const firstConstraint = this.getFirstConstraint(errors);
+    const firstErrorProperty = this.getFirstErrorProperty(errors);
+    const firstError = this.transformFirstError(errors, this.getFirstError(errors), firstConstraint, firstErrorProperty);
+    console.dir(errors, { depth: null });
+
     if (!firstError.startsWith("global.errorCode.")) {
       throw new BadRequestException({
         code: 1017,

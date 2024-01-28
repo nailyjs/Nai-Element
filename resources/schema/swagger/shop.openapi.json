@@ -4,15 +4,756 @@
     "/": {
       "get": {
         "operationId": "AppController_getHello",
+        "summary": "主页",
         "parameters": [],
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": { "schema": { "type": "string" } }
+              "application/json": { "schema": { "type": "number" } }
             }
           }
-        }
+        },
+        "tags": ["主页"]
+      }
+    },
+    "/product": {
+      "get": {
+        "operationId": "ProductController_listProduct",
+        "summary": "获取商品列表",
+        "parameters": [
+          {
+            "name": "orderTime",
+            "required": false,
+            "in": "query",
+            "description": "时间排序",
+            "schema": {
+              "default": "latest",
+              "enum": ["latest", "oldest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderHot",
+            "required": false,
+            "in": "query",
+            "description": "热度排序",
+            "schema": {
+              "default": "hottest",
+              "enum": ["hottest", "coldest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderPrice",
+            "required": false,
+            "in": "query",
+            "description": "价格排序",
+            "schema": {
+              "default": "highest",
+              "enum": ["highest", "lowest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderSold",
+            "required": false,
+            "in": "query",
+            "description": "销量排序",
+            "schema": {
+              "default": "highest",
+              "enum": ["highest", "lowest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderStock",
+            "required": false,
+            "in": "query",
+            "description": "库存排序",
+            "schema": {
+              "default": "highest",
+              "enum": ["highest", "lowest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "filterTags",
+            "required": false,
+            "in": "query",
+            "description": "过滤标签",
+            "schema": { "type": "array", "items": { "type": "number" } }
+          },
+          {
+            "name": "filterUser",
+            "required": false,
+            "in": "query",
+            "description": "过滤用户",
+            "schema": { "type": "array", "items": { "type": "number" } }
+          },
+          {
+            "name": "take",
+            "required": false,
+            "in": "query",
+            "description": "取到数量",
+            "schema": { "default": 10, "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "跳过数量",
+            "schema": { "default": 0, "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "type": "object" } }
+              }
+            }
+          }
+        },
+        "tags": ["产品"]
+      },
+      "post": {
+        "operationId": "ProductController_createProduct",
+        "summary": "创建商品",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PostCreateProductDTO" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["产品"],
+        "security": [{ "bearer": [] }]
+      },
+      "delete": {
+        "operationId": "ProductController_deleteProduct",
+        "summary": "删除商品",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeletedeleteProductDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "boolean" } }
+            }
+          }
+        },
+        "tags": ["产品"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/product/search": {
+      "get": {
+        "operationId": "ProductController_searchProduct",
+        "summary": "搜索商品",
+        "parameters": [
+          {
+            "name": "orderTime",
+            "required": false,
+            "in": "query",
+            "description": "时间排序",
+            "schema": {
+              "default": "latest",
+              "enum": ["latest", "oldest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderHot",
+            "required": false,
+            "in": "query",
+            "description": "热度排序",
+            "schema": {
+              "default": "hottest",
+              "enum": ["hottest", "coldest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderPrice",
+            "required": false,
+            "in": "query",
+            "description": "价格排序",
+            "schema": {
+              "default": "highest",
+              "enum": ["highest", "lowest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderSold",
+            "required": false,
+            "in": "query",
+            "description": "销量排序",
+            "schema": {
+              "default": "highest",
+              "enum": ["highest", "lowest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderStock",
+            "required": false,
+            "in": "query",
+            "description": "库存排序",
+            "schema": {
+              "default": "highest",
+              "enum": ["highest", "lowest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "filterTags",
+            "required": false,
+            "in": "query",
+            "description": "过滤标签",
+            "schema": { "type": "array", "items": { "type": "number" } }
+          },
+          {
+            "name": "filterUser",
+            "required": false,
+            "in": "query",
+            "description": "过滤用户",
+            "schema": { "type": "array", "items": { "type": "number" } }
+          },
+          {
+            "name": "take",
+            "required": false,
+            "in": "query",
+            "description": "取到数量",
+            "schema": { "default": 10, "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "跳过数量",
+            "schema": { "default": 0, "type": "number" }
+          },
+          {
+            "name": "keyword",
+            "required": true,
+            "in": "query",
+            "description": "搜索关键字",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["产品"]
+      }
+    },
+    "/subscribe": {
+      "get": {
+        "operationId": "SubscribeController_getSubscribeList",
+        "summary": "获取订阅制商品列表",
+        "parameters": [
+          {
+            "name": "orderTime",
+            "required": false,
+            "in": "query",
+            "description": "时间排序方式",
+            "schema": { "enum": ["latest", "oldest"], "type": "string" }
+          },
+          {
+            "name": "orderPrice",
+            "required": false,
+            "in": "query",
+            "description": "价格排序方式",
+            "schema": { "enum": ["highest", "lowest"], "type": "string" }
+          },
+          {
+            "name": "filterUser",
+            "required": false,
+            "in": "query",
+            "description": "过滤用户",
+            "schema": { "type": "array", "items": { "type": "number" } }
+          },
+          {
+            "name": "take",
+            "required": false,
+            "in": "query",
+            "description": "获取数量",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "跳过数量",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"]
+      },
+      "post": {
+        "operationId": "SubscribeController_createSubscribe",
+        "summary": "创建一个订阅制的商品",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PostSubscribeBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"],
+        "security": [{ "bearer": [] }]
+      },
+      "put": {
+        "operationId": "SubscribeController_subscribe",
+        "summary": "订阅一个订阅制的商品",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutSubscribeBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"],
+        "security": [{ "bearer": [] }]
+      },
+      "patch": {
+        "operationId": "SubscribeController_renewSubscribe",
+        "summary": "续费一个订阅制的商品",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutSubscribeBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/subscribe/single": {
+      "get": {
+        "operationId": "SubscribeController_getSubscribeSingle",
+        "summary": "根据`subscribeID`获取单个订阅制商品",
+        "parameters": [
+          {
+            "name": "subscribeID",
+            "required": true,
+            "in": "query",
+            "description": "订阅制商品ID",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"]
+      }
+    },
+    "/subscribe/user/status": {
+      "get": {
+        "operationId": "SubscribeController_getSubscribeStatus",
+        "summary": "获取当前用户某个订阅制商品的订阅状态",
+        "parameters": [
+          {
+            "name": "subscribeID",
+            "required": true,
+            "in": "query",
+            "description": "订阅制商品ID",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["订阅"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/subscribe/apple/check": {
+      "post": {
+        "operationId": "AppleController_checkPay",
+        "summary": "检查苹果订阅状态",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetSubscribeAppleCheckBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["苹果订阅"]
+      }
+    },
+    "/subscribe/apple/user/link": {
+      "post": {
+        "operationId": "AppleController_linkTransactionID",
+        "summary": "链接TransactionID到苹果订阅",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "required": true,
+            "in": "query",
+            "description": "苹果transactionId",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["苹果订阅"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/evaluate": {
+      "get": {
+        "operationId": "EvaluateController_listEvaluate",
+        "summary": "根据商品列出评论",
+        "parameters": [
+          {
+            "name": "orderTime",
+            "required": false,
+            "in": "query",
+            "description": "时间排序方式",
+            "schema": {
+              "default": "latest",
+              "enum": ["latest", "oldest"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderLike",
+            "required": false,
+            "in": "query",
+            "description": "点赞排序方式",
+            "schema": {
+              "default": "most",
+              "enum": ["most", "least"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "productID",
+            "required": true,
+            "in": "query",
+            "description": "商品ID",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "take",
+            "required": false,
+            "in": "query",
+            "description": "获取到的总数",
+            "example": 10,
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "跳过的数量",
+            "example": 0,
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["产品评论"]
+      },
+      "post": {
+        "operationId": "EvaluateController_createEvaluate",
+        "summary": "创建商品评论",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCreateEvaluateBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["产品评论"],
+        "security": [{ "bearer": [] }]
+      },
+      "delete": {
+        "operationId": "EvaluateController_deleteEvaluate",
+        "summary": "删除商品评论",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "boolean" } }
+            }
+          }
+        },
+        "tags": ["产品评论"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/evaluate/children": {
+      "get": {
+        "operationId": "EvaluateController_listEvaluateChildren",
+        "summary": "根据商品父评论列出子评论",
+        "parameters": [
+          {
+            "name": "evaluateID",
+            "required": true,
+            "in": "query",
+            "description": "父评论ID",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "depth",
+            "required": false,
+            "in": "query",
+            "description": "获取到的深度",
+            "schema": { "default": 3, "type": "number" }
+          },
+          {
+            "name": "take",
+            "required": false,
+            "in": "query",
+            "description": "获取到的总数",
+            "example": 10,
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "跳过的数量",
+            "example": 0,
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["产品评论"]
+      }
+    },
+    "/evaluate/reply": {
+      "post": {
+        "operationId": "EvaluateController_replyEvaluate",
+        "summary": "回复商品评论",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostReplyEvaluateBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["产品评论"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/evaluate/like": {
+      "get": {
+        "operationId": "EvaluateLikeController_getUserLike",
+        "summary": "获取用户评论点赞列表",
+        "parameters": [
+          {
+            "name": "orderTime",
+            "required": false,
+            "in": "query",
+            "description": "时间排序方式",
+            "schema": { "enum": ["latest", "oldest"], "type": "string" }
+          },
+          {
+            "name": "userID",
+            "required": true,
+            "in": "query",
+            "description": "用户ID",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "take",
+            "required": false,
+            "in": "query",
+            "description": "获取数量",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": false,
+            "in": "query",
+            "description": "跳过数量",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "如果用户本人已登录 正常返回点赞列表" },
+          "403": { "description": "如果访客访问但是用户没有开权限 则返回403" }
+        },
+        "tags": ["产品评论"],
+        "security": [{ "bearer": [] }]
+      },
+      "post": {
+        "operationId": "EvaluateLikeController_createLike",
+        "summary": "评论点赞",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCreateEvaluateLikeBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["产品评论"],
+        "security": [{ "bearer": [] }]
+      },
+      "delete": {
+        "operationId": "EvaluateLikeController_deleteLike",
+        "summary": "评论取消点赞",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCreateEvaluateLikeBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["产品评论"],
+        "security": [{ "bearer": [] }]
       }
     }
   },
@@ -33,6 +774,109 @@
     "securitySchemes": {
       "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" }
     },
-    "schemas": {}
+    "schemas": {
+      "PostCreateProductDTO": {
+        "type": "object",
+        "properties": {
+          "productName": { "type": "string", "description": "商品名称" },
+          "productIntroduction": {
+            "type": "string",
+            "description": "商品描述"
+          },
+          "productPrice": {
+            "type": "number",
+            "description": "商品金额 单位分"
+          },
+          "productDiscountPrice": {
+            "type": "number",
+            "description": "商品折扣价 单位分 可选（或者传入0）",
+            "default": 0
+          },
+          "productStock": {
+            "type": "number",
+            "description": "库存数量",
+            "default": 0,
+            "minimum": 0
+          },
+          "productTags": {
+            "description": "商品标签",
+            "type": "array",
+            "items": { "type": "number" }
+          },
+          "productStatus": {
+            "type": "boolean",
+            "description": "商品状态 立即上架请填true，暂不上架请填false",
+            "default": true
+          }
+        },
+        "required": ["productName", "productIntroduction", "productPrice", "productStock", "productTags", "productStatus"]
+      },
+      "DeletedeleteProductDTO": {
+        "type": "object",
+        "properties": {
+          "productID": {
+            "description": "商品id",
+            "anyOf": [{ "type": "number" }, { "type": "array", "items": { "type": "number" } }]
+          }
+        },
+        "required": ["productID"]
+      },
+      "PostSubscribeBodyDTO": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "description": "商品标题" },
+          "introduction": { "type": "string", "description": "商品介绍" },
+          "duration": { "type": "number", "description": "商品时长（天）" },
+          "price": { "type": "number", "description": "商品价格（元）" }
+        },
+        "required": ["title", "introduction", "duration", "price"]
+      },
+      "PutSubscribeBodyDTO": {
+        "type": "object",
+        "properties": {
+          "subscribeID": { "type": "number", "description": "订阅制商品ID" }
+        },
+        "required": ["subscribeID"]
+      },
+      "GetSubscribeAppleCheckBodyDTO": {
+        "type": "object",
+        "properties": {
+          "bundleId": { "type": "string", "description": "苹果应用的bundleId" },
+          "transactionId": {
+            "type": "string",
+            "description": "苹果应用的transactionId"
+          }
+        },
+        "required": ["bundleId", "transactionId"]
+      },
+      "PostCreateEvaluateBodyDTO": {
+        "type": "object",
+        "properties": {
+          "productID": { "type": "number", "description": "商品ID" },
+          "content": { "type": "string", "description": "评论内容" }
+        },
+        "required": ["productID", "content"]
+      },
+      "PostReplyEvaluateBodyDTO": {
+        "type": "object",
+        "properties": {
+          "content": { "type": "string", "description": "评论内容" },
+          "evaluateID": {
+            "type": "number",
+            "description": "父评论ID",
+            "example": 1,
+            "default": 0
+          }
+        },
+        "required": ["content"]
+      },
+      "PostCreateEvaluateLikeBodyDTO": {
+        "type": "object",
+        "properties": {
+          "evaluateID": { "type": "number", "description": "商品评论ID" }
+        },
+        "required": ["evaluateID"]
+      }
+    }
   }
 }

@@ -24,12 +24,19 @@ export function IsIntString() {
       name: "isIntString",
       target: target.constructor,
       propertyName: key,
+      constraints: ["isIntString"],
       options: {
-        message: `${key} is not a int string`,
+        message: `${key} is not a int or int string`,
       },
       validator: {
         validate(value: unknown) {
-          return typeof value === "string" && Number.isInteger(parseInt(value));
+          if (typeof value === "string") {
+            return Number.isInteger(Number(value));
+          } else if (typeof value === "number") {
+            return Number.isInteger(value);
+          } else {
+            return false;
+          }
         },
       },
     });

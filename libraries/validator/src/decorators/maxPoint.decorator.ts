@@ -33,7 +33,7 @@ export function MaxPoint(maxPoint: number) {
       name: "maxPoint",
       target: target.constructor,
       propertyName: propertyKey,
-      constraints: [maxPoint],
+      constraints: ["maxPoint", maxPoint],
       options: {
         message: `${propertyKey} must be less than ${maxPoint} decimal places`,
       },

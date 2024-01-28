@@ -24,6 +24,7 @@ export function IsIntStringOrIntStringArray() {
       name: "isIntStringOrIntStringArray",
       target: target.constructor,
       propertyName: key,
+      constraints: ["isIntStringOrIntStringArray"],
       options: {
         message: `${key} is not a Int or Int array!`,
       },
