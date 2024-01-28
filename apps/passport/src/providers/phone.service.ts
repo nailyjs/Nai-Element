@@ -43,14 +43,17 @@ export class PhoneService {
   public async saveCode(phone: string) {
     const key = this.getRedisKey(phone);
     const code = this.getCode();
-    await this.cacheManager.store.set(key, code, 1000 * 60 * 5);
-    return this.smsClient.SendSms({
+    const isSended = await this.smsClient.SendSms({
       SmsSdkAppId: this.configService.get("global.tencent.cloud.sms.SmsSdkAppId"),
       SignName: this.configService.get("global.tencent.cloud.sms.SignName"),
       PhoneNumberSet: [`${phone}`],
       TemplateId: this.configService.get("global.tencent.cloud.sms.TemplateId"),
       TemplateParamSet: [`${code}`, "5"],
     });
+    if (isSended.SendStatusSet[0].Code === "Ok") {
+      await this.cacheManager.store.set(key, code, 1000 * 60 * 5);
+    }
+    return isSended;
   }
 
   public async checkCode(phone: string, code: number) {
