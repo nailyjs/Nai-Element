@@ -25,8 +25,12 @@ import { ValidationError, validate } from "class-validator";
 export class CommonValidationPipe implements PipeTransform {
   constructor(private readonly i18nService: I18nService<I18nTranslations>) {}
 
-  getFirstError(errors: ValidationError[]): string {
+  private getFirstError(errors: ValidationError[]): string {
     return errors[0].constraints[Object.keys(errors[0].constraints)[0]];
+  }
+
+  private getFirstConstraint(errors: ValidationError[]): string {
+    return Object.keys(errors[0].constraints)[0];
   }
 
   async transform(value: any, { metatype }: ArgumentMetadata) {
@@ -35,21 +39,22 @@ export class CommonValidationPipe implements PipeTransform {
     }
     const object = plainToClass(metatype, value) || {};
     const errors = await validate(object);
-    if (errors.length > 0) {
-      const firstError = this.getFirstError(errors);
-      if (!firstError.startsWith("global.errorCode.")) {
-        throw new BadRequestException({
-          code: 1017,
-          message: `${this.i18nService.t("global.errorCode.1017").replace("{}", `{${firstError}}`)}`,
-        });
-      } else {
-        throw new BadRequestException({
-          code: parseInt(firstError.replace("global.errorCode.", "")),
-          message: `${this.i18nService.t(firstError as I18nPath)}`,
-        });
-      }
+    if (errors.length === 0) return value;
+    const firstError = this.getFirstError(errors);
+    const firstConstraint = this.getFirstConstraint(errors);
+    if (!firstError.startsWith("global.errorCode.")) {
+      throw new BadRequestException({
+        code: 1017,
+        message: `${this.i18nService.t("global.errorCode.1017").replace("{}", `{${firstError}}`)}`,
+        constraint: firstConstraint,
+      });
+    } else {
+      throw new BadRequestException({
+        code: parseInt(firstError.replace("global.errorCode.", "")),
+        message: `${this.i18nService.t(firstError as I18nPath)}`,
+        constraint: firstConstraint,
+      });
     }
-    return value;
   }
 
   private toValidate(metatype: Function): boolean {
