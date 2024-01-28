@@ -354,6 +354,14 @@ export default async () => {
             },
           },
         ],
+        [
+          import("./modules/user/dtos/user/user/check.dto"),
+          {
+            PostUserCheckUsernameBodyDTO: { username: { required: true, type: () => String, description: "\u7528\u6237\u540D" } },
+            PostUserCheckPhoneBodyDTO: { phone: { required: true, type: () => String, description: "\u624B\u673A\u53F7" } },
+            PostUserCheckEmailBodyDTO: { email: { required: true, type: () => String, description: "\u90AE\u7BB1" } },
+          },
+        ],
       ],
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
@@ -450,7 +458,17 @@ export default async () => {
             },
           },
         ],
-        [import("./modules/user/controllers/check.controller"), { UserCheckController: { check: {} } }],
+        [
+          import("./modules/user/controllers/check.controller"),
+          {
+            UserCheckController: {
+              check: { type: Object },
+              checkUsername: { summary: "\u68C0\u67E5\u624B\u673A\u53F7\u662F\u5426\u5B58\u5728", type: Object },
+              checkPhone: { summary: "\u68C0\u67E5\u624B\u673A\u53F7\u662F\u5426\u5B58\u5728", type: Object },
+              checkEmail: { summary: "\u68C0\u67E5\u90AE\u7BB1\u662F\u5426\u5B58\u5728", type: Object },
+            },
+          },
+        ],
       ],
     },
   };
