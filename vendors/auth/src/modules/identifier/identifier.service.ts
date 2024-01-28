@@ -81,7 +81,7 @@ export class IdentifierService {
    * @memberof IdentifierService
    */
   public async renewIdentifier(user: User, loginPayload: ILoginPayload): Promise<UserIdentifier | "ERROR"> {
-    const { loginType, loginClient, identifier, loginMethod, loginIP } = loginPayload;
+    const { loginType, loginClient, identifier, loginMethod, loginDeviceName, loginIP } = loginPayload;
     // Web端登录时，identifier和loginClient可以为空
     // 其他端登录时，identifier不能为空
     if (loginType !== "Web" && (!identifier || !loginClient || !loginMethod)) return "ERROR";
@@ -93,7 +93,11 @@ export class IdentifierService {
     // 找到当前登录标识符
     const singleIdentifier = identifiers.find(
       (item) =>
-        item.identifier === identifier && item.loginType === loginType && item.loginClient === loginClient && item.loginMethod === loginMethod,
+        item.identifier === identifier &&
+        item.loginType === loginType &&
+        item.loginClient === loginClient &&
+        item.loginMethod === loginMethod &&
+        item.loginDeviceName === loginDeviceName,
     );
     // 如果当前登录标识符存在，则不需要创建新的登录标识符 直接返回给上层
     if (singleIdentifier) return singleIdentifier;
@@ -109,6 +113,7 @@ export class IdentifierService {
     newIdentifier.loginClient = loginClient;
     newIdentifier.loginMethod = loginMethod;
     newIdentifier.loginIP = loginIP;
+    newIdentifier.loginDeviceName = loginDeviceName;
     newIdentifier.user = user;
     return await this.userIdentifierRepository.save(newIdentifier);
   }

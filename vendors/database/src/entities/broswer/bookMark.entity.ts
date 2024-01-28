@@ -15,6 +15,9 @@ export class BrowserBookMark {
   @ManyToOne(() => User, (user) => user.browserBookMarks)
   user: User;
 
+  @Column({ comment: "书签index", nullable: false })
+  bookMarkIndex: number;
+
   @Column({ comment: "书签标题", nullable: false })
   bookMarkTitle: string;
 

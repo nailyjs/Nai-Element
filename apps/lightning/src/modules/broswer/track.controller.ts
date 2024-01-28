@@ -5,8 +5,8 @@ import { ResInterceptor } from "cc.naily.element.shared";
 import { ApiTags } from "@nestjs/swagger";
 import { Auth, User } from "cc.naily.element.auth";
 
-@ApiTags("浏览")
-@Controller("broswer/browserTrack")
+@ApiTags("浏览历史记录")
+@Controller("broswer/track")
 export class BrowserTrackController {
   constructor(private readonly browserTrackRepository: BrowserTrackRepository) {}
 

@@ -17,22 +17,24 @@
         "tags": ["主页"]
       }
     },
-    "/broswer/browserTrack": {
+    "/broswer/track": {
       "get": {
         "operationId": "BrowserTrackController_getList",
         "summary": "获取历史记录",
         "parameters": [
           {
             "name": "take",
-            "required": true,
+            "required": false,
             "in": "query",
-            "schema": { "type": "number" }
+            "description": "每页数量",
+            "schema": { "default": 10, "type": "number" }
           },
           {
             "name": "skip",
-            "required": true,
+            "required": false,
             "in": "query",
-            "schema": { "type": "number" }
+            "description": "跳过数量",
+            "schema": { "default": 0, "type": "number" }
           }
         ],
         "responses": {
@@ -43,7 +45,7 @@
             }
           }
         },
-        "tags": ["浏览"],
+        "tags": ["浏览历史记录"],
         "security": [{ "bearer": [] }]
       },
       "post": {
@@ -68,7 +70,7 @@
             }
           }
         },
-        "tags": ["浏览"],
+        "tags": ["浏览历史记录"],
         "security": [{ "bearer": [] }]
       },
       "delete": {
@@ -90,11 +92,11 @@
             }
           }
         },
-        "tags": ["浏览"],
+        "tags": ["浏览历史记录"],
         "security": [{ "bearer": [] }]
       }
     },
-    "/broswer/browserTrack/all": {
+    "/broswer/track/all": {
       "delete": {
         "operationId": "BrowserTrackController_deleteAll",
         "parameters": [],
@@ -106,8 +108,52 @@
             }
           }
         },
-        "tags": ["浏览"],
+        "tags": ["浏览历史记录"],
         "security": [{ "bearer": [] }]
+      }
+    },
+    "/broswer/mark": {
+      "get": {
+        "operationId": "BrowserMarkController_getList",
+        "summary": "获取历史记录",
+        "parameters": [
+          {
+            "name": "take",
+            "required": true,
+            "in": "query",
+            "description": "每页数量",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "skip",
+            "required": true,
+            "in": "query",
+            "description": "跳过数量",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["浏览器书签"]
+      },
+      "post": {
+        "operationId": "BrowserMarkController_create",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["浏览器书签"]
       }
     }
   },

@@ -23,7 +23,7 @@ export class RegisterService {
   constructor(private readonly userRepository: UserRepository) {}
 
   private async generateUsername(): Promise<string> {
-    const username = `用户_${Math.floor(Math.random() * (99999999 - 100000 + 1) + 1000000)}`;
+    const username = `用户${Math.floor(Math.random() * (99999999 - 100000 + 1) + 1000000)}`;
     const user = await this.userRepository.checkUsername(username);
     if (user) return await this.generateUsername();
     return username;
