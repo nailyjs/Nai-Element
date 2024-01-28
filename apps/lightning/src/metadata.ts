@@ -19,7 +19,7 @@ export default async () => {
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
         [
-          import("./modules/broswer/browser.controller"),
+          import("./modules/broswer/track.controller"),
           {
             BrowserTrackController: {
               getList: { summary: "\u83B7\u53D6\u5386\u53F2\u8BB0\u5F55", type: Object },

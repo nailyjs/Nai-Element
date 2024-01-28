@@ -242,6 +242,25 @@
         "tags": ["注册"]
       }
     },
+    "/register/phone/code": {
+      "post": {
+        "operationId": "RegisterController_registerByPhonePassword",
+        "summary": "通过手机号验证码注册",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostRegisterPhoneCodeBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["注册"]
+      }
+    },
     "/tansport/google/recaptcha": {
       "get": {
         "operationId": "GoogleController_getRecaptchaClientKey",
@@ -775,6 +794,19 @@
           }
         },
         "required": ["email", "username", "verifyCode"]
+      },
+      "PostRegisterPhoneCodeBodyDTO": {
+        "type": "object",
+        "properties": {
+          "phone": { "type": "string", "description": "手机号 中国大陆" },
+          "username": { "type": "string", "description": "用户名" },
+          "code": {
+            "type": "number",
+            "description": "验证码",
+            "maximum": 999999
+          }
+        },
+        "required": ["phone", "username", "code"]
       },
       "PostGoogleReCaptchaTokenBodyDTO": {
         "type": "object",

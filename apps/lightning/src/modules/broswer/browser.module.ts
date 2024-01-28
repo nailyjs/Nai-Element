@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { BrowserTrackController } from "./browser.controller";
+import { BrowserTrackController } from "./track.controller";
 import { BrowserTrackRepository } from "cc.naily.element.database";
 import { NailyContext } from "cc.naily.element.shared";
 

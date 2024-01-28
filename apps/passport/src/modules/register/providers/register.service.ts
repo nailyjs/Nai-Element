@@ -24,7 +24,15 @@ export class RegisterService {
 
   public async registerByEmailPassword(email: string, username: string, ip: string) {
     const user = await this.userRepository.checkEmailOrUsername(email, username);
-    if (user) throw new ForbiddenException(1009);
+    if (user && user.email === email) throw new ForbiddenException(1009);
+    if (user && user.username === username) throw new ForbiddenException(1048);
     return await this.userRepository.registerByEmail(email, username, ip);
+  }
+
+  public async registerByPhonePassword(phone: string, username: string, ip: string) {
+    const user = await this.userRepository.checkPhoneOrUsername(phone, username);
+    if (user && user.phone === phone) throw new ForbiddenException(1049);
+    if (user && user.username === username) throw new ForbiddenException(1048);
+    return await this.userRepository.registerByPhone(phone, username, ip);
   }
 }

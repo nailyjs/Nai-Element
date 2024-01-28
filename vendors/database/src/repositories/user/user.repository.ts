@@ -52,6 +52,10 @@ export class UserRepository extends EntityRepository<User> {
     return this.findOneBy({ username });
   }
 
+  public checkPhone(phone: string): Promise<User | null> {
+    return this.findOneBy({ phone });
+  }
+
   /**
    * 查找邮箱或用户名是否存在
    *
@@ -70,6 +74,14 @@ export class UserRepository extends EntityRepository<User> {
     return null;
   }
 
+  public checkPhoneOrUsername(phone: string, username: string): Promise<User | null> {
+    const hasPhone = this.checkPhone(phone);
+    const hasUsername = this.checkUsername(username);
+    if (hasPhone) return hasPhone;
+    if (hasUsername) return hasUsername;
+    return null;
+  }
+
   /**
    * 使用邮箱凭据添加用户
    *
@@ -84,6 +96,18 @@ export class UserRepository extends EntityRepository<User> {
   public async registerByEmail(email: string, username: string, ip: string): Promise<Omit<User, "password">> {
     let user = new User();
     user.email = email;
+    user.username = username;
+    user.ip = ip;
+    user = await this.save(user);
+    await this.registerValue(user);
+    await this.registerControl(user);
+    user.password = undefined;
+    return user;
+  }
+
+  public async registerByPhone(phone: string, username: string, ip: string): Promise<Omit<User, "password">> {
+    let user = new User();
+    user.phone = phone;
     user.username = username;
     user.ip = ip;
     user = await this.save(user);

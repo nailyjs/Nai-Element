@@ -211,6 +211,16 @@ export default async () => {
           },
         ],
         [
+          import("./modules/register/dtos/register/phone/code/phone.dto"),
+          {
+            PostRegisterPhoneCodeBodyDTO: {
+              phone: { required: true, type: () => String, description: "\u624B\u673A\u53F7 \u4E2D\u56FD\u5927\u9646" },
+              username: { required: true, type: () => String, description: "\u7528\u6237\u540D" },
+              code: { required: true, type: () => Number, description: "\u9A8C\u8BC1\u7801", maximum: 999999 },
+            },
+          },
+        ],
+        [
           import("./modules/user/dtos/user/logging/logging.res.dto"),
           {
             GetLoggingUser200ResDTODataUserDTO: {
@@ -369,7 +379,12 @@ export default async () => {
         [import("./modules/login/controllers/logout.controller"), { LogoutController: { logout: { summary: "\u767B\u51FA", type: Number } } }],
         [
           import("./modules/register/controllers/register.controller"),
-          { RegisterController: { registerByEmailPassword: { summary: "\u901A\u8FC7\u90AE\u7BB1\u9A8C\u8BC1\u7801\u6CE8\u518C" } } },
+          {
+            RegisterController: {
+              registerByEmailPassword: { summary: "\u901A\u8FC7\u90AE\u7BB1\u9A8C\u8BC1\u7801\u6CE8\u518C" },
+              registerByPhonePassword: { summary: "\u901A\u8FC7\u624B\u673A\u53F7\u9A8C\u8BC1\u7801\u6CE8\u518C" },
+            },
+          },
         ],
         [
           import("./modules/user/controllers/user.controller"),

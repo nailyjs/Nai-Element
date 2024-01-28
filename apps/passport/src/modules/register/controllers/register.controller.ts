@@ -21,6 +21,8 @@ import { ApiTags } from "@nestjs/swagger";
 import { CommonLogger, ResInterceptor } from "cc.naily.element.shared";
 import { RegisterService } from "../providers/register.service";
 import { EmailService } from "../../../providers/email.service";
+import { PhoneService } from "../../../providers/phone.service";
+import { PostRegisterPhoneCodeBodyDTO } from "../dtos/register/phone/code/phone.dto";
 
 @ApiTags("注册")
 @Controller("register")
@@ -28,6 +30,7 @@ export class RegisterController {
   constructor(
     private readonly registerService: RegisterService,
     private readonly emailService: EmailService,
+    private readonly phoneService: PhoneService,
     private readonly commonLogger: CommonLogger,
   ) {}
 
@@ -43,7 +46,25 @@ export class RegisterController {
   public async registerByEmailPassword(@Body() body: RegisterByEmailPasswordBodyDTO, @Ip() ip: string) {
     await this.emailService.checkCode(body.email, body.verifyCode);
     const user = await this.registerService.registerByEmailPassword(body.email, body.username, ip);
-    this.emailService.deleteCode(body.email).then();
+    this.commonLogger.setContext(RegisterController.name);
+    this.commonLogger.log(`用户注册成功 ${JSON.stringify(user)}`);
+    return { user };
+  }
+
+  /**
+   * 通过手机号验证码注册
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/28
+   * @param {RegisterByEmailPasswordBodyDTO} body
+   * @param {string} ip
+   * @memberof RegisterController
+   */
+  @Post("phone/code")
+  @UseInterceptors(ResInterceptor)
+  public async registerByPhonePassword(@Body() body: PostRegisterPhoneCodeBodyDTO, @Ip() ip: string) {
+    await this.emailService.checkCode(body.phone, body.code);
+    const user = await this.registerService.registerByPhonePassword(body.phone, body.username, ip);
     this.commonLogger.setContext(RegisterController.name);
     this.commonLogger.log(`用户注册成功 ${JSON.stringify(user)}`);
     return { user };

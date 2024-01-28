@@ -21,9 +21,10 @@ import { EmailService } from "../../providers/email.service";
 import { UserRepository } from "cc.naily.element.database";
 import { NailyContext } from "cc.naily.element.shared";
 import { RegisterService } from "./providers/register.service";
+import { PhoneService } from "../../providers/phone.service";
 
 @Module({
   controllers: [RegisterController],
-  providers: [EmailService, RegisterService, UserRepository],
+  providers: [EmailService, PhoneService, RegisterService, UserRepository],
 })
 export class RegisterModule extends NailyContext {}

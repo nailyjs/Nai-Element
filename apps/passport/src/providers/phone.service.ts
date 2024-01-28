@@ -60,4 +60,9 @@ export class PhoneService {
       throw new BadRequestException(1040);
     }
   }
+
+  public async deleteCode(phone: string) {
+    const key = this.getRedisKey(phone);
+    await this.cacheManager.store.del(key);
+  }
 }

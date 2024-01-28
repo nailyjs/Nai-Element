@@ -54,6 +54,8 @@ export type I18nTranslations = {
             "1045": string;
             "1046": string;
             "1047": string;
+            "1048": string;
+            "1049": string;
             "40001005": string;
         };
     };
