@@ -15,6 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/** @type {import("pm2").Proc} */
 module.exports = {
   /** @type {import("pm2").StartOptions[]} */
   apps: [
@@ -40,4 +41,6 @@ module.exports = {
       },
     },
   ],
+  exec_mode: "cluster",
+  combine_logs: true,
 };
