@@ -22,12 +22,11 @@ import { NailyContext } from "../../module.module";
 
 declare global {
   namespace NodeJS {
-    interface ProcessEnv {
+    export interface ProcessEnv {
       PROJECT_ROOT: string;
       RESOURCE_ROOT: string;
       VENDOR_ROOT: string;
       PUBLIC_ROOT: string;
-      NODE_ENV: string;
       CONFIG_PATH?: string;
     }
   }
