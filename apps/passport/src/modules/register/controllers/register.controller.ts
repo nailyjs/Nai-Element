@@ -63,7 +63,7 @@ export class RegisterController {
   @Post("phone/code")
   @UseInterceptors(ResInterceptor)
   public async registerByPhonePassword(@Body() body: PostRegisterPhoneCodeBodyDTO, @Ip() ip: string) {
-    await this.emailService.checkCode(body.phone, body.code);
+    await this.phoneService.checkCode(body.phone, body.code);
     const user = await this.registerService.registerByPhonePassword(body.phone, body.username, ip);
     this.commonLogger.setContext(RegisterController.name);
     this.commonLogger.log(`用户注册成功 ${JSON.stringify(user)}`);
