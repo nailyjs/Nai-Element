@@ -22,13 +22,15 @@ export class BrowserMarkController {
    * @memberof BrowserMarkController
    */
   @Get()
+  @Auth()
   @UseInterceptors(ResInterceptor)
-  public async getList(@Query() query: PostBrowserMarkQueryDTO): Promise<unknown> {
+  public async getList(@Query() query: PostBrowserMarkQueryDTO, @User() user: UserEntity): Promise<unknown> {
     if (!query.take) query.take = 10;
     if (!query.skip) query.skip = 0;
     return this.browserBookMarkRepository.find({
       take: query.take,
       skip: query.skip,
+      where: { user: { userID: user.userID } },
     });
   }
 
