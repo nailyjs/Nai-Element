@@ -29,7 +29,7 @@ module.exports = {
   env: {
     node: true,
   },
-  ignorePatterns: [".eslintrc.cjs", "dist", "lib", "generated", "rollup.config.mjs", "ecosystem.config.js"],
+  ignorePatterns: [".eslintrc.cjs", "dist", "lib", "generated", "rollup.config.mjs", "ecosystem.config.js", "light.config.js"],
   rules: {
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/ban-types": "off",
