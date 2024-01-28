@@ -786,27 +786,33 @@
         "type": "object",
         "properties": {
           "email": { "type": "string", "description": "邮箱" },
-          "username": { "type": "string", "description": "用户名" },
+          "username": {
+            "type": "string",
+            "description": "用户名 可选 为空时自动生成"
+          },
           "verifyCode": {
             "type": "number",
             "description": "密码\n\n\n\n\n\n\n\n\n\n\n  password: string;\n验证码",
             "maximum": 999999
           }
         },
-        "required": ["email", "username", "verifyCode"]
+        "required": ["email", "verifyCode"]
       },
       "PostRegisterPhoneCodeBodyDTO": {
         "type": "object",
         "properties": {
           "phone": { "type": "string", "description": "手机号 中国大陆" },
-          "username": { "type": "string", "description": "用户名" },
+          "username": {
+            "type": "string",
+            "description": "用户名 可选 为空时自动生成"
+          },
           "code": {
             "type": "number",
             "description": "验证码",
             "maximum": 999999
           }
         },
-        "required": ["phone", "username", "code"]
+        "required": ["phone", "code"]
       },
       "PostGoogleReCaptchaTokenBodyDTO": {
         "type": "object",

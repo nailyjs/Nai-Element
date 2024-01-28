@@ -22,7 +22,15 @@ import { UserRepository } from "cc.naily.element.database";
 export class RegisterService {
   constructor(private readonly userRepository: UserRepository) {}
 
+  private async generateUsername(): Promise<string> {
+    const username = `用户_${Math.floor(Math.random() * (99999999 - 100000 + 1) + 1000000)}`;
+    const user = await this.userRepository.checkUsername(username);
+    if (user) return await this.generateUsername();
+    return username;
+  }
+
   public async registerByEmailPassword(email: string, username: string, ip: string) {
+    if (!username) username = await this.generateUsername();
     const user = await this.userRepository.checkEmailOrUsername(email, username);
     if (user && user.email === email) throw new ForbiddenException(1009);
     if (user && user.username === username) throw new ForbiddenException(1048);
@@ -30,9 +38,11 @@ export class RegisterService {
   }
 
   public async registerByPhonePassword(phone: string, username: string, ip: string) {
-    const user = await this.userRepository.checkPhoneOrUsername(phone, username);
-    if (user && user.phone === phone) throw new ForbiddenException(1049);
-    if (user && user.username === username) throw new ForbiddenException(1048);
+    if (!username) username = await this.generateUsername();
+    const checkUsername = await this.userRepository.checkUsername(username);
+    const checkPhone = await this.userRepository.checkPhone(phone);
+    if (checkPhone) throw new ForbiddenException(1049);
+    if (checkUsername) throw new ForbiddenException(1048);
     return await this.userRepository.registerByPhone(phone, username, ip);
   }
 }

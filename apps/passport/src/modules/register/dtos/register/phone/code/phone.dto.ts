@@ -1,4 +1,4 @@
-import { IsInt, IsMobilePhone, IsNotEmpty, IsNumber, IsString, Max } from "class-validator";
+import { IsInt, IsMobilePhone, IsNotEmpty, IsNumber, IsOptional, IsString, Max } from "class-validator";
 
 export class PostRegisterPhoneCodeBodyDTO {
   /**
@@ -15,16 +15,16 @@ export class PostRegisterPhoneCodeBodyDTO {
   phone: string;
 
   /**
-   * 用户名
+   * 用户名 可选 为空时自动生成
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/28
    * @type {string}
    * @memberof PostRegisterPhoneCodeBodyDTO
    */
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  username: string;
+  username?: string;
 
   /**
    * 验证码

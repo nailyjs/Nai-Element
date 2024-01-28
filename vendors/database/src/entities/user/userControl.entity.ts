@@ -32,12 +32,12 @@ export class UserControl {
   @OneToOne(() => User, (user) => user.userControls)
   user: Relation<User>;
 
-  @Column({ comment: "是否公开邮箱" })
+  @Column({ comment: "是否公开邮箱", default: false })
   publicEmail: boolean;
 
-  @Column({ comment: "是否公开手机号" })
+  @Column({ comment: "是否公开手机号", default: false })
   publicPhone: boolean;
 
-  @Column({ comment: "是否公开商品评论点赞" })
+  @Column({ comment: "是否公开商品评论点赞", default: true })
   publicEvaluateLike: boolean;
 }

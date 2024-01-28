@@ -74,11 +74,11 @@ export class UserRepository extends EntityRepository<User> {
     return null;
   }
 
-  public checkPhoneOrUsername(phone: string, username: string): Promise<User | null> {
-    const hasPhone = this.checkPhone(phone);
-    const hasUsername = this.checkUsername(username);
-    if (hasPhone) return hasPhone;
-    if (hasUsername) return hasUsername;
+  public async checkPhoneOrUsername(phone: string, username: string): Promise<["phone" | "username", User] | null> {
+    const hasPhone = await this.checkPhone(phone);
+    const hasUsername = await this.checkUsername(username);
+    if (hasPhone) return ["phone", hasPhone];
+    if (hasUsername) return ["username", hasUsername];
     return null;
   }
 

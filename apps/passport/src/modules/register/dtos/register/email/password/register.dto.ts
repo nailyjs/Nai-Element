@@ -16,7 +16,7 @@
  */
 
 import { DTO, DTOStatus } from "cc.naily.element.swagger";
-import { IsEmail, IsNotEmpty, IsNumber, IsString, Max } from "cc.naily.element.validator";
+import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, Max } from "cc.naily.element.validator";
 
 @DTO()
 @DTOStatus(201)
@@ -34,7 +34,7 @@ export class RegisterByEmailPasswordBodyDTO {
   @IsNotEmpty()
   email: string;
   /**
-   * 用户名
+   * 用户名 可选 为空时自动生成
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/06
@@ -42,8 +42,8 @@ export class RegisterByEmailPasswordBodyDTO {
    * @memberof RegisterByEmailPasswordBodyDTO
    */
   @IsString()
-  @IsNotEmpty()
-  username: string;
+  @IsOptional()
+  username?: string;
   /**
    * 密码
    *

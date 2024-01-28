@@ -200,7 +200,11 @@ export default async () => {
           {
             RegisterByEmailPasswordBodyDTO: {
               email: { required: true, type: () => String, description: "\u90AE\u7BB1" },
-              username: { required: true, type: () => String, description: "\u7528\u6237\u540D" },
+              username: {
+                required: false,
+                type: () => String,
+                description: "\u7528\u6237\u540D \u53EF\u9009 \u4E3A\u7A7A\u65F6\u81EA\u52A8\u751F\u6210",
+              },
               verifyCode: {
                 required: true,
                 type: () => Number,
@@ -215,7 +219,11 @@ export default async () => {
           {
             PostRegisterPhoneCodeBodyDTO: {
               phone: { required: true, type: () => String, description: "\u624B\u673A\u53F7 \u4E2D\u56FD\u5927\u9646" },
-              username: { required: true, type: () => String, description: "\u7528\u6237\u540D" },
+              username: {
+                required: false,
+                type: () => String,
+                description: "\u7528\u6237\u540D \u53EF\u9009 \u4E3A\u7A7A\u65F6\u81EA\u52A8\u751F\u6210",
+              },
               code: { required: true, type: () => Number, description: "\u9A8C\u8BC1\u7801", maximum: 999999 },
             },
           },
@@ -442,6 +450,7 @@ export default async () => {
             },
           },
         ],
+        [import("./modules/user/controllers/check.controller"), { UserCheckController: { check: {} } }],
       ],
     },
   };
