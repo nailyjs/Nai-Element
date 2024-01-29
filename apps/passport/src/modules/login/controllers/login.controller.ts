@@ -19,7 +19,7 @@ import { BadRequestException, Body, Controller, Ip, Post, Req, UseInterceptors }
 import { LoginService } from "../providers/login.service";
 import { LoginByUsernamePasswordDTO } from "../dtos/login/username/password/login.post.dto";
 import { ApiTags } from "@nestjs/swagger";
-import { ResInterceptor } from "cc.naily.element.shared";
+import { Ips, ResInterceptor } from "cc.naily.element.shared";
 import { LoginByUsernamePasswordDataOKResponseDTO, LoginByUsernamePasswordOKResponseDTO } from "../dtos/login/username/password/login.post.res.dto";
 import { SwaggerResponse } from "cc.naily.element.swagger";
 import { PostLoginEmailCodeBodyDTO } from "../dtos/login/email/code/email.post.dto";
@@ -77,16 +77,16 @@ export class LoginController {
    */
   @Post("email/code")
   @UseInterceptors(ResInterceptor)
-  public loginByEmailCode(@Req() req: Request, @Body() body: PostLoginEmailCodeBodyDTO, @Ip() ip: string) {
+  public loginByEmailCode(@Req() req: Request, @Body() body: PostLoginEmailCodeBodyDTO, @Ips() ip: string[]) {
     console.log(req.headers);
-    console.log("ip:", ip);
+    console.log("ip: ", ip);
     return this.loginService.loginByEmailCode(body.email, body.code, {
       identifier: body.identifier,
       loginClient: body.loginClient,
       loginType: body.loginType,
       loginMethod: "EmailCode",
       loginDeviceName: body.loginDeviceName,
-      loginIP: ip,
+      loginIP: ip[0],
     });
   }
 

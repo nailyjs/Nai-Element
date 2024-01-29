@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// throttler-behind-proxy.guard.ts
 import { ThrottlerException as ParentThrottlerException, ThrottlerGuard } from "@nestjs/throttler";
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { ThrottlerLimitDetail } from "@nestjs/throttler/dist/throttler.guard.interface";
 import { CommonLogger } from "../logger";
+import { Request } from "express";
 
 class ThrottlerException extends ParentThrottlerException {
   constructor(errorCode: number) {
@@ -29,7 +29,7 @@ class ThrottlerException extends ParentThrottlerException {
 
 @Injectable()
 export class ThrottlerBehindProxyGuard extends ThrottlerGuard implements CanActivate {
-  protected async getTracker(req: Record<string, any>): Promise<string> {
+  protected async getTracker(req: Request): Promise<string> {
     return req.ips.length ? req.ips[0] : req.ip; // individualize IP extraction to meet your own needs
   }
 

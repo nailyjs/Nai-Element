@@ -32,6 +32,7 @@ export * from "./module.module";
 export * from "./errors";
 export * from "./common";
 export * from "./interceptors";
+export * from "./decorators";
 
 import * as Config from "./modules/config";
 import * as Cache from "./modules/cache";
@@ -49,6 +50,7 @@ import * as AppStore from "./modules/app-store";
 import * as Common from "./common";
 import * as Errors from "./errors";
 import * as Interceptors from "./interceptors";
+import * as Decorators from "./decorators";
 import { NailyContext } from "./module.module";
 
 export default {
@@ -68,4 +70,5 @@ export default {
   ...Common,
   ...Errors,
   ...Interceptors,
+  ...Decorators,
 };
