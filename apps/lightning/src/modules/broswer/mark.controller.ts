@@ -59,6 +59,6 @@ export class BrowserMarkController {
     for (const item of result) {
       item.user = undefined;
     }
-    return result;
+    return 1000;
   }
 }
