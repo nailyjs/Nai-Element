@@ -1,6 +1,8 @@
 /* eslint-disable */
 export default async () => {
-  const t = {};
+  const t = {
+    ["./modules/broswer/dtos/broswer/broswermark/broswermark.dto"]: await import("./modules/broswer/dtos/broswer/broswermark/broswermark.dto"),
+  };
   return {
     "@nestjs/swagger": {
       models: [
@@ -26,6 +28,13 @@ export default async () => {
               skip: { required: true, type: () => Number, description: "\u8DF3\u8FC7\u6570\u91CF" },
             },
             PostBrowserMarkBodyDTO: {
+              list: {
+                required: true,
+                type: () => [t["./modules/broswer/dtos/broswer/broswermark/broswermark.dto"].PostBrowserMarkBodyListDTO],
+                description: "\u5217\u8868",
+              },
+            },
+            PostBrowserMarkBodyListDTO: {
               title: { required: true, type: () => String, description: "\u6807\u9898" },
               icon: { required: true, type: () => String, description: "\u56FE\u6807" },
               color: { required: true, type: () => String, description: "\u989C\u8272" },

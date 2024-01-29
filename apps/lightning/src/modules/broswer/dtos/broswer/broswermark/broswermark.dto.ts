@@ -1,5 +1,5 @@
 import { IsIntString } from "cc.naily.element.validator";
-import { IsNotEmpty, IsNumber, IsOptional, IsString, IsInt } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString, IsInt, IsArray } from "class-validator";
 
 export class PostBrowserMarkQueryDTO {
   /**
@@ -28,6 +28,20 @@ export class PostBrowserMarkQueryDTO {
 }
 
 export class PostBrowserMarkBodyDTO {
+  /**
+   * 列表
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/29
+   * @type {PostBrowserMarkBodyListDTO[]}
+   * @memberof PostBrowserMarkBodyDTO
+   */
+  @IsArray()
+  @IsNotEmpty()
+  list: PostBrowserMarkBodyListDTO[];
+}
+
+export class PostBrowserMarkBodyListDTO {
   /**
    * 标题
    *

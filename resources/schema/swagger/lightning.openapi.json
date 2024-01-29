@@ -153,7 +153,9 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "type": "array", "items": { "type": "string" } }
+              "schema": {
+                "$ref": "#/components/schemas/PostBrowserMarkBodyDTO"
+              }
             }
           }
         },
@@ -196,6 +198,30 @@
           "webPageLink": { "type": "string" }
         },
         "required": ["webPageTitle", "webPageLink"]
+      },
+      "PostBrowserMarkBodyListDTO": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "description": "标题" },
+          "icon": { "type": "string", "description": "图标" },
+          "color": { "type": "string", "description": "颜色" },
+          "link": { "type": "string", "description": "链接" },
+          "index": { "type": "number", "description": "索引" }
+        },
+        "required": ["title", "icon", "color", "link", "index"]
+      },
+      "PostBrowserMarkBodyDTO": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "description": "列表",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostBrowserMarkBodyListDTO"
+            }
+          }
+        },
+        "required": ["list"]
       }
     }
   }
