@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { BadRequestException, Body, Controller, Ip, Post, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Ip, Post, Req, UseInterceptors } from "@nestjs/common";
 import { LoginService } from "../providers/login.service";
 import { LoginByUsernamePasswordDTO } from "../dtos/login/username/password/login.post.dto";
 import { ApiTags } from "@nestjs/swagger";
@@ -28,6 +28,7 @@ import { QrCodeService } from "../../../providers/qrcode.service";
 import { Auth, User } from "cc.naily.element.auth";
 import { PostLoginQrcodeBodyDTO, PostLoginQrcodeConfirmBodyDTO } from "../dtos/login/qrcode/qrcode.post.dto";
 import { User as UserEntity, UserRepository } from "cc.naily.element.database";
+import { Request } from "express";
 
 @ApiTags("登录")
 @Controller("login")
@@ -51,9 +52,11 @@ export class LoginController {
   @UseInterceptors(ResInterceptor)
   @SwaggerResponse(LoginByUsernamePasswordOKResponseDTO)
   public async loginByUsernamePassword(
+    @Req() req: Request,
     @Body() body: LoginByUsernamePasswordDTO,
     @Ip() ip: string,
   ): Promise<LoginByUsernamePasswordDataOKResponseDTO> {
+    console.log(req.headers);
     return this.loginService.loginByUsernamePassword(body.username, body.password, {
       identifier: body.identifier,
       loginClient: body.loginClient,
@@ -73,7 +76,8 @@ export class LoginController {
    */
   @Post("email/code")
   @UseInterceptors(ResInterceptor)
-  public loginByEmailCode(@Body() body: PostLoginEmailCodeBodyDTO, @Ip() ip: string) {
+  public loginByEmailCode(@Req() req: Request, @Body() body: PostLoginEmailCodeBodyDTO, @Ip() ip: string) {
+    console.log(req.headers);
     return this.loginService.loginByEmailCode(body.email, body.code, {
       identifier: body.identifier,
       loginClient: body.loginClient,
@@ -94,7 +98,8 @@ export class LoginController {
    */
   @Post("phone/code")
   @UseInterceptors(ResInterceptor)
-  public loginByPhoneCode(@Body() body: PostLoginPhoneCodeBodyDTO, @Ip() ip: string) {
+  public loginByPhoneCode(@Req() req: Request, @Body() body: PostLoginPhoneCodeBodyDTO, @Ip() ip: string) {
+    console.log(req.headers);
     return this.loginService.loginByPhoneCode(body.phone, body.code, {
       identifier: body.identifier,
       loginClient: body.loginClient,
