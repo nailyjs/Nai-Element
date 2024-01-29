@@ -57,6 +57,7 @@ export class LoginController {
     @Ip() ip: string,
   ): Promise<LoginByUsernamePasswordDataOKResponseDTO> {
     console.log(req.headers);
+    console.log("ip:", ip);
     return this.loginService.loginByUsernamePassword(body.username, body.password, {
       identifier: body.identifier,
       loginClient: body.loginClient,
@@ -78,6 +79,7 @@ export class LoginController {
   @UseInterceptors(ResInterceptor)
   public loginByEmailCode(@Req() req: Request, @Body() body: PostLoginEmailCodeBodyDTO, @Ip() ip: string) {
     console.log(req.headers);
+    console.log("ip:", ip);
     return this.loginService.loginByEmailCode(body.email, body.code, {
       identifier: body.identifier,
       loginClient: body.loginClient,
