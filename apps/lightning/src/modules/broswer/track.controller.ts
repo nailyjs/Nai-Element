@@ -32,6 +32,9 @@ export class BrowserTrackController {
         updatedAt: "DESC",
       },
     });
+    for (const item of data) {
+      item.user = undefined;
+    }
     return data;
   }
 

@@ -50,11 +50,15 @@ export class BrowserMarkController {
     const data = await this.browserBookMarkRepository.find();
     await this.browserBookMarkRepository.remove(data);
     const userInstance = await this.userRepository.findOneBy({ userID: user.userID });
-    const result = [];
+    let result = [];
     for (const item of body.list) {
       const data = this.browserBookMarkRepository.createBookmark(userInstance, item.title, item.icon, item.color, item.link, item.index);
       result.push(data);
     }
-    return await this.browserBookMarkRepository.save(result);
+    result = await this.browserBookMarkRepository.save(result);
+    for (const item of result) {
+      item.user = undefined;
+    }
+    return result;
   }
 }
