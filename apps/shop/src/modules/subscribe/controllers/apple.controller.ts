@@ -19,7 +19,7 @@ import { Body, Controller, Get, Post, Query, UseInterceptors } from "@nestjs/com
 import { ApiBody, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Auth, User } from "cc.naily.element.auth";
 import { User as UserEntity } from "cc.naily.element.database";
-import { ResInterceptor } from "cc.naily.element.shared";
+import { CommonLogger, ResInterceptor } from "cc.naily.element.shared";
 import { GetSubscribeAppleUserStatusDTO } from "../dtos/subscribe/apple/user/status/status.dto";
 import { AppleService } from "../providers/apple.service";
 import { I18nService } from "nestjs-i18n";
@@ -32,6 +32,7 @@ export class AppleController {
   constructor(
     private readonly appleService: AppleService,
     private readonly i18n: I18nService<I18nTranslations>,
+    private readonly commonLogger: CommonLogger,
   ) {}
 
   /**
@@ -80,6 +81,8 @@ export class AppleController {
         };
       }
     } catch (error) {
+      this.commonLogger.error("苹果订阅检查失败！！！");
+      console.error(error);
       if (error && error.apiError && error.apiError === 4040010) {
         return {
           code: 1053,
