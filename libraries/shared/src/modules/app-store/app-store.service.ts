@@ -3,10 +3,29 @@ import { AppStoreServerAPIClient, Environment } from "@apple/app-store-server-li
 import { ConfigService } from "@nestjs/config";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
+import { CommonLogger } from "../logger";
 
 @Injectable()
 export class CommonAppStoreService {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly commonLogger: CommonLogger,
+  ) {
+    commonLogger.setContext(CommonAppStoreService.name);
+    commonLogger.log("请求配置读取成功: " + JSON.stringify(configService.get("global.apple.storekit")));
+    const environment = configService.get<Environment>("global.apple.storekit.environment");
+    if (environment === Environment.SANDBOX) {
+      commonLogger.warn("Apple StoreKit is running in SANDBOX mode");
+    } else if (environment === Environment.PRODUCTION) {
+      commonLogger.warn("Apple StoreKit is running in PRODUCTION mode");
+    } else if (environment === Environment.LOCAL_TESTING) {
+      commonLogger.warn("Apple StoreKit is running in LOCAL_TESTING mode");
+    } else if (environment === Environment.XCODE) {
+      commonLogger.warn("Apple StoreKit is running in XCODE mode");
+    } else {
+      commonLogger.error("Apple StoreKit is running in UNKNOWN mode");
+    }
+  }
 
   getSigningKey() {
     if (process.env.NODE_ENV && existsSync(join(process.env.PROJECT_ROOT, `public/${process.env.NODE_ENV}/apple_store.p8`))) {

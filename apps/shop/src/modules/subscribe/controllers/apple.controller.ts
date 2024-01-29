@@ -74,16 +74,23 @@ export class AppleController {
         };
       } else {
         return {
-          code: 1045,
+          code: 1046,
           message: this.i18n.t("global.errorCode.1046"),
           data,
         };
       }
     } catch (error) {
+      if (error && error.apiError && error.apiError === 4040010) {
+        return {
+          code: 1053,
+          message: this.i18n.t("global.errorCode.1053"),
+          data: error,
+        };
+      }
       return {
         code: 1045,
         message: this.i18n.t("global.errorCode.1045"),
-        data: JSON.stringify(error),
+        data: error,
       };
     }
   }

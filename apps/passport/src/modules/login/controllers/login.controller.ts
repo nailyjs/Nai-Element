@@ -99,7 +99,6 @@ export class LoginController {
   @Post("phone/code")
   @UseInterceptors(ResInterceptor)
   public loginByPhoneCode(@Req() req: Request, @Body() body: PostLoginPhoneCodeBodyDTO, @Ips() ip: string[]) {
-    console.log(req.headers);
     return this.loginService.loginByPhoneCode(body.phone, body.code, {
       identifier: body.identifier,
       loginClient: body.loginClient,

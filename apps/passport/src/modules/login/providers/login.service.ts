@@ -44,11 +44,17 @@ export class LoginService {
     } satisfies JwtLoginPayload);
   }
 
+  private updateIp(loginPayload: ILoginPayload, user: User) {
+    user.ip = loginPayload.loginIP;
+    return this.userRepository.save(user);
+  }
+
   public async loginByUsernamePassword(username: string, password: string, loginPayload: ILoginPayload) {
-    const user = await this.userRepository.findOneBy({ username });
+    let user = await this.userRepository.findOneBy({ username });
     if (!user) throw new NotFoundException(1007);
     if (!user.password) throw new BadRequestException(1034);
     if (!compareSync(password, user.password)) throw new ForbiddenException(1008);
+    user = await this.updateIp(loginPayload, user);
     const access_token = this.getJwtToken(user.userID, loginPayload);
     const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
     if (identifier === "ERROR") throw new BadRequestException(1039);
@@ -61,8 +67,9 @@ export class LoginService {
   }
 
   public async loginByEmailCode(email: string, verifyCode: number, loginPayload: ILoginPayload) {
-    const user = await this.userRepository.findOneBy({ email });
+    let user = await this.userRepository.findOneBy({ email });
     if (!user) throw new NotFoundException(1007);
+    user = await this.updateIp(loginPayload, user);
     await this.emailService.checkCode(email, verifyCode);
     const access_token = this.getJwtToken(user.userID, loginPayload);
     const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
@@ -76,7 +83,8 @@ export class LoginService {
   }
 
   public async loginByPhoneCode(phone: string, verifyCode: number, loginPayload: ILoginPayload) {
-    const user = await this.userRepository.findOneBy({ phone });
+    let user = await this.userRepository.findOneBy({ phone });
+    user = await this.updateIp(loginPayload, user);
     if (!user) throw new NotFoundException(1007);
     await this.phoneService.checkCode(phone, verifyCode);
     const access_token = this.getJwtToken(user.userID, loginPayload);
@@ -92,6 +100,7 @@ export class LoginService {
 
   public async loginByQrCode(user: User, loginPayload: ILoginPayload) {
     if (!user) throw new NotFoundException(1007);
+    user = await this.updateIp(loginPayload, user);
     const access_token = this.getJwtToken(user.userID, loginPayload);
     const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
     if (identifier === "ERROR") throw new BadRequestException(1039);
