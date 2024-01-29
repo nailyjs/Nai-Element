@@ -17,6 +17,7 @@ coverage
 
 # development environment's files
 public/development
+public/production
 
 # custom environment's config files
 application-*.yml
