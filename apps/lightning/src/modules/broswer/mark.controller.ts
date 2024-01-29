@@ -14,7 +14,7 @@ export class BrowserMarkController {
   ) {}
 
   /**
-   * 获取所有历史记录
+   * 获取所有书签
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/28
@@ -35,7 +35,7 @@ export class BrowserMarkController {
   }
 
   /**
-   * 更新所有历史记录
+   * 更新所有书签
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/28
