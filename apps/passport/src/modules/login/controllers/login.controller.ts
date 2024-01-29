@@ -78,8 +78,6 @@ export class LoginController {
   @Post("email/code")
   @UseInterceptors(ResInterceptor)
   public loginByEmailCode(@Req() req: Request, @Body() body: PostLoginEmailCodeBodyDTO, @Ips() ip: string[]) {
-    console.log(req.headers);
-    console.log("ip: ", ip);
     return this.loginService.loginByEmailCode(body.email, body.code, {
       identifier: body.identifier,
       loginClient: body.loginClient,
@@ -100,7 +98,7 @@ export class LoginController {
    */
   @Post("phone/code")
   @UseInterceptors(ResInterceptor)
-  public loginByPhoneCode(@Req() req: Request, @Body() body: PostLoginPhoneCodeBodyDTO, @Ip() ip: string) {
+  public loginByPhoneCode(@Req() req: Request, @Body() body: PostLoginPhoneCodeBodyDTO, @Ips() ip: string[]) {
     console.log(req.headers);
     return this.loginService.loginByPhoneCode(body.phone, body.code, {
       identifier: body.identifier,
@@ -108,7 +106,7 @@ export class LoginController {
       loginType: body.loginType,
       loginMethod: "PhoneCode",
       loginDeviceName: body.loginDeviceName,
-      loginIP: ip,
+      loginIP: ip[0],
     });
   }
 
@@ -139,7 +137,7 @@ export class LoginController {
    */
   @Post("qrcode/refresh")
   @UseInterceptors(ResInterceptor)
-  public async refreshQrCode(@Body() body: PostLoginQrcodeBodyDTO, @Ip() ip: string) {
+  public async refreshQrCode(@Body() body: PostLoginQrcodeBodyDTO, @Ips() ip: string[]) {
     const checkStatus = await this.qrcodeService.getQrCode(`${body.key}`);
     if (!checkStatus) throw new BadRequestException(1041);
     if (checkStatus === "pending") throw new BadRequestException(1042);
@@ -149,7 +147,7 @@ export class LoginController {
       loginType: body.loginType,
       loginMethod: "QrCode",
       loginDeviceName: body.loginDeviceName,
-      loginIP: ip,
+      loginIP: ip[0],
     });
   }
 }
