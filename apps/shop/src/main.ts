@@ -34,6 +34,7 @@ import { join } from "path";
       origin: "*",
     },
   });
+  app.set("trust proxy", true);
   app.useLogger(await app.resolve(CommonLogger));
   const configService = app.get(ConfigService);
   const port = configService.getOrThrow("shop.port");

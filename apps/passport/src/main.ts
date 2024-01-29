@@ -34,6 +34,7 @@ import { join } from "path";
       origin: "*",
     },
   });
+  app.set("trust proxy", true);
   app.setViewEngine("ejs");
   app.setBaseViewsDir(join(process.env.PROJECT_ROOT, "apps/passport/views"));
   app.useLogger(await app.resolve(CommonLogger));
