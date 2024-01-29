@@ -115,7 +115,7 @@
     "/broswer/mark": {
       "get": {
         "operationId": "BrowserMarkController_getList",
-        "summary": "获取历史记录",
+        "summary": "获取所有历史记录",
         "parameters": [
           {
             "name": "take",
@@ -140,11 +140,23 @@
             }
           }
         },
-        "tags": ["浏览器书签"]
-      },
+        "tags": ["浏览器书签"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/broswer/mark/all": {
       "post": {
         "operationId": "BrowserMarkController_create",
+        "summary": "更新所有历史记录",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "",
@@ -153,7 +165,8 @@
             }
           }
         },
-        "tags": ["浏览器书签"]
+        "tags": ["浏览器书签"],
+        "security": [{ "bearer": [] }]
       }
     }
   },
