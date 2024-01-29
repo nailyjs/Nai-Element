@@ -115,7 +115,7 @@
     "/broswer/mark": {
       "get": {
         "operationId": "BrowserMarkController_getList",
-        "summary": "获取所有历史记录",
+        "summary": "获取所有书签",
         "parameters": [
           {
             "name": "take",
@@ -147,7 +147,7 @@
     "/broswer/mark/all": {
       "post": {
         "operationId": "BrowserMarkController_create",
-        "summary": "更新所有历史记录",
+        "summary": "更新所有书签",
         "parameters": [],
         "requestBody": {
           "required": true,

@@ -61,8 +61,8 @@ export default async () => {
           import("./modules/broswer/mark.controller"),
           {
             BrowserMarkController: {
-              getList: { summary: "\u83B7\u53D6\u6240\u6709\u5386\u53F2\u8BB0\u5F55", type: Object },
-              create: { summary: "\u66F4\u65B0\u6240\u6709\u5386\u53F2\u8BB0\u5F55", type: Object },
+              getList: { summary: "\u83B7\u53D6\u6240\u6709\u4E66\u7B7E", type: Object },
+              create: { summary: "\u66F4\u65B0\u6240\u6709\u4E66\u7B7E", type: Object },
             },
           },
         ],
