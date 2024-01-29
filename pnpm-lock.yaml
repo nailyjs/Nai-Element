@@ -134,6 +134,9 @@ importers:
       ejs:
         specifier: ^3.1.9
         version: 3.1.9
+      express:
+        specifier: ^4.18.2
+        version: 4.18.2
       helmet:
         specifier: ^7.1.0
         version: 7.1.0
