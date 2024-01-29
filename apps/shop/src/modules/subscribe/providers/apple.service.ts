@@ -10,6 +10,12 @@ export class AppleService {
     private readonly userAppStoreSubscribeRepository: UserAppStoreSubscribeRepository,
   ) {}
 
+  public getAllSubscriptionStatuses(userID: number) {
+    return this.userAppStoreSubscribeRepository.find({
+      where: { user: { userID } },
+    });
+  }
+
   public linkTransactionID(user: User, transactionId: string) {
     const userAppStoreSubscribe = new UserAppStoreSubscribe();
     userAppStoreSubscribe.originalTransactionID = transactionId;
@@ -17,11 +23,7 @@ export class AppleService {
     return this.userAppStoreSubscribeRepository.save(userAppStoreSubscribe);
   }
 
-  public async checkTransactionID(bundleId: string, transactionId: string) {
-    const statuses = await this.commonAppStoreService
-      .createClient(bundleId)
-      .getAllSubscriptionStatuses(transactionId, [Status.ACTIVE, Status.BILLING_GRACE_PERIOD]);
-    console.log(statuses);
-    return statuses;
+  public checkTransactionID(bundleId: string, transactionId: string) {
+    return this.commonAppStoreService.createClient(bundleId).getAllSubscriptionStatuses(transactionId, [Status.ACTIVE, Status.BILLING_GRACE_PERIOD]);
   }
 }

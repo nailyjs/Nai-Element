@@ -1,4 +1,21 @@
-import { Body, Controller, Post, Query, UseInterceptors } from "@nestjs/common";
+/*
+ * Copyright (C) 2024 Zero naily.cc
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import { Body, Controller, Get, Post, Query, UseInterceptors } from "@nestjs/common";
 import { ApiBody, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Auth, User } from "cc.naily.element.auth";
 import { User as UserEntity } from "cc.naily.element.database";
@@ -18,12 +35,28 @@ export class AppleController {
   ) {}
 
   /**
+   * 获取苹果订阅状态
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/29
+   * @param {UserEntity} user
+   * @return {Promise<unknown>}
+   * @memberof AppleController
+   */
+  @Auth()
+  @Get("user")
+  @UseInterceptors(ResInterceptor)
+  public getUserStatus(@User() user: UserEntity): Promise<unknown> {
+    return this.appleService.getAllSubscriptionStatuses(user.userID);
+  }
+
+  /**
    * 检查苹果订阅状态
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/28
    * @param {*} body
-   * @return {*}  {Promise<unknown>}
+   * @return {Promise<unknown>}
    * @memberof AppleController
    */
   @Post("check")

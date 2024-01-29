@@ -78,7 +78,6 @@ export class SubscribeService {
       user: { userID },
     });
     if (oldSubscribe) throw new BadRequestException(1030);
-
     const subscribe = new UserSubscribeOrder();
     subscribe.shopSubscribe = await this.shopSubscribeRepository.findOneBy({ subscribeID });
     if (!subscribe.shopSubscribe) throw new BadRequestException(1032);
