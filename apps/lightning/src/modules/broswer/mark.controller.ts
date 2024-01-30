@@ -57,7 +57,7 @@ export class BrowserMarkController {
   @Post("all")
   @UseInterceptors(ResInterceptor)
   public async create(@Body() body: PostBrowserMarkBodyDTO, @User() user: UserEntity): Promise<unknown> {
-    const data = await this.browserBookMarkRepository.find();
+    const data = await this.browserBookMarkRepository.find({ where: { user: { userID: user.userID } } });
     const userInstance = await this.userRepository.findOneBy({ userID: user.userID });
     let result: BrowserBookMark[] = [];
     for (const item of body.list) {
@@ -70,9 +70,6 @@ export class BrowserMarkController {
       await this.browserBookMarkRepository.remove(data);
     } finally {
       this.browserMarkService.removeUpdating(user.userID);
-      for (const item of result) {
-        item.user = undefined;
-      }
       return 1000;
     }
   }
