@@ -30,7 +30,13 @@ export class BrowserMarkController {
     if (!query.take) query.take = 10;
     if (!query.skip) query.skip = 0;
     const canFind = this.browserMarkService.canFind(user.userID);
-    if (!canFind) return await this.getList(query, user);
+    if (!canFind) {
+      return await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(this.getList(query, user));
+        }, 100);
+      });
+    }
     return this.browserBookMarkRepository.find({
       take: query.take,
       skip: query.skip,
