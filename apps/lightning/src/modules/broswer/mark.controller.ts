@@ -57,7 +57,7 @@ export class BrowserMarkController {
   @Post("all")
   @UseInterceptors(ResInterceptor)
   public async create(@Body() body: PostBrowserMarkBodyDTO, @User() user: UserEntity): Promise<unknown> {
-    if (this.browserMarkService.canFind(user.userID)) throw new BadRequestException(1054);
+    if (!this.browserMarkService.canFind(user.userID)) throw new BadRequestException(1054);
     this.browserMarkService.addUpdating(user.userID);
     const data = await this.browserBookMarkRepository.find({ where: { user: { userID: user.userID } } });
     const userInstance = await this.userRepository.findOneBy({ userID: user.userID });
