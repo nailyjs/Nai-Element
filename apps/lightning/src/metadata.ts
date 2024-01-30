@@ -43,6 +43,19 @@ export default async () => {
             },
           },
         ],
+        [
+          import("./modules/apple/dtos/user/status/status.dto"),
+          { GetSubscribeAppleUserStatusDTO: { transactionId: { required: true, type: () => String, description: "\u82F9\u679CtransactionId" } } },
+        ],
+        [
+          import("./modules/apple/dtos/check/check.dto"),
+          {
+            GetSubscribeAppleCheckBodyDTO: {
+              bundleId: { required: true, type: () => String, description: "\u82F9\u679C\u5E94\u7528\u7684bundleId" },
+              transactionId: { required: true, type: () => String, description: "\u82F9\u679C\u5E94\u7528\u7684transactionId" },
+            },
+          },
+        ],
       ],
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
@@ -63,6 +76,16 @@ export default async () => {
             BrowserMarkController: {
               getList: { summary: "\u83B7\u53D6\u6240\u6709\u4E66\u7B7E", type: Object },
               create: { summary: "\u66F4\u65B0\u6240\u6709\u4E66\u7B7E", type: Object },
+            },
+          },
+        ],
+        [
+          import("./modules/apple/apple.controller"),
+          {
+            AppleController: {
+              getUserStatus: { summary: "\u83B7\u53D6\u82F9\u679C\u8BA2\u9605\u72B6\u6001", type: Object },
+              checkPay: { summary: "\u68C0\u67E5\u82F9\u679C\u8BA2\u9605\u72B6\u6001", type: Object },
+              linkTransactionID: { summary: "\u94FE\u63A5TransactionID\u5230\u82F9\u679C\u8BA2\u9605", type: Object },
             },
           },
         ],

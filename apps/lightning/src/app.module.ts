@@ -24,6 +24,7 @@ import { APP_GUARD, APP_PIPE } from "@nestjs/core";
 import { CommonTypeOrmModule } from "cc.naily.element.database";
 import { CommonJwtModule } from "cc.naily.element.auth";
 import { browserTrackModule } from "./modules/broswer/browser.module";
+import { AppleModule } from "./modules/apple/apple.module";
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { browserTrackModule } from "./modules/broswer/browser.module";
     CommonJwtModule.forRoot(),
     CommonScheduleModule.forRoot(),
     browserTrackModule.register(),
+    AppleModule.register(),
   ],
   controllers: [AppController],
   providers: [

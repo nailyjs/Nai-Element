@@ -170,6 +170,74 @@
         "tags": ["浏览器书签"],
         "security": [{ "bearer": [] }]
       }
+    },
+    "/subscribe/apple/user": {
+      "get": {
+        "operationId": "AppleController_getUserStatus",
+        "summary": "获取苹果订阅状态",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["苹果订阅"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/subscribe/apple/check": {
+      "post": {
+        "operationId": "AppleController_checkPay",
+        "summary": "检查苹果订阅状态",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetSubscribeAppleCheckBodyDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["苹果订阅"]
+      }
+    },
+    "/subscribe/apple/user/link": {
+      "post": {
+        "operationId": "AppleController_linkTransactionID",
+        "summary": "链接TransactionID到苹果订阅",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "required": true,
+            "in": "query",
+            "description": "苹果transactionId",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["苹果订阅"],
+        "security": [{ "bearer": [] }]
+      }
     }
   },
   "info": {
@@ -222,6 +290,17 @@
           }
         },
         "required": ["list"]
+      },
+      "GetSubscribeAppleCheckBodyDTO": {
+        "type": "object",
+        "properties": {
+          "bundleId": { "type": "string", "description": "苹果应用的bundleId" },
+          "transactionId": {
+            "type": "string",
+            "description": "苹果应用的transactionId"
+          }
+        },
+        "required": ["bundleId", "transactionId"]
       }
     }
   }

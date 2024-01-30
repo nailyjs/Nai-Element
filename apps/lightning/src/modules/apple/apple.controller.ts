@@ -20,11 +20,11 @@ import { ApiBody, ApiTags } from "@nestjs/swagger";
 import { Auth, User } from "cc.naily.element.auth";
 import { User as UserEntity } from "cc.naily.element.database";
 import { CommonLogger, ResInterceptor } from "cc.naily.element.shared";
-import { GetSubscribeAppleUserStatusDTO } from "../dtos/subscribe/apple/user/status/status.dto";
-import { AppleService } from "../providers/apple.service";
+import { GetSubscribeAppleUserStatusDTO } from "./dtos/user/status/status.dto";
+import { AppleService } from "./apple.service";
 import { I18nService } from "nestjs-i18n";
 import { I18nTranslations } from "cc.naily.element.generated";
-import { GetSubscribeAppleCheckBodyDTO } from "../dtos/subscribe/apple/check/check.dto";
+import { GetSubscribeAppleCheckBodyDTO } from "./dtos/check/check.dto";
 
 @ApiTags("苹果订阅")
 @Controller("subscribe/apple")
@@ -38,7 +38,6 @@ export class AppleController {
   /**
    * 获取苹果订阅状态
    *
-   * @deprecated
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/29
    * @param {UserEntity} user
@@ -55,7 +54,6 @@ export class AppleController {
   /**
    * 检查苹果订阅状态
    *
-   * @deprecated
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/28
    * @param {*} body
@@ -102,7 +100,6 @@ export class AppleController {
   /**
    * 链接TransactionID到苹果订阅
    *
-   * @deprecated
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/25
    * @memberof AppleController

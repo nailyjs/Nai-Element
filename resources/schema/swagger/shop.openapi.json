@@ -441,6 +441,7 @@
       "get": {
         "operationId": "AppleController_getUserStatus",
         "summary": "获取苹果订阅状态",
+        "deprecated": true,
         "parameters": [],
         "responses": {
           "200": {
@@ -458,6 +459,7 @@
       "post": {
         "operationId": "AppleController_checkPay",
         "summary": "检查苹果订阅状态",
+        "deprecated": true,
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -484,6 +486,7 @@
       "post": {
         "operationId": "AppleController_linkTransactionID",
         "summary": "链接TransactionID到苹果订阅",
+        "deprecated": true,
         "parameters": [
           {
             "name": "transactionId",
