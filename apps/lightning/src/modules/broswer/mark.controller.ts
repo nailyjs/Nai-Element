@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Post, Query, UseInterceptors } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { BrowserBookMarkRepository, User as UserEntity, UserRepository } from "cc.naily.element.database";
+import { BrowserBookMark, BrowserBookMarkRepository, User as UserEntity, UserRepository } from "cc.naily.element.database";
 import { ResInterceptor } from "cc.naily.element.shared";
 import { PostBrowserMarkBodyDTO, PostBrowserMarkQueryDTO } from "./dtos/broswer/broswermark/broswermark.dto";
 import { Auth, User } from "cc.naily.element.auth";
+import { BrowserMarkService } from "./ mark.service";
 
 @ApiTags("浏览器书签")
 @Controller("broswer/mark")
@@ -11,6 +12,7 @@ export class BrowserMarkController {
   constructor(
     private readonly browserBookMarkRepository: BrowserBookMarkRepository,
     private readonly userRepository: UserRepository,
+    private readonly browserMarkService: BrowserMarkService,
   ) {}
 
   /**
@@ -27,6 +29,8 @@ export class BrowserMarkController {
   public async getList(@Query() query: PostBrowserMarkQueryDTO, @User() user: UserEntity): Promise<unknown> {
     if (!query.take) query.take = 10;
     if (!query.skip) query.skip = 0;
+    const canFind = this.browserMarkService.canFind(user.userID);
+    if (!canFind) return await this.getList(query, user);
     return this.browserBookMarkRepository.find({
       take: query.take,
       skip: query.skip,
@@ -48,14 +52,16 @@ export class BrowserMarkController {
   @UseInterceptors(ResInterceptor)
   public async create(@Body() body: PostBrowserMarkBodyDTO, @User() user: UserEntity): Promise<unknown> {
     const data = await this.browserBookMarkRepository.find();
-    await this.browserBookMarkRepository.remove(data);
     const userInstance = await this.userRepository.findOneBy({ userID: user.userID });
-    let result = [];
+    let result: BrowserBookMark[] = [];
     for (const item of body.list) {
       const data = this.browserBookMarkRepository.createBookmark(userInstance, item.title, item.icon, item.color, item.link, item.index);
       result.push(data);
     }
+    this.browserMarkService.addUpdating(user.userID);
     result = await this.browserBookMarkRepository.save(result);
+    await this.browserBookMarkRepository.remove(data);
+    this.browserMarkService.removeUpdating(user.userID);
     for (const item of result) {
       item.user = undefined;
     }

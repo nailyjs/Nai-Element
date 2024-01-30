@@ -16,7 +16,9 @@ export class AppleService {
     });
   }
 
-  public linkTransactionID(user: User, transactionId: string) {
+  public async linkTransactionID(user: User, transactionId: string) {
+    const hasTransactionID = await this.userAppStoreSubscribeRepository.findOneBy({ originalTransactionID: transactionId });
+    if (hasTransactionID) return 1000;
     const userAppStoreSubscribe = new UserAppStoreSubscribe();
     userAppStoreSubscribe.originalTransactionID = transactionId;
     userAppStoreSubscribe.user = user;
