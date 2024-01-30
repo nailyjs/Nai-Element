@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Post, Query, UseInterceptors } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { BrowserBookMark, BrowserBookMarkRepository, User as UserEntity, UserRepository } from "cc.naily.element.database";
 import { ResInterceptor } from "cc.naily.element.shared";
@@ -57,6 +57,8 @@ export class BrowserMarkController {
   @Post("all")
   @UseInterceptors(ResInterceptor)
   public async create(@Body() body: PostBrowserMarkBodyDTO, @User() user: UserEntity): Promise<unknown> {
+    if (this.browserMarkService.canFind(user.userID)) throw new BadRequestException(1054);
+    this.browserMarkService.addUpdating(user.userID);
     const data = await this.browserBookMarkRepository.find({ where: { user: { userID: user.userID } } });
     const userInstance = await this.userRepository.findOneBy({ userID: user.userID });
     let result: BrowserBookMark[] = [];
@@ -64,7 +66,6 @@ export class BrowserMarkController {
       const data = this.browserBookMarkRepository.createBookmark(userInstance, item.title, item.icon, item.color, item.link, item.index);
       result.push(data);
     }
-    this.browserMarkService.addUpdating(user.userID);
     try {
       result = await this.browserBookMarkRepository.save(result);
       await this.browserBookMarkRepository.remove(data);
