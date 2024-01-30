@@ -59,12 +59,15 @@ export class BrowserMarkController {
       result.push(data);
     }
     this.browserMarkService.addUpdating(user.userID);
-    result = await this.browserBookMarkRepository.save(result);
-    await this.browserBookMarkRepository.remove(data);
-    this.browserMarkService.removeUpdating(user.userID);
-    for (const item of result) {
-      item.user = undefined;
+    try {
+      result = await this.browserBookMarkRepository.save(result);
+      await this.browserBookMarkRepository.remove(data);
+    } finally {
+      this.browserMarkService.removeUpdating(user.userID);
+      for (const item of result) {
+        item.user = undefined;
+      }
+      return 1000;
     }
-    return 1000;
   }
 }
