@@ -1,6 +1,6 @@
 {
   "name": "cc.naily.element.database",
-  "version": "5.1.2",
+  "version": "5.2.0",
   "private": true,
   "main": "../../resources/dist/vendors/database/cjs/index.js",
   "module": "../../resources/dist/vendors/database/esm/index.js",

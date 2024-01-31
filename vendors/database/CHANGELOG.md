@@ -1,5 +1,11 @@
 # cc.naily.element.database
 
+## 5.2.0
+
+### Minor Changes
+
+-   2210ae0: feat: update generate column to uuid
+
 ## 5.1.2
 
 ### Patch Changes
