@@ -298,6 +298,11 @@
           "transactionId": {
             "type": "string",
             "description": "苹果应用的transactionId"
+          },
+          "isSandbox": {
+            "type": "boolean",
+            "description": "是否是沙盒环境 默认false",
+            "default": false
           }
         },
         "required": ["bundleId", "transactionId"]

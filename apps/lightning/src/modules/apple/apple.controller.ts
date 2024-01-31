@@ -80,6 +80,7 @@ export class AppleController {
         };
       }
     } catch (error) {
+      this.commonLogger.setContext(AppleController.name);
       this.commonLogger.error("苹果订阅检查失败！！！");
       console.error(error);
       if (error && error.apiError && error.apiError === 4040010) {
