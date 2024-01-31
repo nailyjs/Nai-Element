@@ -18,14 +18,17 @@
 import { BadRequestException, Body, Controller, Delete, Get, Post, Query, UseInterceptors } from "@nestjs/common";
 import { BrowserTrack, BrowserTrackRepository, User as UserEntity } from "cc.naily.element.database";
 import { GetBrowserTrackListQueryDTO, PostBrowserTrackBodyDTO } from "./dtos/broswer/broswertrack/broswertrack.dto";
-import { ResInterceptor } from "cc.naily.element.shared";
+import { CommonLogger, ResInterceptor } from "cc.naily.element.shared";
 import { ApiTags } from "@nestjs/swagger";
 import { Auth, User } from "cc.naily.element.auth";
 
 @ApiTags("浏览历史记录")
 @Controller("broswer/track")
 export class BrowserTrackController {
-  constructor(private readonly browserTrackRepository: BrowserTrackRepository) {}
+  constructor(
+    private readonly browserTrackRepository: BrowserTrackRepository,
+    private readonly commonLogger: CommonLogger,
+  ) {}
 
   /**
    * 获取历史记录
@@ -69,12 +72,18 @@ export class BrowserTrackController {
   @Auth()
   @UseInterceptors(ResInterceptor)
   public async create(@Body() body: PostBrowserTrackBodyDTO, @User() user: UserEntity): Promise<unknown> {
-    const browserTrack = new BrowserTrack();
-    browserTrack.user = user;
-    browserTrack.webPageLink = body.webPageLink;
-    browserTrack.webPageTitle = body.webPageTitle;
-    browserTrack.updatedAt = body.updatedAt;
-    return await this.browserTrackRepository.save(browserTrack);
+    try {
+      const browserTrack = new BrowserTrack();
+      browserTrack.user = user;
+      browserTrack.webPageLink = body.webPageLink;
+      browserTrack.webPageTitle = body.webPageTitle;
+      browserTrack.updatedAt = body.updatedAt;
+      return await this.browserTrackRepository.save(browserTrack);
+    } catch (error) {
+      console.log(error);
+      this.commonLogger.error("创建历史记录失败！请管理员检测错误");
+      throw new BadRequestException(1055);
+    }
   }
 
   /**
