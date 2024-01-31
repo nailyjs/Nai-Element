@@ -38,7 +38,7 @@ export class WechatService implements PayServiceImpl {
   @Inject()
   private readonly userOrderRepository: UserOrderRepository;
 
-  public async pay(openid: string, userID: number, desc: string, total: number, ip: string): Promise<PayServiceResponse> {
+  public async pay(openid: string, userID: string, desc: string, total: number, ip: string): Promise<PayServiceResponse> {
     const trade_no = this.payService.getOrderNo().toString();
     try {
       const results = await this.wxPayService.transactions_jsapi({

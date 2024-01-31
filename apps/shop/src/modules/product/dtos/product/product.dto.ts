@@ -16,8 +16,8 @@
  */
 
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsBoolean, IsIn, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from "class-validator";
-import { IntStringMin, IsIntArray, IsIntString, IsIntStringOrIntStringArray, IsNumberOrNumberArray } from "cc.naily.element.validator";
+import { IsArray, IsBoolean, IsIn, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from "class-validator";
+import { IntStringMin, IsIntString, IsIntStringOrIntStringArray, IsNumberOrNumberArray } from "cc.naily.element.validator";
 
 export class GetProductDTO {
   /**
@@ -91,7 +91,7 @@ export class GetProductDTO {
    */
   @IsIntStringOrIntStringArray()
   @IsOptional()
-  filterTags?: number[];
+  filterTags?: string[];
   /**
    * 过滤用户
    *
@@ -102,7 +102,7 @@ export class GetProductDTO {
    */
   @IsIntStringOrIntStringArray()
   @IsOptional()
-  filterUser?: number[];
+  filterUser?: string[];
   /**
    * 取到数量
    *
@@ -193,8 +193,8 @@ export class PostCreateProductDTO {
    * @type {number[]}
    * @memberof PostCreateProductDTO
    */
-  @IsIntArray()
-  productTags: number[];
+  @IsArray()
+  productTags: string[];
   /**
    * 商品状态 立即上架请填true，暂不上架请填false
    *
@@ -231,7 +231,7 @@ export class DeletedeleteProductDTO {
    * @type {(number | number[])}
    * @memberof DeletedeleteProductDTO
    */
-  @ApiProperty({ anyOf: [{ type: "number" }, { type: "array", items: { type: "number" } }] })
+  @ApiProperty({ anyOf: [{ type: "string" }, { type: "array", items: { type: "string" } }] })
   @IsNumberOrNumberArray()
-  productID: number | number[];
+  productID: string | string[];
 }

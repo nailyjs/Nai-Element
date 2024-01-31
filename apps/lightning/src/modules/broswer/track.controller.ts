@@ -72,7 +72,7 @@ export class BrowserTrackController {
   @Auth()
   @Delete()
   @UseInterceptors(ResInterceptor)
-  public async delete(@Query("browserTrackID") browserTrackID: number, @User() user: UserEntity) {
+  public async delete(@Query("browserTrackID") browserTrackID: string, @User() user: UserEntity) {
     const browserTrack = await this.browserTrackRepository.findOneBy({ browserTrackID, user: { userID: user.userID } });
     if (!browserTrack) throw new BadRequestException(1047);
     await this.browserTrackRepository.remove(browserTrack);

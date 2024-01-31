@@ -3,8 +3,8 @@ import { User } from "./user.entity";
 
 @Entity()
 export class UserAppStoreSubscribe {
-  @PrimaryGeneratedColumn()
-  userAppStoreSubscribeID: number;
+  @PrimaryGeneratedColumn("uuid", { comment: "用户订阅ID" })
+  userAppStoreSubscribeID: string;
 
   @ManyToOne(() => User, (user) => user.userAppStoreSubscribes)
   user: User;

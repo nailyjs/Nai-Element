@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { IsInt, IsNotEmpty, IsNumber } from "class-validator";
+import { IsNotEmpty, IsUUID } from "class-validator";
 
 export class PostCreateEvaluateLikeBodyDTO {
   /**
@@ -26,8 +26,7 @@ export class PostCreateEvaluateLikeBodyDTO {
    * @type {number}
    * @memberof PostCreateEvaluateLikeBodyDTO
    */
-  @IsInt()
-  @IsNumber()
+  @IsUUID()
   @IsNotEmpty()
-  evaluateID: number;
+  evaluateID: string;
 }

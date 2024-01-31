@@ -20,8 +20,8 @@ import { User } from "./user.entity";
 
 @Entity()
 export class UserValue {
-  @PrimaryGeneratedColumn({ comment: "userPayID" })
-  userPayID: number;
+  @PrimaryGeneratedColumn("uuid", { comment: "userPayID" })
+  userPayID: string;
 
   @CreateDateColumn({ comment: "创建时间" })
   createdAt: Date;

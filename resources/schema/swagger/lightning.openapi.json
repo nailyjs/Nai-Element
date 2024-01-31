@@ -81,7 +81,7 @@
             "name": "browserTrackID",
             "required": true,
             "in": "query",
-            "schema": { "type": "number" }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {

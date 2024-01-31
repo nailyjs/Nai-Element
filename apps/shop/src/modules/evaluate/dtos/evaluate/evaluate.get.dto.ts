@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ApiPropertyOptional } from "@nestjs/swagger";
-import { IsIn, IsInt, IsIntString, IsNotEmpty, IsNumber, IsOptional, IsString } from "cc.naily.element.validator";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { IsIn, IsIntString, IsNotEmpty, IsOptional, IsString, IsUUID } from "cc.naily.element.validator";
 
 export class GetEvaluateQueryDTO {
   /**
@@ -26,10 +26,12 @@ export class GetEvaluateQueryDTO {
    * @date 2024/01/24
    * @type {number}
    * @memberof GetEvaluateQueryDTO
+   * @example 00000000-0000-0000-0000-000000000000
    */
-  @IsIntString()
+  @IsUUID()
+  @IsString()
   @IsNotEmpty()
-  productID: number;
+  productID: string;
   /**
    * 时间排序方式
    *
@@ -93,10 +95,11 @@ export class GetEvaluateChildrenQueryDTO {
    * @date 2024/01/24
    * @type {number}
    * @memberof GetEvaluateChildrenQueryDTO
+   * @example 00000000-0000-0000-0000-000000000000
    */
-  @IsIntString()
+  @IsUUID()
   @IsNotEmpty()
-  evaluateID: number;
+  evaluateID: string;
   /**
    * 获取到的深度
    *
@@ -143,11 +146,12 @@ export class PostCreateEvaluateBodyDTO {
    * @date 2024/01/24
    * @type {number}
    * @memberof PostCreateEvaluateBodyDTO
+   * @example 00000000-0000-0000-0000-000000000000
    */
-  @IsInt()
-  @IsNumber()
+  @IsUUID()
   @IsNotEmpty()
-  productID: number;
+  @ApiProperty({ format: "uuid" })
+  productID: string;
   /**
    * 评论内容
    *
@@ -181,10 +185,11 @@ export class PostReplyEvaluateBodyDTO {
    * @example 1
    * @default 0
    * @type {number}
+   * @example 00000000-0000-0000-0000-000000000000
    * @memberof PostReplyEvaluateBodyDTO
    */
-  @IsInt()
-  @IsNumber()
+  @IsUUID()
   @IsOptional()
-  evaluateID?: number = 0;
+  @ApiProperty({ format: "uuid" })
+  evaluateID?: string;
 }

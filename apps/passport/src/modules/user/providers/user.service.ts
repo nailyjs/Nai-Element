@@ -32,7 +32,7 @@ export class UserService {
    * @param {number} userID 用户id
    * @since 2024
    */
-  public async getUserByLogging(userID: number) {
+  public async getUserByLogging(userID: string) {
     const user = await this.userRepository.findOne({
       where: { userID },
       select: { password: false },
@@ -50,7 +50,7 @@ export class UserService {
    * @param {number} userID 用户id
    * @since 2024
    */
-  public async getUserByGuest(userID: number) {
+  public async getUserByGuest(userID: string) {
     const userControl = await this.userControlRepository.findOne({
       where: { user: { userID } },
     });
@@ -78,14 +78,14 @@ export class UserService {
    * @return {User}
    * @memberof UserService
    */
-  public async updateAvatar(url: string, userID: number): Promise<User> {
+  public async updateAvatar(url: string, userID: string): Promise<User> {
     const user = await this.userRepository.findOneBy({ userID });
     if (!user) throw new BadRequestException(1015);
     user.avatar = url;
     return await this.userRepository.save(user);
   }
 
-  public async updateUsername(username: string, userID: number): Promise<User> {
+  public async updateUsername(username: string, userID: string): Promise<User> {
     const user = await this.userRepository.findOneBy({ userID });
     if (!user) throw new BadRequestException(1015);
     user.username = username;

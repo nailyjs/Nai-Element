@@ -20,8 +20,8 @@ import { User } from "./user.entity";
 
 @Entity()
 export class UserData {
-  @PrimaryGeneratedColumn()
-  userDataID: number;
+  @PrimaryGeneratedColumn("uuid", { comment: "用户数据ID" })
+  userDataID: string;
 
   @ManyToOne(() => User, (user) => user.userDatas)
   user: User;

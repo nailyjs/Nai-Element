@@ -56,7 +56,7 @@ export class SubscribeService {
       },
       where: (() => {
         const where: FindOptionsWhere<ShopSubscribe>[] = [];
-        const users = dto.filterUser as number[];
+        const users = dto.filterUser as string[];
         for (const userID of users) {
           where.push({ author: { userID } });
         }
@@ -68,11 +68,11 @@ export class SubscribeService {
     });
   }
 
-  public getSubscribeSingle(subscribeID: number) {
+  public getSubscribeSingle(subscribeID: string) {
     return this.shopSubscribeRepository.findOneBy({ subscribeID });
   }
 
-  public async subscribe(subscribeID: number, userID: number) {
+  public async subscribe(subscribeID: string, userID: string) {
     const oldSubscribe = await this.userSubscribeOrderRepository.findOneBy({
       shopSubscribe: { subscribeID },
       user: { userID },
@@ -93,7 +93,7 @@ export class SubscribeService {
     return await this.userSubscribeOrderRepository.save(subscribe);
   }
 
-  public async createSubscribe(title: string, introduction: string, duration: number, price: number, userID: number) {
+  public async createSubscribe(title: string, introduction: string, duration: number, price: number, userID: string) {
     const shopSubscribe = new ShopSubscribe();
     shopSubscribe.title = title;
     shopSubscribe.introduction = introduction;
@@ -103,7 +103,7 @@ export class SubscribeService {
     return await this.shopSubscribeRepository.save(shopSubscribe);
   }
 
-  public async renewSubscribe(subscribeID: number, userID: number) {
+  public async renewSubscribe(subscribeID: string, userID: string) {
     const subscribe = await this.userSubscribeOrderRepository.findOneBy({
       shopSubscribe: { subscribeID },
       user: { userID },
@@ -117,7 +117,7 @@ export class SubscribeService {
     return await this.userSubscribeOrderRepository.save(subscribe);
   }
 
-  public async getSubscribeStatus(subscribeID: number, userID: number) {
+  public async getSubscribeStatus(subscribeID: string, userID: string) {
     const subscribe = await this.userSubscribeOrderRepository.findOneBy({
       shopSubscribe: { subscribeID },
       user: { userID },

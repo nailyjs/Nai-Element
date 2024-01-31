@@ -17,7 +17,7 @@
 
 import { ApiProperty } from "@nestjs/swagger";
 import { IsIntString, IsNumberOrNumberArray } from "cc.naily.element.validator";
-import { IsIn, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsIn, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
 
 export class GetSubscribeListQueryDTO {
   /**
@@ -56,8 +56,8 @@ export class GetSubscribeListQueryDTO {
    */
   @IsOptional()
   @IsNumberOrNumberArray()
-  @ApiProperty({ description: "过滤用户", isArray: true, type: "number" })
-  filterUser?: number | number[];
+  @ApiProperty({ description: "过滤用户", isArray: true, type: "string", format: "uuid" })
+  filterUser?: string | string[];
   /**
    * 获取数量
    *
@@ -130,10 +130,9 @@ export class PutSubscribeBodyDTO {
    * @type {number}
    * @memberof PutSubscribeBodyDTO
    */
-  @IsInt()
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  subscribeID: number;
+  subscribeID: string;
 }
 
 export class getSubscribeUserStatusQueryDTO {
@@ -145,7 +144,8 @@ export class getSubscribeUserStatusQueryDTO {
    * @type {number}
    * @memberof getSubscribeUserStatusQueryDTO
    */
-  @IsIntString()
+  @IsUUID()
+  @IsString()
   @IsNotEmpty()
-  subscribeID: number;
+  subscribeID: string;
 }

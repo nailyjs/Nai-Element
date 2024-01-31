@@ -24,8 +24,8 @@ export const LoginMethod: ILoginMethod[] = ["QrCode", "PhoneCode", "EmailCode", 
 
 @Entity()
 export class UserIdentifier {
-  @PrimaryGeneratedColumn({ comment: "用户标识符ID" })
-  userIdentifierID: number;
+  @PrimaryGeneratedColumn("uuid", { comment: "用户标识符ID" })
+  userIdentifierID: string;
 
   @CreateDateColumn({ comment: "创建时间" })
   createdAt: Date;

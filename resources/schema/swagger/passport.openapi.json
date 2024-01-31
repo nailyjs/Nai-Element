@@ -587,7 +587,12 @@
       "LoginByUsernamePasswordDataUserOKResponseDTO": {
         "type": "object",
         "properties": {
-          "userID": { "type": "number", "description": "用户ID", "default": 1 },
+          "userID": {
+            "type": "string",
+            "description": "用户ID",
+            "example": "00000000-0000-0000-0000-000000000000",
+            "format": "uuid"
+          },
           "createdAt": {
             "format": "date-time",
             "type": "string",

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { ApiProperty } from "@nestjs/swagger";
 import { DTO, DTODescription, DTOStatus } from "cc.naily.element.swagger";
 
 export class LoginByUsernamePasswordDataOKResponseDTO {
@@ -45,9 +46,11 @@ export class LoginByUsernamePasswordDataUserOKResponseDTO {
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/06
    * @type {number}
+   * @example 00000000-0000-0000-0000-000000000000
    * @memberof LoginByUsernamePasswordDataOKResponseDTO
    */
-  userID: number = 1;
+  @ApiProperty({ format: "uuid" })
+  userID: string;
   /**
    * 注册时间
    *

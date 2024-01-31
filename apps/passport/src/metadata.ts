@@ -49,7 +49,7 @@ export default async () => {
               access_token: { required: true, type: () => String, description: "\u8BBF\u95EE\u4EE4\u724C" },
             },
             LoginByUsernamePasswordDataUserOKResponseDTO: {
-              userID: { required: true, type: () => Number, description: "\u7528\u6237ID", default: 1 },
+              userID: { required: true, type: () => String, description: "\u7528\u6237ID", example: "00000000-0000-0000-0000-000000000000" },
               createdAt: { required: true, type: () => Date, description: "\u6CE8\u518C\u65F6\u95F4" },
               updatedAt: { required: true, type: () => Date, description: "\u66F4\u65B0\u65F6\u95F4" },
               username: { required: true, type: () => String, description: "\u7528\u6237\u540D", default: "Zero" },

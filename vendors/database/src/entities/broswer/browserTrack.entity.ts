@@ -3,8 +3,8 @@ import { User } from "../user/user.entity";
 
 @Entity()
 export class BrowserTrack {
-  @PrimaryGeneratedColumn()
-  browserTrackID: number;
+  @PrimaryGeneratedColumn("uuid")
+  browserTrackID: string;
 
   @CreateDateColumn()
   createdAt: Date;

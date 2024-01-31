@@ -21,3 +21,5 @@ public/production
 
 # custom environment's config files
 application-*.yml
+
+vendors/database/src/migrations_v2

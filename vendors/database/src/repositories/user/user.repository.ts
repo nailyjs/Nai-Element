@@ -173,7 +173,7 @@ export class UserRepository extends EntityRepository<User> {
    * @return {Promise<User>}
    * @memberof UserRepository
    */
-  public async findOneByControl(userID: number, excludePassword: boolean = false): Promise<User> {
+  public async findOneByControl(userID: string, excludePassword: boolean = false): Promise<User> {
     const user = await this.findOne({ where: { userID } });
     if (excludePassword) user.password = undefined;
     return this.excludeControl(user, excludePassword);

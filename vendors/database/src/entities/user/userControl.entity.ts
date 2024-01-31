@@ -20,8 +20,8 @@ import { User } from "./user.entity";
 
 @Entity()
 export class UserControl {
-  @PrimaryGeneratedColumn({ comment: "用户权限ID" })
-  userControlID: number;
+  @PrimaryGeneratedColumn("uuid", { comment: "用户权限ID" })
+  userControlID: string;
 
   @CreateDateColumn({ comment: "创建时间" })
   createdAt: Date;

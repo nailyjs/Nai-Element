@@ -41,6 +41,6 @@ export default (async () => {
     entityPrefix: mysql.entityPrefix,
     logging: typeof mysql.logging === "boolean" ? mysql.logging : true,
     entities: [join(process.env.RESOURCE_ROOT, "**/*/cjs/**/*.entity.js")],
-    migrations: [join(process.env.VENDOR_ROOT, "database/src/migrations/**/*.ts")],
+    migrations: [join(process.env.VENDOR_ROOT, "database/src/migrations_v2/**/*.ts")],
   });
 })();

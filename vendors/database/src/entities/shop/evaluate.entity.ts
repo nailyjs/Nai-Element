@@ -35,8 +35,8 @@ import { ShopEvaluateLike } from "./evaluateLike.entity";
 @Entity()
 @Tree("closure-table")
 export class ShopEvaluate {
-  @PrimaryGeneratedColumn({ comment: "评价ID" })
-  evaluateID: number;
+  @PrimaryGeneratedColumn("uuid", { comment: "评价ID" })
+  evaluateID: string;
 
   @CreateDateColumn()
   createdAt: Date;

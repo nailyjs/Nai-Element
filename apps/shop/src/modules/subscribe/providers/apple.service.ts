@@ -10,7 +10,7 @@ export class AppleService {
     private readonly userAppStoreSubscribeRepository: UserAppStoreSubscribeRepository,
   ) {}
 
-  public getAllSubscriptionStatuses(userID: number) {
+  public getAllSubscriptionStatuses(userID: string) {
     return this.userAppStoreSubscribeRepository.find({
       where: { user: { userID } },
     });

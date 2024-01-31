@@ -20,8 +20,8 @@ import { ShopProduct } from "./product.entity";
 
 @Entity()
 export class ShopProductProperties {
-  @PrimaryGeneratedColumn({ comment: "商品属性ID" })
-  productPropertiesID: number;
+  @PrimaryGeneratedColumn("uuid", { comment: "商品属性ID" })
+  productPropertiesID: string;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -21,8 +21,8 @@ import { ShopSubscribe } from "../shop/subscribe.entity";
 
 @Entity()
 export class UserSubscribeOrder {
-  @PrimaryGeneratedColumn()
-  userSubscribeID: number;
+  @PrimaryGeneratedColumn("uuid")
+  userSubscribeID: string;
 
   @CreateDateColumn({ comment: "创建时间" })
   createdAt: Date;

@@ -31,7 +31,7 @@ export class QrCodeService {
     return this.cacheManager.store.get(this.getQrCodeKey(key));
   }
 
-  public setQrCode(key: string, userID: number): Promise<void> {
+  public setQrCode(key: string, userID: string): Promise<void> {
     return this.cacheManager.store.set(this.getQrCodeKey(key), `${userID}`, 1000 * 60 * 5);
   }
 }

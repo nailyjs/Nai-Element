@@ -34,7 +34,7 @@ export class LoginService {
     private readonly phoneService: PhoneService,
   ) {}
 
-  private getJwtToken(userID: number, loginPayload: ILoginPayload) {
+  private getJwtToken(userID: string, loginPayload: ILoginPayload) {
     return this.jwtService.sign({
       userID,
       loginType: loginPayload.loginType,

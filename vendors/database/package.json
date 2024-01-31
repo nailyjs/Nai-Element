@@ -9,8 +9,8 @@
     "build": "rollup -c rollup.config.mjs",
     "typeorm:dev": "cross-env NODE_ENV=development typeorm-ts-node-commonjs -d ./src/db.config.ts",
     "typeorm:prod": "cross-env NODE_ENV=production typeorm-ts-node-commonjs -d ./src/db.config.ts",
-    "migration:generate": "pnpm run typeorm:dev migration:generate ./src/migrations/lighting",
-    "migration:generate:prod": "pnpm run typeorm:prod migration:generate ./src/migrations/lighting",
+    "migration:generate": "pnpm run typeorm:dev migration:generate ./src/migrations_v2/lighting",
+    "migration:generate:prod": "pnpm run typeorm:prod migration:generate ./src/migrations_v2/lighting",
     "migration:run": "pnpm run typeorm:dev migration:run",
     "migration:run:prod": "pnpm run typeorm:prod migration:run"
   },

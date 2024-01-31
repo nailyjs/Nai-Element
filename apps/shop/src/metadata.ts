@@ -13,8 +13,8 @@ export default async () => {
               orderPrice: { required: false, type: () => Object, description: "\u4EF7\u683C\u6392\u5E8F", default: "highest" },
               orderSold: { required: false, type: () => Object, description: "\u9500\u91CF\u6392\u5E8F", default: "highest" },
               orderStock: { required: false, type: () => Object, description: "\u5E93\u5B58\u6392\u5E8F", default: "highest" },
-              filterTags: { required: false, type: () => [Number], description: "\u8FC7\u6EE4\u6807\u7B7E" },
-              filterUser: { required: false, type: () => [Number], description: "\u8FC7\u6EE4\u7528\u6237" },
+              filterTags: { required: false, type: () => [String], description: "\u8FC7\u6EE4\u6807\u7B7E" },
+              filterUser: { required: false, type: () => [String], description: "\u8FC7\u6EE4\u7528\u6237" },
               take: { required: false, type: () => Number, description: "\u53D6\u5230\u6570\u91CF", default: 10 },
               skip: { required: false, type: () => Number, description: "\u8DF3\u8FC7\u6570\u91CF", default: 0 },
             },
@@ -29,7 +29,7 @@ export default async () => {
                 default: 0,
               },
               productStock: { required: true, type: () => Number, description: "\u5E93\u5B58\u6570\u91CF", default: 0, minimum: 0 },
-              productTags: { required: true, type: () => [Number], description: "\u5546\u54C1\u6807\u7B7E" },
+              productTags: { required: true, type: () => [String], description: "\u5546\u54C1\u6807\u7B7E" },
               productStatus: {
                 required: true,
                 type: () => Boolean,
@@ -57,8 +57,8 @@ export default async () => {
               duration: { required: true, type: () => Number, description: "\u5546\u54C1\u65F6\u957F\uFF08\u5929\uFF09" },
               price: { required: true, type: () => Number, description: "\u5546\u54C1\u4EF7\u683C\uFF08\u5143\uFF09" },
             },
-            PutSubscribeBodyDTO: { subscribeID: { required: true, type: () => Number, description: "\u8BA2\u9605\u5236\u5546\u54C1ID" } },
-            getSubscribeUserStatusQueryDTO: { subscribeID: { required: true, type: () => Number, description: "\u8BA2\u9605\u5236\u5546\u54C1ID" } },
+            PutSubscribeBodyDTO: { subscribeID: { required: true, type: () => String, description: "\u8BA2\u9605\u5236\u5546\u54C1ID" } },
+            getSubscribeUserStatusQueryDTO: { subscribeID: { required: true, type: () => String, description: "\u8BA2\u9605\u5236\u5546\u54C1ID" } },
           },
         ],
         [
@@ -78,38 +78,48 @@ export default async () => {
           import("./modules/evaluate/dtos/evaluate/evaluate.get.dto"),
           {
             GetEvaluateQueryDTO: {
-              productID: { required: true, type: () => Number, description: "\u5546\u54C1ID" },
+              productID: { required: true, type: () => String, description: "\u5546\u54C1ID", example: "00000000-0000-0000-0000-000000000000" },
               orderTime: { required: false, type: () => Object, description: "\u65F6\u95F4\u6392\u5E8F\u65B9\u5F0F", default: "latest" },
               orderLike: { required: false, type: () => Object, description: "\u70B9\u8D5E\u6392\u5E8F\u65B9\u5F0F", default: "most" },
               take: { required: false, type: () => Number, description: "\u83B7\u53D6\u5230\u7684\u603B\u6570", example: 10 },
               skip: { required: false, type: () => Number, description: "\u8DF3\u8FC7\u7684\u6570\u91CF", example: 0 },
             },
             GetEvaluateChildrenQueryDTO: {
-              evaluateID: { required: true, type: () => Number, description: "\u7236\u8BC4\u8BBAID" },
+              evaluateID: {
+                required: true,
+                type: () => String,
+                description: "\u7236\u8BC4\u8BBAID",
+                example: "00000000-0000-0000-0000-000000000000",
+              },
               depth: { required: false, type: () => Number, description: "\u83B7\u53D6\u5230\u7684\u6DF1\u5EA6", default: 3 },
               take: { required: false, type: () => Number, description: "\u83B7\u53D6\u5230\u7684\u603B\u6570", example: 10 },
               skip: { required: false, type: () => Number, description: "\u8DF3\u8FC7\u7684\u6570\u91CF", example: 0 },
             },
             PostCreateEvaluateBodyDTO: {
-              productID: { required: true, type: () => Number, description: "\u5546\u54C1ID" },
+              productID: { required: true, type: () => String, description: "\u5546\u54C1ID", example: "00000000-0000-0000-0000-000000000000" },
               content: { required: true, type: () => String, description: "\u8BC4\u8BBA\u5185\u5BB9" },
             },
             PostReplyEvaluateBodyDTO: {
               content: { required: true, type: () => String, description: "\u8BC4\u8BBA\u5185\u5BB9" },
-              evaluateID: { required: false, type: () => Number, description: "\u7236\u8BC4\u8BBAID", example: 1, default: 0 },
+              evaluateID: {
+                required: false,
+                type: () => String,
+                description: "\u7236\u8BC4\u8BBAID",
+                examples: ["1", "00000000-0000-0000-0000-000000000000"],
+              },
             },
           },
         ],
         [
           import("./modules/evaluate/dtos/evaluate/like/like.post.dto"),
-          { PostCreateEvaluateLikeBodyDTO: { evaluateID: { required: true, type: () => Number, description: "\u5546\u54C1\u8BC4\u8BBAID" } } },
+          { PostCreateEvaluateLikeBodyDTO: { evaluateID: { required: true, type: () => String, description: "\u5546\u54C1\u8BC4\u8BBAID" } } },
         ],
         [
           import("./modules/evaluate/dtos/evaluate/like/like.get.dto"),
           {
             GetEvaluateLikeQueryDTO: {
               orderTime: { required: false, type: () => Object, description: "\u65F6\u95F4\u6392\u5E8F\u65B9\u5F0F" },
-              userID: { required: true, type: () => Number, description: "\u7528\u6237ID" },
+              userID: { required: true, type: () => String, description: "\u7528\u6237ID" },
               take: { required: false, type: () => Number, description: "\u83B7\u53D6\u6570\u91CF" },
               skip: { required: false, type: () => Number, description: "\u8DF3\u8FC7\u6570\u91CF" },
             },

@@ -26,7 +26,7 @@ export class EvaluateService {
     private readonly shopProductRepository: ShopProductRepository,
   ) {}
 
-  public async createEvaluate(content: string, userID: number, productID: number) {
+  public async createEvaluate(content: string, userID: string, productID: string) {
     const user = await this.userRepository.findOneBy({ userID });
     if (!user) throw new NotFoundException(1015);
     const product = await this.shopProductRepository.findOneBy({ productID });
@@ -34,7 +34,7 @@ export class EvaluateService {
     return this.shopEvaluateRepository.createEvaluate(content, user, product);
   }
 
-  public async replyEvaluate(content: string, userID: number, evaluateID: number) {
+  public async replyEvaluate(content: string, userID: string, evaluateID: string) {
     const user = await this.userRepository.findOneBy({ userID });
     if (!user) throw new NotFoundException(1015);
     const parent = await this.shopEvaluateRepository.findOneBy({ evaluateID });

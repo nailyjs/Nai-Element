@@ -25,7 +25,7 @@ export class EvaluateLikeService {
     private readonly userControlRepository: UserControlRepository,
   ) {}
 
-  public async list(orderTime: "latest" | "oldest", loggingUserID: number, userID: number, take: number, skip: number) {
+  public async list(orderTime: "latest" | "oldest", loggingUserID: string, userID: string, take: number, skip: number) {
     if (loggingUserID != userID) {
       const userControl = await this.userControlRepository.findOne({
         where: { user: { userID } },

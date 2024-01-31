@@ -3,8 +3,8 @@ import { User } from "../user/user.entity";
 
 @Entity()
 export class BrowserBookMark {
-  @PrimaryGeneratedColumn()
-  browserBookMarkID: number;
+  @PrimaryGeneratedColumn("uuid")
+  browserBookMarkID: string;
 
   @CreateDateColumn()
   createdAt: Date;

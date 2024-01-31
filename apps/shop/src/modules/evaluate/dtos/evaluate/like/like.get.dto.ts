@@ -17,7 +17,7 @@
 
 import { ApiProperty } from "@nestjs/swagger";
 import { IsIntString } from "cc.naily.element.validator";
-import { IsIn, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsIn, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
 
 export class GetEvaluateLikeQueryDTO {
   /**
@@ -41,9 +41,9 @@ export class GetEvaluateLikeQueryDTO {
    * @type {number}
    * @memberof GetEvaluateLikeQueryDTO
    */
-  @IsIntString()
+  @IsUUID()
   @IsNotEmpty()
-  userID: number;
+  userID: string;
   /**
    * 获取数量
    *

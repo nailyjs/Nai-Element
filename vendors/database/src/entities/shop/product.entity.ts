@@ -34,8 +34,8 @@ import { ShopEvaluate } from "./evaluate.entity";
 
 @Entity()
 export class ShopProduct {
-  @PrimaryGeneratedColumn({ comment: "商品ID" })
-  productID: number;
+  @PrimaryGeneratedColumn("uuid", { comment: "商品ID" })
+  productID: string;
 
   @CreateDateColumn({ comment: "创建时间" })
   createdAt: Date;

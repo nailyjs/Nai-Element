@@ -20,8 +20,8 @@ import { User } from "./user.entity";
 
 @Entity()
 export class UserOrder {
-  @PrimaryGeneratedColumn({ comment: "订单序号" })
-  userOrderID: number;
+  @PrimaryGeneratedColumn("uuid", { comment: "订单序号" })
+  userOrderID: string;
 
   @Column({ nullable: false, comment: "交易订单号" })
   tradeOrderID: string;

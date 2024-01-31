@@ -21,8 +21,8 @@ import { ShopEvaluate } from "./evaluate.entity";
 
 @Entity()
 export class ShopEvaluateLike {
-  @PrimaryGeneratedColumn()
-  evaluateLikeID: number;
+  @PrimaryGeneratedColumn("uuid")
+  evaluateLikeID: string;
 
   @CreateDateColumn()
   createdAt: Date;

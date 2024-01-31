@@ -9,5 +9,5 @@ export interface LoginIdentifier {
   loginMethod?: ILoginMethod;
 }
 export interface JwtLoginPayload extends LoginIdentifier {
-  userID: number;
+  userID: string;
 }

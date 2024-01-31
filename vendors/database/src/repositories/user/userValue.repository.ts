@@ -35,7 +35,7 @@ export class UserValueRepository extends EntityRepository<UserValue> {
    * @return {Promise<false | UserValue>} false表示余额不足
    * @memberof UserValueRepository
    */
-  public async reduceBalance(userID: number, amount: number): Promise<false | UserValue> {
+  public async reduceBalance(userID: string, amount: number): Promise<false | UserValue> {
     const value = await this.findOneBy({ user: { userID } });
     value.balance -= amount;
     if (value.balance < 0) return false;

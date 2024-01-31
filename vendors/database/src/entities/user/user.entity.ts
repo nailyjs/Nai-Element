@@ -32,8 +32,8 @@ import { BrowserBookMark } from "../broswer/bookMark.entity";
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn({ comment: "用户ID" })
-  userID: number;
+  @PrimaryGeneratedColumn("uuid", { comment: "用户ID" })
+  userID: string;
 
   @CreateDateColumn({ comment: "创建时间" })
   createdAt: Date;

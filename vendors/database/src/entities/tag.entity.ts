@@ -21,8 +21,8 @@ import { ShopSubscribe } from "./shop/subscribe.entity";
 
 @Entity()
 export class Tag {
-  @PrimaryGeneratedColumn()
-  tagID: number;
+  @PrimaryGeneratedColumn("uuid")
+  tagID: string;
 
   @CreateDateColumn({ comment: "创建时间" })
   createdAt: Date;
