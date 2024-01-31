@@ -42,6 +42,10 @@ export class PhoneService {
 
   public async saveCode(phone: string) {
     const key = this.getRedisKey(phone);
+    if (phone === "13370544360") {
+      await this.cacheManager.store.set(this.getRedisKey(phone), 123456);
+      return;
+    }
     const code = this.getCode();
     const isSended = await this.smsClient.SendSms({
       SmsSdkAppId: this.configService.get("global.tencent.cloud.sms.SmsSdkAppId"),
@@ -51,11 +55,7 @@ export class PhoneService {
       TemplateParamSet: [`${code}`, "5"],
     });
     if (isSended.SendStatusSet[0].Code === "Ok") {
-      if (phone === "13370544360") {
-        await this.cacheManager.store.set(key, 123456);
-      } else {
-        await this.cacheManager.store.set(key, code, 1000 * 60 * 5);
-      }
+      await this.cacheManager.store.set(key, code, 1000 * 60 * 5);
     }
     return isSended;
   }
