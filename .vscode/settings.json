@@ -18,6 +18,11 @@
     "transport": "mail",
     "pay": "controller",
     "file": "images",
-    "broswer": "client"
+    "broswer": "client",
+    "gpt": "class",
+    "lightning": "shared",
+    "panel": "admin",
+    "panel-backend": "admin",
+    "panel-frontend": "admin"
   }
 }
