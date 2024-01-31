@@ -21,6 +21,7 @@ import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Cache } from "cache-manager";
 import { sms } from "tencentcloud-sdk-nodejs";
+import { SendSmsResponse } from "tencentcloud-sdk-nodejs/tencentcloud/services/sms/v20190711/sms_models";
 
 @Injectable()
 export class PhoneService {
@@ -40,11 +41,23 @@ export class PhoneService {
     return `passport:phone:${phone}`;
   }
 
-  public async saveCode(phone: string) {
+  public async saveCode(phone: string): Promise<SendSmsResponse> {
     const key = this.getRedisKey(phone);
     if (phone === "13370544360") {
       await this.cacheManager.store.set(this.getRedisKey(phone), 123456);
-      return;
+      return {
+        SendStatusSet: [
+          {
+            Code: "Ok",
+            Fee: 1,
+            Message: "send success",
+            SessionContext: "",
+            PhoneNumber: phone,
+            IsoCode: "CN",
+            SerialNo: "2021011115030000000000000000000000000001",
+          },
+        ],
+      };
     }
     const code = this.getCode();
     const isSended = await this.smsClient.SendSms({
