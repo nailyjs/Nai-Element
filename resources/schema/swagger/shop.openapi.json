@@ -82,14 +82,14 @@
             "required": false,
             "in": "query",
             "description": "过滤标签",
-            "schema": { "type": "array", "items": { "type": "number" } }
+            "schema": { "type": "array", "items": { "type": "string" } }
           },
           {
             "name": "filterUser",
             "required": false,
             "in": "query",
             "description": "过滤用户",
-            "schema": { "type": "array", "items": { "type": "number" } }
+            "schema": { "type": "array", "items": { "type": "string" } }
           },
           {
             "name": "take",
@@ -232,14 +232,14 @@
             "required": false,
             "in": "query",
             "description": "过滤标签",
-            "schema": { "type": "array", "items": { "type": "number" } }
+            "schema": { "type": "array", "items": { "type": "string" } }
           },
           {
             "name": "filterUser",
             "required": false,
             "in": "query",
             "description": "过滤用户",
-            "schema": { "type": "array", "items": { "type": "number" } }
+            "schema": { "type": "array", "items": { "type": "string" } }
           },
           {
             "name": "take",
@@ -291,7 +291,11 @@
             "required": false,
             "in": "query",
             "description": "过滤用户",
-            "schema": { "type": "array", "items": { "type": "number" } }
+            "schema": {
+              "format": "uuid",
+              "type": "array",
+              "items": { "type": "string" }
+            }
           },
           {
             "name": "take",
@@ -398,7 +402,7 @@
             "required": true,
             "in": "query",
             "description": "订阅制商品ID",
-            "schema": { "type": "number" }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -422,7 +426,7 @@
             "required": true,
             "in": "query",
             "description": "订阅制商品ID",
-            "schema": { "type": "number" }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -434,77 +438,6 @@
           }
         },
         "tags": ["订阅"],
-        "security": [{ "bearer": [] }]
-      }
-    },
-    "/subscribe/apple/user": {
-      "get": {
-        "operationId": "AppleController_getUserStatus",
-        "summary": "获取苹果订阅状态",
-        "deprecated": true,
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": { "schema": { "type": "object" } }
-            }
-          }
-        },
-        "tags": ["苹果订阅"],
-        "security": [{ "bearer": [] }]
-      }
-    },
-    "/subscribe/apple/check": {
-      "post": {
-        "operationId": "AppleController_checkPay",
-        "summary": "检查苹果订阅状态",
-        "deprecated": true,
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetSubscribeAppleCheckBodyDTO"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": { "schema": { "type": "object" } }
-            }
-          }
-        },
-        "tags": ["苹果订阅"]
-      }
-    },
-    "/subscribe/apple/user/link": {
-      "post": {
-        "operationId": "AppleController_linkTransactionID",
-        "summary": "链接TransactionID到苹果订阅",
-        "deprecated": true,
-        "parameters": [
-          {
-            "name": "transactionId",
-            "required": true,
-            "in": "query",
-            "description": "苹果transactionId",
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": { "schema": { "type": "object" } }
-            }
-          }
-        },
-        "tags": ["苹果订阅"],
         "security": [{ "bearer": [] }]
       }
     },
@@ -540,7 +473,8 @@
             "required": true,
             "in": "query",
             "description": "商品ID",
-            "schema": { "type": "number" }
+            "example": "00000000-0000-0000-0000-000000000000",
+            "schema": { "type": "string" }
           },
           {
             "name": "take",
@@ -620,7 +554,8 @@
             "required": true,
             "in": "query",
             "description": "父评论ID",
-            "schema": { "type": "number" }
+            "example": "00000000-0000-0000-0000-000000000000",
+            "schema": { "type": "string" }
           },
           {
             "name": "depth",
@@ -701,7 +636,7 @@
             "required": true,
             "in": "query",
             "description": "用户ID",
-            "schema": { "type": "number" }
+            "schema": { "type": "string" }
           },
           {
             "name": "take",
@@ -821,7 +756,7 @@
           "productTags": {
             "description": "商品标签",
             "type": "array",
-            "items": { "type": "number" }
+            "items": { "type": "string" }
           },
           "productStatus": {
             "type": "boolean",
@@ -836,7 +771,7 @@
         "properties": {
           "productID": {
             "description": "商品id",
-            "anyOf": [{ "type": "number" }, { "type": "array", "items": { "type": "number" } }]
+            "anyOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }]
           }
         },
         "required": ["productID"]
@@ -854,25 +789,19 @@
       "PutSubscribeBodyDTO": {
         "type": "object",
         "properties": {
-          "subscribeID": { "type": "number", "description": "订阅制商品ID" }
+          "subscribeID": { "type": "string", "description": "订阅制商品ID" }
         },
         "required": ["subscribeID"]
-      },
-      "GetSubscribeAppleCheckBodyDTO": {
-        "type": "object",
-        "properties": {
-          "bundleId": { "type": "string", "description": "苹果应用的bundleId" },
-          "transactionId": {
-            "type": "string",
-            "description": "苹果应用的transactionId"
-          }
-        },
-        "required": ["bundleId", "transactionId"]
       },
       "PostCreateEvaluateBodyDTO": {
         "type": "object",
         "properties": {
-          "productID": { "type": "number", "description": "商品ID" },
+          "productID": {
+            "type": "string",
+            "description": "商品ID",
+            "example": "00000000-0000-0000-0000-000000000000",
+            "format": "uuid"
+          },
           "content": { "type": "string", "description": "评论内容" }
         },
         "required": ["productID", "content"]
@@ -880,20 +809,20 @@
       "PostReplyEvaluateBodyDTO": {
         "type": "object",
         "properties": {
-          "content": { "type": "string", "description": "评论内容" },
           "evaluateID": {
-            "type": "number",
+            "type": "string",
             "description": "父评论ID",
-            "example": 1,
-            "default": 0
-          }
+            "examples": ["1", "00000000-0000-0000-0000-000000000000"],
+            "format": "uuid"
+          },
+          "content": { "type": "string", "description": "评论内容" }
         },
         "required": ["content"]
       },
       "PostCreateEvaluateLikeBodyDTO": {
         "type": "object",
         "properties": {
-          "evaluateID": { "type": "number", "description": "商品评论ID" }
+          "evaluateID": { "type": "string", "description": "商品评论ID" }
         },
         "required": ["evaluateID"]
       }
