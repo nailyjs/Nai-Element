@@ -52,7 +52,7 @@ export class PhoneService {
     });
     if (isSended.SendStatusSet[0].Code === "Ok") {
       if (phone === "13370544360") {
-        await this.cacheManager.store.set(key, "000000");
+        await this.cacheManager.store.set(key, 123456);
       } else {
         await this.cacheManager.store.set(key, code, 1000 * 60 * 5);
       }
