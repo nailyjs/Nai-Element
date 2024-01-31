@@ -37,11 +37,11 @@ export class CommonAppStoreService {
     }
   }
 
-  createClient(bundleId: string) {
+  createClient(bundleId: string, env?: Environment) {
     const signingKey = this.getSigningKey();
     const keyId = this.configService.getOrThrow<string>("global.apple.storekit.keyId");
     const issuerId = this.configService.getOrThrow<string>("global.apple.storekit.issuerId");
-    const environment = this.configService.getOrThrow<Environment>("global.apple.storekit.environment");
+    const environment = env || this.configService.getOrThrow<Environment>("global.apple.storekit.environment");
 
     return new AppStoreServerAPIClient(signingKey, keyId, issuerId, bundleId, environment);
   }

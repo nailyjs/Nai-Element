@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsString } from "class-validator";
 
 export class GetSubscribeAppleCheckBodyDTO {
   /**
@@ -40,4 +40,16 @@ export class GetSubscribeAppleCheckBodyDTO {
   @IsString()
   @IsNotEmpty()
   transactionId: string;
+
+  /**
+   * 是否是沙盒环境 默认false
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/01/31
+   * @type {boolean}
+   * @memberof GetSubscribeAppleCheckBodyDTO
+   */
+  @IsBoolean()
+  @IsNotEmpty()
+  isSandbox?: boolean = false;
 }

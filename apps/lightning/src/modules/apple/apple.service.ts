@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Status } from "@apple/app-store-server-library";
+import { Environment, Status } from "@apple/app-store-server-library";
 import { Injectable } from "@nestjs/common";
 import { User, UserAppStoreSubscribe, UserAppStoreSubscribeRepository } from "cc.naily.element.database";
 import { CommonAppStoreService } from "cc.naily.element.shared";
@@ -42,7 +42,9 @@ export class AppleService {
     return this.userAppStoreSubscribeRepository.save(userAppStoreSubscribe);
   }
 
-  public checkTransactionID(bundleId: string, transactionId: string) {
-    return this.commonAppStoreService.createClient(bundleId).getAllSubscriptionStatuses(transactionId, [Status.ACTIVE, Status.BILLING_GRACE_PERIOD]);
+  public checkTransactionID(bundleId: string, transactionId: string, isSandbox: boolean = false) {
+    return this.commonAppStoreService
+      .createClient(bundleId, isSandbox ? Environment.SANDBOX : undefined)
+      .getAllSubscriptionStatuses(transactionId, [Status.ACTIVE, Status.BILLING_GRACE_PERIOD]);
   }
 }
