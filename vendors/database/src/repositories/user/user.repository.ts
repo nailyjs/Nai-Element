@@ -189,6 +189,8 @@ export class UserRepository extends EntityRepository<User> {
    */
   public async logoff(userInstance: User): Promise<boolean> {
     userInstance.isDeleted = true;
+    userInstance.email = null;
+    userInstance.phone = null;
     await this.save(userInstance);
 
     const broswerBookMarkRepository = this.dataSource.getRepository(BrowserBookMark);
