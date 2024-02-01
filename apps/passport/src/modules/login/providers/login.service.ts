@@ -85,8 +85,8 @@ export class LoginService {
 
   public async loginByPhoneCode(phone: string, verifyCode: number, loginPayload: ILoginPayload) {
     let user = await this.userRepository.findOneBy({ phone });
-    user = await this.updateIp(loginPayload, user);
     if (!user) throw new NotFoundException(1007);
+    user = await this.updateIp(loginPayload, user);
     await this.phoneService.checkCode(phone, verifyCode);
     const access_token = this.getJwtToken(user, loginPayload);
     const identifier = await this.identifierService.renewIdentifier(user, loginPayload);

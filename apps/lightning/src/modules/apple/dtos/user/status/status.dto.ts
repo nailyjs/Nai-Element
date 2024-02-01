@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { IsBooleanString, IsNotEmpty, IsString } from "class-validator";
+import { IsBooleanString, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class GetSubscribeAppleUserStatusDTO {
   /**
@@ -42,5 +42,6 @@ export class GetSubscribeAppleUserQueryDTO {
    */
   @IsBooleanString()
   @IsString()
+  @IsOptional()
   isSandbox: boolean = false;
 }

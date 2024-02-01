@@ -45,7 +45,12 @@ export default async () => {
         ],
         [
           import("./modules/apple/dtos/user/status/status.dto"),
-          { GetSubscribeAppleUserStatusDTO: { transactionId: { required: true, type: () => String, description: "\u82F9\u679CtransactionId" } } },
+          {
+            GetSubscribeAppleUserStatusDTO: { transactionId: { required: true, type: () => String, description: "\u82F9\u679CtransactionId" } },
+            GetSubscribeAppleUserQueryDTO: {
+              isSandbox: { required: true, type: () => Boolean, description: "\u662F\u5426\u6C99\u76D2\u73AF\u5883", default: false },
+            },
+          },
         ],
         [
           import("./modules/apple/dtos/check/check.dto"),

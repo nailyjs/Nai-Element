@@ -59,6 +59,7 @@ export class IdentifierService {
    * @memberof IdentifierService
    */
   public async checkIdentifier(user: User, loginType: LoginType, loginClient?: string, identifier?: string): Promise<"OK" | "ERROR"> {
+    if (!user) return "ERROR";
     if (loginType === "Web" && !identifier) return "OK";
     const findIdentifier = await this.userIdentifierRepository.findOneBy({
       user: { userID: user.userID },

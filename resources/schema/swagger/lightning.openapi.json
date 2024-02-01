@@ -176,7 +176,15 @@
       "get": {
         "operationId": "AppleController_getUserStatus",
         "summary": "获取苹果订阅状态",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "isSandbox",
+            "required": true,
+            "in": "query",
+            "description": "是否沙盒环境",
+            "schema": { "default": false, "type": "boolean" }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
