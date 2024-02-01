@@ -294,6 +294,10 @@ export default async () => {
           },
         ],
         [
+          import("./modules/user/dtos/user/control/control.dto"),
+          { PutUserControlBodyDTO: { isPublic: { required: true, type: () => Boolean, description: "\u662F\u5426\u516C\u5F00" } } },
+        ],
+        [
           import("./modules/pay/dtos/pay/xunhupay/xunhupay.dto"),
           {
             PayControllerXunhupayBodyDTO: {
@@ -384,10 +388,6 @@ export default async () => {
             PostUserCheckEmailBodyDTO: { email: { required: true, type: () => String, description: "\u90AE\u7BB1" } },
           },
         ],
-        [
-          import("./modules/user/dtos/user/control/control.dto"),
-          { PutUserControlBodyDTO: { isPublic: { required: true, type: () => Boolean, description: "\u662F\u5426\u516C\u5F00" } } },
-        ],
       ],
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
@@ -451,6 +451,16 @@ export default async () => {
           },
         ],
         [
+          import("./modules/user/controllers/control.controller"),
+          {
+            UserControlController: {
+              updateEmailControl: { summary: "\u66F4\u65B0\u90AE\u7BB1\u516C\u5F00\u72B6\u6001" },
+              updatePhoneControl: { summary: "\u66F4\u65B0\u624B\u673A\u53F7\u516C\u5F00\u72B6\u6001" },
+              updateEvaluateLike: { summary: "\u66F4\u65B0\u5546\u54C1\u8BC4\u4EF7\u559C\u6B22\u516C\u5F00\u72B6\u6001" },
+            },
+          },
+        ],
+        [
           import("./modules/pay/controllers/xunhupay.controller"),
           {
             XunhupayController: {
@@ -493,17 +503,6 @@ export default async () => {
               checkUsername: { summary: "\u68C0\u67E5\u624B\u673A\u53F7\u662F\u5426\u5B58\u5728", type: Object },
               checkPhone: { summary: "\u68C0\u67E5\u624B\u673A\u53F7\u662F\u5426\u5B58\u5728", type: Object },
               checkEmail: { summary: "\u68C0\u67E5\u90AE\u7BB1\u662F\u5426\u5B58\u5728", type: Object },
-            },
-          },
-        ],
-        [
-          import("./modules/user/controllers/control.controller"),
-          {
-            UserControlController: {
-              createUser: { type: String },
-              updateEmailControl: { summary: "\u66F4\u65B0\u90AE\u7BB1\u516C\u5F00\u72B6\u6001" },
-              updatePhoneControl: { summary: "\u66F4\u65B0\u624B\u673A\u53F7\u516C\u5F00\u72B6\u6001" },
-              updateEvaluateLike: { summary: "\u66F4\u65B0\u5546\u54C1\u8BC4\u4EF7\u559C\u6B22\u516C\u5F00\u72B6\u6001" },
             },
           },
         ],

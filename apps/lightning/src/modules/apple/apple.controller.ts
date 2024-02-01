@@ -64,8 +64,9 @@ export class AppleController {
   @UseInterceptors(ResInterceptor)
   @ApiBody({ type: GetSubscribeAppleCheckBodyDTO })
   public async checkPay(@Body() body: GetSubscribeAppleCheckBodyDTO): Promise<unknown> {
+    if (body.isSandbox === "true") return 1046;
     try {
-      const data = await this.appleService.checkTransactionID(body.bundleId, body.transactionId, body.isSandbox === "true" ? true : false);
+      const data = await this.appleService.checkTransactionID(body.bundleId, body.transactionId, false);
       if (data.data.length === 0) {
         return {
           code: 1044,

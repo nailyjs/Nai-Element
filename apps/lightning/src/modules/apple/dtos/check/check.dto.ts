@@ -15,6 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { ApiProperty } from "@nestjs/swagger";
 import { IsBooleanString, IsNotEmpty, IsString } from "class-validator";
 
 export class GetSubscribeAppleCheckBodyDTO {
@@ -46,10 +47,11 @@ export class GetSubscribeAppleCheckBodyDTO {
    *
    * @author Zero <gczgroup@qq.com>
    * @date 2024/01/31
-   * @type {boolean}
+   * @type {string}
    * @memberof GetSubscribeAppleCheckBodyDTO
    */
   @IsBooleanString()
   @IsNotEmpty()
+  @ApiProperty({ type: "string", default: "false" })
   isSandbox?: "true" | "false" = "false";
 }

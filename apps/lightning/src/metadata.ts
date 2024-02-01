@@ -55,9 +55,9 @@ export default async () => {
               transactionId: { required: true, type: () => String, description: "\u82F9\u679C\u5E94\u7528\u7684transactionId" },
               isSandbox: {
                 required: false,
-                type: () => Boolean,
+                type: () => Object,
                 description: "\u662F\u5426\u662F\u6C99\u76D2\u73AF\u5883 \u9ED8\u8BA4false",
-                default: false,
+                default: "false",
               },
             },
           },
