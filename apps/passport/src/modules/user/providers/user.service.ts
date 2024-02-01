@@ -91,4 +91,11 @@ export class UserService {
     user.username = username;
     return await this.userRepository.save(user);
   }
+
+  public async updateSaying(saying: string, userID: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ userID });
+    if (!user) throw new BadRequestException(1015);
+    user.saying = saying;
+    return await this.userRepository.save(user);
+  }
 }

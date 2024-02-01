@@ -261,7 +261,7 @@
         "tags": ["注册"]
       }
     },
-    "/tansport/google/recaptcha": {
+    "/transport/google/recaptcha": {
       "get": {
         "operationId": "GoogleController_getRecaptchaClientKey",
         "summary": "获取 Google Recaptcha 客户端密钥",
@@ -371,9 +371,35 @@
         "security": [{ "bearer": [] }]
       }
     },
+    "/user/saying": {
+      "put": {
+        "operationId": "UserController_updateSaying",
+        "summary": "更新个性签名",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutUserSayingBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["用户"],
+        "security": [{ "bearer": [] }]
+      }
+    },
     "/user": {
       "delete": {
         "operationId": "UserController_deleteUser",
+        "summary": "注销账号",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -416,6 +442,7 @@
             }
           }
         },
+        "tags": ["用户数据"],
         "security": [{ "bearer": [] }]
       },
       "post": {
@@ -438,6 +465,7 @@
             }
           }
         },
+        "tags": ["用户数据"],
         "security": [{ "bearer": [] }]
       },
       "delete": {
@@ -460,6 +488,61 @@
             }
           }
         },
+        "tags": ["用户数据"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/user/control/email": {
+      "put": {
+        "operationId": "UserControlController_updateEmailControl",
+        "summary": "更新邮箱公开状态",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutUserControlBodyDTO" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["用户权限"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/user/control/phone": {
+      "put": {
+        "operationId": "UserControlController_updatePhoneControl",
+        "summary": "更新手机号公开状态",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutUserControlBodyDTO" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["用户权限"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/user/control/evaluate-like": {
+      "put": {
+        "operationId": "UserControlController_updateEvaluateLike",
+        "summary": "更新商品评价喜欢公开状态",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutUserControlBodyDTO" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["用户权限"],
         "security": [{ "bearer": [] }]
       }
     },
@@ -910,6 +993,13 @@
         },
         "required": ["username"]
       },
+      "PutUserSayingBodyDTO": {
+        "type": "object",
+        "properties": {
+          "saying": { "type": "string", "description": "个性签名" }
+        },
+        "required": ["saying"]
+      },
       "DeleteUserBodyDTO": {
         "type": "object",
         "properties": {
@@ -942,6 +1032,13 @@
           "value": { "type": "string" }
         },
         "required": ["namespace", "key", "value"]
+      },
+      "PutUserControlBodyDTO": {
+        "type": "object",
+        "properties": {
+          "isPublic": { "type": "boolean", "description": "是否公开" }
+        },
+        "required": ["isPublic"]
       },
       "PayControllerXunhupayBodyDTO": {
         "type": "object",

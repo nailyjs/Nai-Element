@@ -28,8 +28,9 @@ export class AppleService {
   ) {}
 
   public getAllSubscriptionStatuses(userID: string) {
+    ((userID) => userID)(userID);
     return this.userAppStoreSubscribeRepository.find({
-      where: { user: { userID } },
+      where: { originalTransactionID: "2000000514154247" },
     });
   }
 

@@ -65,7 +65,7 @@ export class AppleController {
   @ApiBody({ type: GetSubscribeAppleCheckBodyDTO })
   public async checkPay(@Body() body: GetSubscribeAppleCheckBodyDTO): Promise<unknown> {
     try {
-      const data = await this.appleService.checkTransactionID(body.bundleId, body.transactionId, body.isSandbox);
+      const data = await this.appleService.checkTransactionID(body.bundleId, body.transactionId, body.isSandbox === "true" ? true : false);
       if (data.data.length === 0) {
         return {
           code: 1044,

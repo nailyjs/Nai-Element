@@ -18,13 +18,13 @@
 import { Body, Controller, Delete, ForbiddenException, Get, Put, UseInterceptors } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { UserService } from "../providers/user.service";
-import { ResInterceptor } from "cc.naily.element.shared";
+import { ResInterceptor, UpdateIpInterceptor } from "cc.naily.element.shared";
 import { SwaggerResponse } from "cc.naily.element.swagger";
 import { GetLoggingUser200ResDTO } from "../dtos/user/logging/logging.res.dto";
 import { Auth, User } from "cc.naily.element.auth";
 import { User as UserEntity, UserRepository } from "cc.naily.element.database";
 import { PutUserAvatarBodyDTO } from "../dtos/user/avatar/avatar.dto";
-import { PutUserUsernameBodyDTO } from "../dtos/user/username/username.put.dto";
+import { PutUserSayingBodyDTO, PutUserUsernameBodyDTO } from "../dtos/user/username/username.put.dto";
 import { DeleteUserBodyDTO } from "../dtos/user/user.dto";
 import { isEmail, isMobilePhone } from "class-validator";
 import { EmailService } from "../../../providers/email.service";
@@ -49,9 +49,9 @@ export class UserController {
    */
   @Auth()
   @Get("logging")
-  @UseInterceptors(ResInterceptor)
+  @UseInterceptors(ResInterceptor, UpdateIpInterceptor)
   @SwaggerResponse(GetLoggingUser200ResDTO)
-  public getLoggingUser(@User() user: Omit<UserEntity, "password">) {
+  public async getLoggingUser(@User() user: Omit<UserEntity, "password">) {
     return this.userService.getUserByLogging(user.userID);
   }
 
@@ -65,8 +65,8 @@ export class UserController {
    */
   @Auth()
   @Put("avatar")
-  @UseInterceptors(ResInterceptor)
-  public updateAvatar(@Body() { url }: PutUserAvatarBodyDTO, @User() user: UserEntity): Promise<unknown> {
+  @UseInterceptors(ResInterceptor, UpdateIpInterceptor)
+  public async updateAvatar(@Body() { url }: PutUserAvatarBodyDTO, @User() user: UserEntity): Promise<unknown> {
     return this.userService.updateAvatar(url, user.userID);
   }
 
@@ -81,11 +81,38 @@ export class UserController {
    */
   @Auth()
   @Put("username")
-  @UseInterceptors(ResInterceptor)
-  public updateUsername(@Body() { username }: PutUserUsernameBodyDTO, @User() user: UserEntity): Promise<unknown> {
+  @UseInterceptors(ResInterceptor, UpdateIpInterceptor)
+  public async updateUsername(@Body() { username }: PutUserUsernameBodyDTO, @User() user: UserEntity): Promise<unknown> {
     return this.userService.updateUsername(username, user.userID);
   }
 
+  /**
+   * 更新个性签名
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/02/01
+   * @param {PutUserSayingBodyDTO} { saying }
+   * @param {UserEntity} user
+   * @return {*}  {Promise<unknown>}
+   * @memberof UserController
+   */
+  @Auth()
+  @Put("saying")
+  @UseInterceptors(ResInterceptor, UpdateIpInterceptor)
+  public async updateSaying(@Body() { saying }: PutUserSayingBodyDTO, @User() user: UserEntity): Promise<unknown> {
+    return this.userService.updateSaying(saying, user.userID);
+  }
+
+  /**
+   * 注销账号
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/02/01
+   * @param {UserEntity} user
+   * @param {DeleteUserBodyDTO} body
+   * @return {Promise<unknown>}
+   * @memberof UserController
+   */
   @Auth()
   @Delete()
   @UseInterceptors(ResInterceptor)

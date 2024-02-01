@@ -65,6 +65,10 @@ export class UserRepository extends EntityRepository<User> {
     return this.findOneBy({ phone });
   }
 
+  public updateIp(ip: string, userID: string): Promise<any> {
+    return this.update({ userID }, { ip });
+  }
+
   /**
    * 查找邮箱或用户名是否存在
    *

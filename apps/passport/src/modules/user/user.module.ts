@@ -23,6 +23,8 @@ import { UserControlRepository, UserDataRepository, UserRepository } from "cc.na
 import { UserDataController } from "./controllers/data.controller";
 import { UserDataService } from "./providers/data.service";
 import { TransportModule } from "../transport/transport.module";
+import { UserControlController } from "./controllers/control.controller";
+import { UserControlService } from "./providers/control.service";
 
 /**
  * 用户模块
@@ -34,7 +36,7 @@ import { TransportModule } from "../transport/transport.module";
  */
 @Module({
   imports: [TransportModule],
-  controllers: [UserController, UserDataController],
-  providers: [UserService, UserDataService, UserRepository, UserControlRepository, UserDataRepository],
+  controllers: [UserController, UserDataController, UserControlController],
+  providers: [UserService, UserDataService, UserControlService, UserRepository, UserControlRepository, UserDataRepository],
 })
 export class UserModule extends NailyContext {}

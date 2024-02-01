@@ -15,5 +15,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export * from "./res.interceptor";
-export * from "./updateIp.interceptor";
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
+import { User, UserRepository } from "cc.naily.element.database";
+import { Request } from "express";
+
+@Injectable()
+export class UpdateIpInterceptor implements NestInterceptor {
+  constructor(private readonly userRepository: UserRepository) {}
+
+  public async intercept(context: ExecutionContext, next: CallHandler<any>) {
+    const request = context.switchToHttp().getRequest<Request>();
+    const user = request.user as User;
+    const ip = request.ip;
+    if (!user) return next.handle();
+    await this.userRepository.updateIp(ip, user.userID);
+    return next.handle();
+  }
+}

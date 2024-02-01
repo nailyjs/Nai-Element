@@ -258,7 +258,10 @@ export default async () => {
         ],
         [
           import("./modules/user/dtos/user/username/username.put.dto"),
-          { PutUserUsernameBodyDTO: { username: { required: true, type: () => String, description: "\u7528\u6237\u540D" } } },
+          {
+            PutUserUsernameBodyDTO: { username: { required: true, type: () => String, description: "\u7528\u6237\u540D" } },
+            PutUserSayingBodyDTO: { saying: { required: true, type: () => String, description: "\u4E2A\u6027\u7B7E\u540D" } },
+          },
         ],
         [
           import("./modules/user/dtos/user/user.dto"),
@@ -381,6 +384,10 @@ export default async () => {
             PostUserCheckEmailBodyDTO: { email: { required: true, type: () => String, description: "\u90AE\u7BB1" } },
           },
         ],
+        [
+          import("./modules/user/dtos/user/control/control.dto"),
+          { PutUserControlBodyDTO: { isPublic: { required: true, type: () => Boolean, description: "\u662F\u5426\u516C\u5F00" } } },
+        ],
       ],
       controllers: [
         [import("./app.controller"), { AppController: { getHello: { summary: "\u4E3B\u9875", type: Number } } }],
@@ -428,7 +435,8 @@ export default async () => {
               getLoggingUser: { summary: "\u83B7\u53D6\u5DF2\u767B\u5F55\u7528\u6237\u4FE1\u606F" },
               updateAvatar: { summary: "\u66F4\u65B0\u5934\u50CF", type: Object },
               updateUsername: { summary: "\u66F4\u65B0\u7528\u6237\u540D", type: Object },
-              deleteUser: { type: Object },
+              updateSaying: { summary: "\u66F4\u65B0\u4E2A\u6027\u7B7E\u540D", type: Object },
+              deleteUser: { summary: "\u6CE8\u9500\u8D26\u53F7", type: Object },
             },
           },
         ],
@@ -485,6 +493,17 @@ export default async () => {
               checkUsername: { summary: "\u68C0\u67E5\u624B\u673A\u53F7\u662F\u5426\u5B58\u5728", type: Object },
               checkPhone: { summary: "\u68C0\u67E5\u624B\u673A\u53F7\u662F\u5426\u5B58\u5728", type: Object },
               checkEmail: { summary: "\u68C0\u67E5\u90AE\u7BB1\u662F\u5426\u5B58\u5728", type: Object },
+            },
+          },
+        ],
+        [
+          import("./modules/user/controllers/control.controller"),
+          {
+            UserControlController: {
+              createUser: { type: String },
+              updateEmailControl: { summary: "\u66F4\u65B0\u90AE\u7BB1\u516C\u5F00\u72B6\u6001" },
+              updatePhoneControl: { summary: "\u66F4\u65B0\u624B\u673A\u53F7\u516C\u5F00\u72B6\u6001" },
+              updateEvaluateLike: { summary: "\u66F4\u65B0\u5546\u54C1\u8BC4\u4EF7\u559C\u6B22\u516C\u5F00\u72B6\u6001" },
             },
           },
         ],

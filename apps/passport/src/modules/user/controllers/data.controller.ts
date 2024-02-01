@@ -21,7 +21,9 @@ import { ResInterceptor } from "cc.naily.element.shared";
 import { Auth, User } from "cc.naily.element.auth";
 import { User as UserEntity } from "cc.naily.element.database";
 import { GetUserDataBodyDTO, SetUserDataBodyDTO } from "../dtos/user/data/data.get.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("用户数据")
 @Controller("user/data")
 export class UserDataController {
   constructor(private readonly userDataService: UserDataService) {}

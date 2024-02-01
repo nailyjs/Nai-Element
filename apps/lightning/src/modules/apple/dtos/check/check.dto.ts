@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { IsBoolean, IsNotEmpty, IsString } from "class-validator";
+import { IsBooleanString, IsNotEmpty, IsString } from "class-validator";
 
 export class GetSubscribeAppleCheckBodyDTO {
   /**
@@ -49,7 +49,7 @@ export class GetSubscribeAppleCheckBodyDTO {
    * @type {boolean}
    * @memberof GetSubscribeAppleCheckBodyDTO
    */
-  @IsBoolean()
+  @IsBooleanString()
   @IsNotEmpty()
-  isSandbox?: boolean = false;
+  isSandbox?: "true" | "false" = "false";
 }

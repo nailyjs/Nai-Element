@@ -24,7 +24,7 @@ import { PostGoogleReCaptchaTokenBodyDTO } from "./google.dto";
 import { ReCaptchaTokenCheckerResDTO } from "./google.res.dto";
 
 @ApiTags("Google recaptcha")
-@Controller("tansport/google")
+@Controller("transport/google")
 export class GoogleController {
   constructor(
     private readonly configService: ConfigService,
