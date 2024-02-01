@@ -16,11 +16,23 @@
  */
 
 import { Injectable } from "@nestjs/common";
-import { AbstractBlockService } from "cc.naily.element.shared";
-
-interface IsUpdatedBookMark {
-  userID: string;
-}
 
 @Injectable()
-export class BrowserMarkService extends AbstractBlockService<IsUpdatedBookMark> {}
+export abstract class AbstractBlockService<T> {
+  private readonly isUpdating: T[] = [];
+
+  public getState(single: T): boolean {
+    const isUpdated = this.isUpdating.find((item) => item === single);
+    if (isUpdated) return false;
+    return true;
+  }
+
+  public setState(single: T): void {
+    this.isUpdating.push(single);
+  }
+
+  public removeState(single: T): void {
+    const index = this.isUpdating.findIndex((item) => item === single);
+    this.isUpdating.splice(index, 1);
+  }
+}

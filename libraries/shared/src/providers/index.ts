@@ -15,12 +15,4 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Injectable } from "@nestjs/common";
-import { AbstractBlockService } from "cc.naily.element.shared";
-
-interface IsUpdatedBookMark {
-  userID: string;
-}
-
-@Injectable()
-export class BrowserMarkService extends AbstractBlockService<IsUpdatedBookMark> {}
+export * from "./abstractBlock.service";

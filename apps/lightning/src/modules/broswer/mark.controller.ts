@@ -46,7 +46,7 @@ export class BrowserMarkController {
   public async getList(@Query() query: PostBrowserMarkQueryDTO, @User() user: UserEntity): Promise<unknown> {
     if (!query.take) query.take = 10;
     if (!query.skip) query.skip = 0;
-    const canFind = this.browserMarkService.canFind(user.userID);
+    const canFind = this.browserMarkService.getState({ userID: user.userID });
     if (!canFind) {
       return await new Promise((resolve) => {
         setTimeout(() => {
@@ -74,8 +74,8 @@ export class BrowserMarkController {
   @Post("all")
   @UseInterceptors(ResInterceptor)
   public async create(@Body() body: PostBrowserMarkBodyDTO, @User() user: UserEntity): Promise<unknown> {
-    if (!this.browserMarkService.canFind(user.userID)) throw new BadRequestException(1054);
-    this.browserMarkService.addUpdating(user.userID);
+    if (!this.browserMarkService.getState({ userID: user.userID })) throw new BadRequestException(1054);
+    this.browserMarkService.setState({ userID: user.userID });
     const data = await this.browserBookMarkRepository.find({ where: { user: { userID: user.userID } } });
     const userInstance = await this.userRepository.findOneBy({ userID: user.userID });
     let result: BrowserBookMark[] = [];
@@ -87,7 +87,7 @@ export class BrowserMarkController {
       result = await this.browserBookMarkRepository.save(result);
       await this.browserBookMarkRepository.remove(data);
     } finally {
-      this.browserMarkService.removeUpdating(user.userID);
+      this.browserMarkService.removeState({ userID: user.userID });
       return 1000;
     }
   }

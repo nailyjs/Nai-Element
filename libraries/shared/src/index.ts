@@ -33,6 +33,7 @@ export * from "./errors";
 export * from "./common";
 export * from "./interceptors";
 export * from "./decorators";
+export * from "./providers";
 
 import * as Config from "./modules/config";
 import * as Cache from "./modules/cache";
@@ -51,6 +52,7 @@ import * as Common from "./common";
 import * as Errors from "./errors";
 import * as Interceptors from "./interceptors";
 import * as Decorators from "./decorators";
+import * as Providers from "./providers";
 import { NailyContext } from "./module.module";
 
 export default {
@@ -71,4 +73,5 @@ export default {
   ...Errors,
   ...Interceptors,
   ...Decorators,
+  ...Providers,
 };
