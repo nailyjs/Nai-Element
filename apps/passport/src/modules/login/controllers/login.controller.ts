@@ -113,7 +113,6 @@ export class LoginController {
    * @date 2024/01/31
    * @param {PostLoginQrcodeConfirmBodyDTO} body
    * @param {UserEntity} user
-   * @return {*}
    * @memberof LoginController
    */
   @Auth()

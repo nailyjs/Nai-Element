@@ -22,9 +22,10 @@ import { ConfigService } from "@nestjs/config";
 import { Cache } from "cache-manager";
 import { sms } from "tencentcloud-sdk-nodejs";
 import { SendSmsResponse } from "tencentcloud-sdk-nodejs/tencentcloud/services/sms/v20190711/sms_models";
+import { SenderService } from "./sender.interface";
 
 @Injectable()
-export class PhoneService {
+export class PhoneService implements SenderService {
   constructor(
     @Inject(sms.v20210111.Client)
     private readonly smsClient: ClientRepository<typeof sms.v20210111.Client>,

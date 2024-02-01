@@ -28,6 +28,6 @@ import { QrCodeService } from "../../providers/qrcode.service";
 @Module({
   controllers: [EmailController, QrCodeController, TencentSmsController],
   providers: [EmailService, PhoneService, QrCodeService, UserRepository],
-  exports: [EmailService],
+  exports: [EmailService, PhoneService],
 })
 export class TransportModule extends NailyContext {}

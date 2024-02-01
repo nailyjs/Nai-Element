@@ -15,21 +15,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Body, Controller, Get, Put, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, ForbiddenException, Get, Put, UseInterceptors } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { UserService } from "../providers/user.service";
 import { ResInterceptor } from "cc.naily.element.shared";
 import { SwaggerResponse } from "cc.naily.element.swagger";
 import { GetLoggingUser200ResDTO } from "../dtos/user/logging/logging.res.dto";
 import { Auth, User } from "cc.naily.element.auth";
-import { User as UserEntity } from "cc.naily.element.database";
+import { User as UserEntity, UserRepository } from "cc.naily.element.database";
 import { PutUserAvatarBodyDTO } from "../dtos/user/avatar/avatar.dto";
 import { PutUserUsernameBodyDTO } from "../dtos/user/username/username.put.dto";
+import { DeleteUserBodyDTO } from "../dtos/user/user.dto";
+import { isEmail, isMobilePhone } from "class-validator";
+import { EmailService } from "src/providers/email.service";
+import { PhoneService } from "src/providers/phone.service";
 
 @ApiTags("用户")
 @Controller("user")
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly userRepository: UserRepository,
+    private readonly emailService: EmailService,
+    private readonly phoneService: PhoneService,
+  ) {}
 
   /**
    * 获取已登录用户信息
@@ -75,5 +84,21 @@ export class UserController {
   @UseInterceptors(ResInterceptor)
   public updateUsername(@Body() { username }: PutUserUsernameBodyDTO, @User() user: UserEntity): Promise<unknown> {
     return this.userService.updateUsername(username, user.userID);
+  }
+
+  @Auth()
+  @Delete()
+  @UseInterceptors(ResInterceptor)
+  public async deleteUser(@User() user: UserEntity, @Body() body: DeleteUserBodyDTO): Promise<unknown> {
+    if (body.logoffType === "phone" && !isMobilePhone(body.verifiedData, "zh-CN")) throw new ForbiddenException(1057);
+    if (body.logoffType === "email" && !isEmail(body.logoffType)) throw new ForbiddenException(1058);
+    if (body.logoffType === "email") {
+      await this.emailService.checkCode(body.verifiedData, body.code);
+    } else if (body.logoffType === "phone") {
+      await this.phoneService.checkCode(body.verifiedData, body.code);
+    }
+    const userInstance = this.userRepository.findOneBy({ userID: user.userID });
+    if (!userInstance) throw new ForbiddenException(1015);
+    return this.userRepository.logoff(user);
   }
 }

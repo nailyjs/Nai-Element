@@ -22,6 +22,7 @@ import { UserService } from "./providers/user.service";
 import { UserControlRepository, UserDataRepository, UserRepository } from "cc.naily.element.database";
 import { UserDataController } from "./controllers/data.controller";
 import { UserDataService } from "./providers/data.service";
+import { TransportModule } from "../transport/transport.module";
 
 /**
  * 用户模块
@@ -32,6 +33,7 @@ import { UserDataService } from "./providers/data.service";
  * @author Zero <gczgroup@qq.com>
  */
 @Module({
+  imports: [TransportModule],
   controllers: [UserController, UserDataController],
   providers: [UserService, UserDataService, UserRepository, UserControlRepository, UserDataRepository],
 })

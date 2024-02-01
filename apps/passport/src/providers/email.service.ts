@@ -21,9 +21,10 @@ import { Cache } from "cache-manager";
 import { MailerService } from "@nestjs-modules/mailer";
 import { I18nService } from "nestjs-i18n";
 import { I18nTranslations } from "cc.naily.element.generated";
+import { SenderService } from "./sender.interface";
 
 @Injectable()
-export class EmailService {
+export class EmailService implements SenderService {
   constructor(
     @Inject(CACHE_MANAGER)
     private readonly cacheManager: Cache,
