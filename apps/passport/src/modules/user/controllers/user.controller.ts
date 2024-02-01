@@ -97,8 +97,8 @@ export class UserController {
     } else if (body.logoffType === "phone") {
       await this.phoneService.checkCode(body.verifiedData, body.code);
     }
-    const userInstance = this.userRepository.findOneBy({ userID: user.userID });
+    const userInstance = await this.userRepository.findOneBy({ userID: user.userID });
     if (!userInstance) throw new ForbiddenException(1015);
-    return this.userRepository.logoff(user);
+    return this.userRepository.logoff(userInstance);
   }
 }
