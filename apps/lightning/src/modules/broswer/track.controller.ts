@@ -105,6 +105,14 @@ export class BrowserTrackController {
     return 1000;
   }
 
+  /**
+   * 清空历史记录
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/02/01
+   * @param {UserEntity} user
+   * @memberof BrowserTrackController
+   */
   @Auth()
   @Delete("all")
   @UseInterceptors(ResInterceptor)

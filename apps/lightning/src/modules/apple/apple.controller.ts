@@ -20,7 +20,7 @@ import { ApiBody, ApiTags } from "@nestjs/swagger";
 import { Auth, User } from "cc.naily.element.auth";
 import { User as UserEntity } from "cc.naily.element.database";
 import { CommonLogger, ResInterceptor } from "cc.naily.element.shared";
-import { GetSubscribeAppleUserStatusDTO } from "./dtos/user/status/status.dto";
+import { GetSubscribeAppleUserQueryDTO, GetSubscribeAppleUserStatusDTO } from "./dtos/user/status/status.dto";
 import { AppleService } from "./apple.service";
 import { I18nService } from "nestjs-i18n";
 import { I18nTranslations } from "cc.naily.element.generated";
@@ -47,8 +47,9 @@ export class AppleController {
   @Auth()
   @Get("user")
   @UseInterceptors(ResInterceptor)
-  public getUserStatus(@User() user: UserEntity): Promise<unknown> {
-    return this.appleService.getAllSubscriptionStatuses(user.userID);
+  public getUserStatus(@User() user: UserEntity, @Query() { isSandbox }: GetSubscribeAppleUserQueryDTO): Promise<unknown> {
+    if (typeof isSandbox === "string") isSandbox === "true" ? true : false;
+    return this.appleService.getAllSubscriptionStatuses(user.userID, isSandbox);
   }
 
   /**

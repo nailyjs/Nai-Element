@@ -99,6 +99,7 @@
     "/broswer/track/all": {
       "delete": {
         "operationId": "BrowserTrackController_deleteAll",
+        "summary": "清空历史记录",
         "parameters": [],
         "responses": {
           "200": {

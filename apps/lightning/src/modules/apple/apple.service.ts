@@ -27,11 +27,16 @@ export class AppleService {
     private readonly userAppStoreSubscribeRepository: UserAppStoreSubscribeRepository,
   ) {}
 
-  public getAllSubscriptionStatuses(userID: string) {
-    ((userID) => userID)(userID);
-    return this.userAppStoreSubscribeRepository.find({
-      where: { originalTransactionID: "2000000514154247" },
-    });
+  public getAllSubscriptionStatuses(userID: string, isSandbox = false) {
+    if (isSandbox) {
+      return this.userAppStoreSubscribeRepository.find({
+        where: { originalTransactionID: "2000000514154247" },
+      });
+    } else {
+      return this.userAppStoreSubscribeRepository.find({
+        where: { user: { userID } },
+      });
+    }
   }
 
   public async linkTransactionID(user: User, transactionId: string) {
