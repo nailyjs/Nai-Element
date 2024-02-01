@@ -99,6 +99,7 @@ export class UserController {
     }
     const userInstance = await this.userRepository.findOneBy({ userID: user.userID });
     if (!userInstance) throw new ForbiddenException(1015);
-    return this.userRepository.logoff(userInstance);
+    const isDeleted = await this.userRepository.logoff(userInstance);
+    if (isDeleted) return 1000;
   }
 }

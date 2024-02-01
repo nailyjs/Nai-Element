@@ -17,7 +17,17 @@
 
 import { DataSource } from "typeorm";
 import { EntityRepository, Repository } from "../../decorators";
-import { BrowserBookMark, ShopEvaluateLike, ShopProduct, ShopSubscribe, User, UserAppStoreSubscribe, UserControl, UserValue } from "../../entities";
+import {
+  BrowserBookMark,
+  ShopEvaluateLike,
+  ShopProduct,
+  ShopSubscribe,
+  User,
+  UserAppStoreSubscribe,
+  UserControl,
+  UserIdentifier,
+  UserValue,
+} from "../../entities";
 
 @Repository
 export class UserRepository extends EntityRepository<User> {
@@ -220,6 +230,10 @@ export class UserRepository extends EntityRepository<User> {
     const userAppStoreSubscribeRepository = this.dataSource.getRepository(UserAppStoreSubscribe);
     const userAppStoreSubscribes = await userAppStoreSubscribeRepository.find({ where: { user: { userID: userInstance.userID } } });
     if (userAppStoreSubscribes.length) await userAppStoreSubscribeRepository.remove(userAppStoreSubscribes);
+
+    const userIdentifierRepository = this.dataSource.getRepository(UserIdentifier);
+    const userIdentifiers = await userIdentifierRepository.find({ where: { user: { userID: userInstance.userID } } });
+    if (userIdentifiers.length) await userIdentifierRepository.remove(userIdentifiers);
 
     return true;
   }
