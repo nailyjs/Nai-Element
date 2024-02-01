@@ -15,9 +15,9 @@ export class BrowserTrack {
   @ManyToOne(() => User, (user) => user.browserTracks)
   user: User;
 
-  @Column()
+  @Column({ type: "longtext" })
   webPageTitle: string;
 
-  @Column()
+  @Column({ type: "longtext" })
   webPageLink: string;
 }

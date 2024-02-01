@@ -18,7 +18,7 @@ export class BrowserBookMark {
   @Column({ comment: "书签index", nullable: false })
   bookMarkIndex: number;
 
-  @Column({ comment: "书签标题", nullable: false })
+  @Column({ comment: "书签标题", nullable: false, type: "longtext" })
   bookMarkTitle: string;
 
   @Column({ comment: "书签的icon", nullable: false })
@@ -27,6 +27,6 @@ export class BrowserBookMark {
   @Column({ comment: "书签的颜色的HEX值", nullable: false })
   bookMarkColor: string;
 
-  @Column({ comment: "书签的链接", nullable: false })
+  @Column({ comment: "书签的链接", nullable: false, type: "longtext" })
   bookMarkLink: string;
 }
