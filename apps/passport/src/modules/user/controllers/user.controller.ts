@@ -27,8 +27,8 @@ import { PutUserAvatarBodyDTO } from "../dtos/user/avatar/avatar.dto";
 import { PutUserUsernameBodyDTO } from "../dtos/user/username/username.put.dto";
 import { DeleteUserBodyDTO } from "../dtos/user/user.dto";
 import { isEmail, isMobilePhone } from "class-validator";
-import { EmailService } from "src/providers/email.service";
-import { PhoneService } from "src/providers/phone.service";
+import { EmailService } from "../../../providers/email.service";
+import { PhoneService } from "../../../providers/phone.service";
 
 @ApiTags("用户")
 @Controller("user")

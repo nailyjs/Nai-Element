@@ -261,6 +261,25 @@ export default async () => {
           { PutUserUsernameBodyDTO: { username: { required: true, type: () => String, description: "\u7528\u6237\u540D" } } },
         ],
         [
+          import("./modules/user/dtos/user/user.dto"),
+          {
+            DeleteUserBodyDTO: {
+              logoffType: {
+                required: true,
+                type: () => Object,
+                description: "\u7528\u6237\u6CE8\u9500\u9A8C\u8BC1\u7684\u6570\u636E\u7C7B\u578B \u8BF7\u770Bschema\u679A\u4E3E\u586B\u503C",
+              },
+              verifiedData: {
+                required: true,
+                type: () => String,
+                description:
+                  "\u5982\u679C\u662F\u624B\u673A\u6CE8\u9500\uFF0C\u8FD9\u91CC\u586B\u624B\u673A\u53F7\u7801\uFF0C\u5982\u679C\u662F\u90AE\u7BB1\u6CE8\u9500\uFF0C\u8FD9\u91CC\u586B\u90AE\u7BB1",
+              },
+              code: { required: true, type: () => Number, description: "\u9A8C\u8BC1\u7801" },
+            },
+          },
+        ],
+        [
           import("./modules/user/dtos/user/data/data.get.dto"),
           {
             GetUserDataBodyDTO: { namespace: { required: true, type: () => String }, key: { required: true, type: () => String } },
@@ -409,6 +428,7 @@ export default async () => {
               getLoggingUser: { summary: "\u83B7\u53D6\u5DF2\u767B\u5F55\u7528\u6237\u4FE1\u606F" },
               updateAvatar: { summary: "\u66F4\u65B0\u5934\u50CF", type: Object },
               updateUsername: { summary: "\u66F4\u65B0\u7528\u6237\u540D", type: Object },
+              deleteUser: { type: Object },
             },
           },
         ],

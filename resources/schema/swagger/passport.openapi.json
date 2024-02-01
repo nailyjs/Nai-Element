@@ -371,6 +371,30 @@
         "security": [{ "bearer": [] }]
       }
     },
+    "/user": {
+      "delete": {
+        "operationId": "UserController_deleteUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DeleteUserBodyDTO" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        },
+        "tags": ["用户"],
+        "security": [{ "bearer": [] }]
+      }
+    },
     "/user/data": {
       "get": {
         "operationId": "UserDataController_getUserData",
@@ -885,6 +909,22 @@
           "username": { "type": "string", "description": "用户名" }
         },
         "required": ["username"]
+      },
+      "DeleteUserBodyDTO": {
+        "type": "object",
+        "properties": {
+          "logoffType": {
+            "type": "string",
+            "description": "用户注销验证的数据类型 请看schema枚举填值",
+            "enum": ["phone", "email"]
+          },
+          "verifiedData": {
+            "type": "string",
+            "description": "如果是手机注销，这里填手机号码，如果是邮箱注销，这里填邮箱"
+          },
+          "code": { "type": "number", "description": "验证码" }
+        },
+        "required": ["logoffType", "verifiedData", "code"]
       },
       "GetUserDataBodyDTO": {
         "type": "object",
