@@ -26,9 +26,9 @@ export class UpdateIpInterceptor implements NestInterceptor {
   public async intercept(context: ExecutionContext, next: CallHandler<any>) {
     const request = context.switchToHttp().getRequest<Request>();
     const user = request.user as User;
-    const ip = request.ip;
+    // const ip = request.ip;
     if (!user) return next.handle();
-    await this.userRepository.updateIp(ip, user.userID);
+    // await this.userRepository.updateIp(ip, user.userID);
     return next.handle();
   }
 }
