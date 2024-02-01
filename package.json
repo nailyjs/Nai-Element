@@ -22,6 +22,7 @@
     "start:light": "pnpm -F cc.naily.element.lightning start:prod",
     "migration": "pnpm -F cc.naily.element.database migration:generate;pnpm -F cc.naily.element.database migration:run",
     "migration:prod": "pnpm -F cc.naily.element.database migration:generate:prod;pnpm -F cc.naily.element.database migration:run:prod",
+    "migration:prod:revert": "pnpm -F cc.naily.element.database migration:revert:prod",
     "format": "prettier --write ./",
     "lint": "eslint \"./**/*.ts\" --fix",
     "test": "cross-env NODE_ENV=development vitest run",

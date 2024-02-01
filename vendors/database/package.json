@@ -12,7 +12,8 @@
     "migration:generate": "pnpm run typeorm:dev migration:generate ./src/migrations_v2/lighting",
     "migration:generate:prod": "pnpm run typeorm:prod migration:generate ./src/migrations_v2/lighting",
     "migration:run": "pnpm run typeorm:dev migration:run",
-    "migration:run:prod": "pnpm run typeorm:prod migration:run"
+    "migration:run:prod": "pnpm run typeorm:prod migration:run",
+    "migration:run:prod:revert": "pnpm run typeorm:prod migration:revert"
   },
   "dependencies": {
     "js-yaml": "^4.1.0"
