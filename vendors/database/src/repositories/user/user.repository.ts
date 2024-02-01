@@ -17,8 +17,7 @@
 
 import { DataSource } from "typeorm";
 import { EntityRepository, Repository } from "../../decorators";
-import { User, UserValue } from "../../entities";
-import { UserControl } from "../../entities/user/userControl.entity";
+import { BrowserBookMark, ShopEvaluateLike, ShopProduct, ShopSubscribe, User, UserAppStoreSubscribe, UserControl, UserValue } from "../../entities";
 
 @Repository
 export class UserRepository extends EntityRepository<User> {
@@ -177,5 +176,49 @@ export class UserRepository extends EntityRepository<User> {
     const user = await this.findOne({ where: { userID } });
     if (excludePassword) user.password = undefined;
     return this.excludeControl(user, excludePassword);
+  }
+
+  /**
+   * 删除账号
+   *
+   * @author Zero <gczgroup@qq.com>
+   * @date 2024/02/01
+   * @param {User} userInstance
+   * @return {*}
+   * @memberof UserRepository
+   */
+  public async logoff(userInstance: User): Promise<boolean> {
+    userInstance.isDeleted = true;
+    await this.save(userInstance);
+
+    const broswerBookMarkRepository = this.dataSource.getRepository(BrowserBookMark);
+    const broswerBookMarks = await broswerBookMarkRepository.find({ where: { user: { userID: userInstance.userID } } });
+    if (broswerBookMarks) await broswerBookMarkRepository.remove(broswerBookMarks);
+
+    const browserTrackRepository = this.dataSource.getRepository(BrowserBookMark);
+    const browserTracks = await browserTrackRepository.find({ where: { user: { userID: userInstance.userID } } });
+    if (browserTracks.length) await browserTrackRepository.remove(browserTracks);
+
+    const shopEvaluateRepository = this.dataSource.getRepository(BrowserBookMark);
+    const shopEvaluates = await shopEvaluateRepository.find({ where: { user: { userID: userInstance.userID } } });
+    if (shopEvaluates.length) await shopEvaluateRepository.remove(shopEvaluates);
+
+    const shopEvaluateLikesRepository = this.dataSource.getRepository(ShopEvaluateLike);
+    const shopEvaluateLikes = await shopEvaluateLikesRepository.find({ where: { user: { userID: userInstance.userID } } });
+    if (shopEvaluateLikes.length) await shopEvaluateLikesRepository.remove(shopEvaluateLikes);
+
+    const shopProductRepository = this.dataSource.getRepository(ShopProduct);
+    const shopProducts = await shopProductRepository.find({ where: { user: { userID: userInstance.userID } } });
+    if (shopProducts.length) await shopProductRepository.remove(shopProducts);
+
+    const shopSubscribeRepository = this.dataSource.getRepository(ShopSubscribe);
+    const shopSubscribes = await shopSubscribeRepository.find({ where: { author: { userID: userInstance.userID } } });
+    if (shopSubscribes.length) await shopSubscribeRepository.remove(shopSubscribes);
+
+    const userAppStoreSubscribeRepository = this.dataSource.getRepository(UserAppStoreSubscribe);
+    const userAppStoreSubscribes = await userAppStoreSubscribeRepository.find({ where: { user: { userID: userInstance.userID } } });
+    if (userAppStoreSubscribes.length) await userAppStoreSubscribeRepository.remove(userAppStoreSubscribes);
+
+    return true;
   }
 }

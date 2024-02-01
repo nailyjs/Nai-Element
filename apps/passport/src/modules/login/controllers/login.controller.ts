@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { BadRequestException, Body, Controller, Ip, Post, Req, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Ip, Post, UseInterceptors } from "@nestjs/common";
 import { LoginService } from "../providers/login.service";
 import { LoginByUsernamePasswordDTO } from "../dtos/login/username/password/login.post.dto";
 import { ApiTags } from "@nestjs/swagger";
@@ -28,7 +28,7 @@ import { QrCodeService } from "../../../providers/qrcode.service";
 import { Auth, User } from "cc.naily.element.auth";
 import { PostLoginQrcodeBodyDTO, PostLoginQrcodeConfirmBodyDTO } from "../dtos/login/qrcode/qrcode.post.dto";
 import { User as UserEntity, UserRepository } from "cc.naily.element.database";
-import { Request } from "express";
+import { LoginInterceptor } from "../interceptors/login.interceptor";
 
 @ApiTags("登录")
 @Controller("login")
@@ -49,15 +49,12 @@ export class LoginController {
    * @memberof LoginController
    */
   @Post("username/password")
-  @UseInterceptors(ResInterceptor)
+  @UseInterceptors(ResInterceptor, LoginInterceptor)
   @SwaggerResponse(LoginByUsernamePasswordOKResponseDTO)
   public async loginByUsernamePassword(
-    @Req() req: Request,
     @Body() body: LoginByUsernamePasswordDTO,
     @Ip() ip: string,
   ): Promise<LoginByUsernamePasswordDataOKResponseDTO> {
-    console.log(req.headers);
-    console.log("ip:", ip);
     return this.loginService.loginByUsernamePassword(body.username, body.password, {
       identifier: body.identifier,
       loginClient: body.loginClient,
@@ -76,8 +73,8 @@ export class LoginController {
    * @memberof LoginController
    */
   @Post("email/code")
-  @UseInterceptors(ResInterceptor)
-  public loginByEmailCode(@Req() req: Request, @Body() body: PostLoginEmailCodeBodyDTO, @Ips() ip: string[]) {
+  @UseInterceptors(ResInterceptor, LoginInterceptor)
+  public loginByEmailCode(@Body() body: PostLoginEmailCodeBodyDTO, @Ips() ip: string[]) {
     return this.loginService.loginByEmailCode(body.email, body.code, {
       identifier: body.identifier,
       loginClient: body.loginClient,
@@ -97,8 +94,8 @@ export class LoginController {
    * @memberof LoginController
    */
   @Post("phone/code")
-  @UseInterceptors(ResInterceptor)
-  public loginByPhoneCode(@Req() req: Request, @Body() body: PostLoginPhoneCodeBodyDTO, @Ips() ip: string[]) {
+  @UseInterceptors(ResInterceptor, LoginInterceptor)
+  public loginByPhoneCode(@Body() body: PostLoginPhoneCodeBodyDTO, @Ips() ip: string[]) {
     return this.loginService.loginByPhoneCode(body.phone, body.code, {
       identifier: body.identifier,
       loginClient: body.loginClient,
@@ -135,7 +132,7 @@ export class LoginController {
    * @memberof LoginController
    */
   @Post("qrcode/refresh")
-  @UseInterceptors(ResInterceptor)
+  @UseInterceptors(ResInterceptor, LoginInterceptor)
   public async refreshQrCode(@Body() body: PostLoginQrcodeBodyDTO, @Ips() ip: string[]) {
     const checkStatus = await this.qrcodeService.getQrCode(`${body.key}`);
     if (!checkStatus) throw new BadRequestException(1041);

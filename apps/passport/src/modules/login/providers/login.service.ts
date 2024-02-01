@@ -34,9 +34,10 @@ export class LoginService {
     private readonly phoneService: PhoneService,
   ) {}
 
-  private getJwtToken(userID: string, loginPayload: ILoginPayload) {
+  private getJwtToken(user: User, loginPayload: ILoginPayload) {
+    if (user.isDeleted) throw new NotFoundException(1056);
     return this.jwtService.sign({
-      userID,
+      userID: user.userID,
       loginType: loginPayload.loginType,
       loginMethod: loginPayload.loginMethod,
       loginClient: loginPayload.loginClient,
@@ -55,7 +56,7 @@ export class LoginService {
     if (!user.password) throw new BadRequestException(1034);
     if (!compareSync(password, user.password)) throw new ForbiddenException(1008);
     user = await this.updateIp(loginPayload, user);
-    const access_token = this.getJwtToken(user.userID, loginPayload);
+    const access_token = this.getJwtToken(user, loginPayload);
     const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
     if (identifier === "ERROR") throw new BadRequestException(1039);
     user.password = undefined;
@@ -71,7 +72,7 @@ export class LoginService {
     if (!user) throw new NotFoundException(1007);
     user = await this.updateIp(loginPayload, user);
     await this.emailService.checkCode(email, verifyCode);
-    const access_token = this.getJwtToken(user.userID, loginPayload);
+    const access_token = this.getJwtToken(user, loginPayload);
     const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
     if (identifier === "ERROR") throw new BadRequestException(1039);
     user.password = undefined;
@@ -87,7 +88,7 @@ export class LoginService {
     user = await this.updateIp(loginPayload, user);
     if (!user) throw new NotFoundException(1007);
     await this.phoneService.checkCode(phone, verifyCode);
-    const access_token = this.getJwtToken(user.userID, loginPayload);
+    const access_token = this.getJwtToken(user, loginPayload);
     const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
     if (identifier === "ERROR") throw new BadRequestException(1039);
     user.password = undefined;
@@ -101,7 +102,7 @@ export class LoginService {
   public async loginByQrCode(user: User, loginPayload: ILoginPayload) {
     if (!user) throw new NotFoundException(1007);
     user = await this.updateIp(loginPayload, user);
-    const access_token = this.getJwtToken(user.userID, loginPayload);
+    const access_token = this.getJwtToken(user, loginPayload);
     const identifier = await this.identifierService.renewIdentifier(user, loginPayload);
     if (identifier === "ERROR") throw new BadRequestException(1039);
     user.password = undefined;

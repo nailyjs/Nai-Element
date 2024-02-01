@@ -62,6 +62,9 @@ export class User {
   @Column({ comment: "手机号", nullable: true })
   phone: string;
 
+  @Column({ comment: "是否已注销状态", nullable: false, default: false })
+  isDeleted: boolean;
+
   @OneToOne(() => UserValue, (userValue) => userValue.user)
   @JoinColumn()
   userValues: Relation<UserValue>;
